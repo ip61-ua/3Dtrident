@@ -1,14 +1,17 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <3ds.h>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+string hola = "Esto es un string de C++";
 
 int main(int argc, char* argv[])
 {
 	gfxInitDefault();
 	consoleInit(GFX_TOP, NULL);
 
-	printf("Hello, world!\n");
+	cout << hola;
 
 	// Main loop
 	while (aptMainLoop())

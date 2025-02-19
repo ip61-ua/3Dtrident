@@ -1,9 +1,13 @@
+# Directories
+res
+
 # Config files
 .clangd
 
 # Object files
 *.o
 *.elf
+*.map
 
 # 3DS
 build/

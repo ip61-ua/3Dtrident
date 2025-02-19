@@ -38,6 +38,7 @@ DATA		:=	data
 INCLUDES	:=	include
 GRAPHICS	:=	gfx
 GFXBUILD	:=	$(BUILD)
+EMULATOR	:=	flatpak run io.github.lime3ds.Lime3DS
 #ROMFS		:=	romfs
 #GFXBUILD	:=	$(ROMFS)/gfx
 
@@ -227,3 +228,6 @@ $(OUTPUT).elf	:	$(OFILES)
 #---------------------------------------------------------------------------------------
 endif
 #---------------------------------------------------------------------------------------
+
+emulator : all $(OUTPUT).3dsx
+	$(EMULATOR) $(OUTPUT).3dsx
