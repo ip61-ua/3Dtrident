@@ -1,0 +1,13 @@
+# Config files
+.clangd
+
+# Object files
+*.o
+*.elf
+
+# 3DS
+build/
+romfs/
+*.3dsx
+*.smdh
+*.cia
