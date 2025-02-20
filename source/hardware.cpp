@@ -10,7 +10,6 @@ isNewModel ()
   return res;
 }
 
-
 s8
 toRelativeCircleRange (const s16 &x)
 {
@@ -20,14 +19,21 @@ toRelativeCircleRange (const s16 &x)
 void
 toRelativeCirclePosition (circlePosition &c)
 {
-  c.dx = toRelativeCircleRange(c.dx);
-  c.dy = toRelativeCircleRange(c.dy);
+  c.dx = toRelativeCircleRange (c.dx);
+  c.dy = toRelativeCircleRange (c.dy);
 }
 
 void
 readCirclePad (circlePosition &c)
 {
   hidCircleRead (&c);
-  toRelativeCirclePosition(c);
-};
+  toRelativeCirclePosition (c);
+}
+
+void
+readCStick (circlePosition &c)
+{
+  hidCstickRead (&c);
+  toRelativeCirclePosition (c);
+}
 }

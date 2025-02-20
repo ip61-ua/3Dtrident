@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 		printf("\x1b[3;1H%04d; %04d", pos.dx, pos.dy);
 
 		circlePosition cstick;
-	  hidCstickRead(&cstick);
+		Hardware::readCStick(cstick);
 		printf("   CSTICK: %04d; %04d", cstick.dx, cstick.dy);
 
 		printf("   NEW 3DS? %d", Hardware::isNewModel());
