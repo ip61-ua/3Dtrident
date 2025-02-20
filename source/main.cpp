@@ -1,67 +1,69 @@
+#include "hardware.h"
 #include <3ds.h>
 #include <stdio.h>
-#include "hardware.h"
 
-int main(int argc, char **argv)
+int
+main (int argc, char **argv)
 {
-	gfxInitDefault();
-	consoleInit(GFX_TOP, NULL);
+  gfxInitDefault ();
+  consoleInit (GFX_TOP, NULL);
 
-	u32 oldPressed = 0;
+  u32 oldPressed = 0;
 
-	printf("\x1b[1;1HPress Start to exit.");
-	printf("\nCirclePad position:");
+  printf ("\x1b[1;1HPress Start to exit.");
+  printf ("\nCirclePad position:");
 
-	// Main loop
-	while (aptMainLoop())
-	{
-		hidScanInput();
+  // Main loop
+  while (aptMainLoop ())
+    {
+      Hardware::listenInput();
 
-		if (Hardware::A()) break; // break in order to return to hbmenu
+      if (Hardware::OptSelect () && Hardware::R())
+        break; // break in order to return to hbmenu
 
-		u32 newPressed = Hardware::rawButtons();
+      u32 newPressed = Hardware::rawButtons ();
 
-		if (oldPressed != newPressed)
-		{
-			//Clear console
-			consoleClear();
+      if (oldPressed != newPressed)
+        {
+          // Clear console
+          consoleClear ();
 
-			//These two lines must be rewritten because we cleared the whole console
-			printf("\x1b[1;1HPress Start to exit.");
-			printf("\nCirclePad position:");
+          // These two lines must be rewritten because we cleared the whole
+          // console
+          printf ("\x1b[1;1HPress Start to exit.");
+          printf ("\nCirclePad position:");
 
-			printf("\x1b[4;1H"); //Move the cursor to the fourth row because on the third one we'll write the circle pad position
+          printf (
+              "\x1b[4;1H"); // Move the cursor to the fourth row because on the
+                            // third one we'll write the circle pad position
 
-			std::cout << Hardware::toString() << std::endl;
-		}
+          std::cout << Hardware::toString () << std::endl;
+        }
 
-		//Set keys old values for the next frame
-		oldPressed = newPressed;
+      // Set keys old values for the next frame
+      oldPressed = newPressed;
 
-		circlePosition pos;
+      circlePosition circle;
+      circlePosition cstick;
 
-		//Read the CirclePad position
-		Hardware::CirclePad(pos);
+      Hardware::CirclePad (circle);
+      Hardware::CStick (cstick);
 
-		//Print the CirclePad position
-		printf("\x1b[3;1H%04d; %04d", pos.dx, pos.dy);
+      printf ("\x1b[5;1H");
 
-		circlePosition cstick;
-		Hardware::CStick(cstick);
-		printf("   CSTICK: %04d; %04d", cstick.dx, cstick.dy);
+      std::cout << "Circle pad: " << Hardware::toString(circle) << std::endl
+                << "C-Stick: " << Hardware::toString(cstick) << std::endl
+                << "Is NEW 3DS? " << (Hardware::isNewModel () ? "true" : "false");
 
-		printf("   NEW 3DS? %d", Hardware::isNewModel());
+      // Flush and swap framebuffers
+      gfxFlushBuffers ();
+      gfxSwapBuffers ();
 
+      // Wait for VBlank
+      gspWaitForVBlank ();
+    }
 
-		// Flush and swap framebuffers
-		gfxFlushBuffers();
-		gfxSwapBuffers();
-
-		//Wait for VBlank
-		gspWaitForVBlank();
-	}
-
-	// Exit services
-	gfxExit();
-	return 0;
+  // Exit services
+  gfxExit ();
+  return 0;
 }

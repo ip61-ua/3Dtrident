@@ -171,6 +171,9 @@ toString()
   if(Hardware::R()) result.append("R ");
   if(Hardware::ZR()) result.append("ZR ");
 
+  if(Hardware::OptSelect()) result.append("SELECT ");
+  if(Hardware::OptStart()) result.append("START ");
+
   return result;
 }
 }
