@@ -1,5 +1,4 @@
 #include "hardware.h"
-#include <string>
 
 namespace Hardware
 {
@@ -104,7 +103,8 @@ L ()
   return isHeldButton (KEY_L);
 };
 
-bool R ()
+bool
+R ()
 {
   return isHeldButton (KEY_R);
 };
@@ -127,7 +127,8 @@ OptStart ()
   return isHeldButton (KEY_START);
 };
 
-bool OptSelect ()
+bool
+OptSelect ()
 {
   return isHeldButton (KEY_SELECT);
 };
@@ -143,36 +144,50 @@ toString (const circlePosition &pos)
 {
   std::string result = "(";
 
-  result += pos.dx;
-  result.append(", ");
-  result += pos.dy;
-  result.append(")");
+  result.append (std::to_string (pos.dx));
+  result.append (", ");
+  result.append (std::to_string (pos.dy));
+  result.append (")");
 
   return result;
 }
 
 std::string
-toString()
+toString ()
 {
   std::string result = "";
 
-  if(Hardware::A()) result.append("A ");
-  if(Hardware::B()) result.append("B ");
-  if(Hardware::X()) result.append("X ");
-  if(Hardware::Y()) result.append("Y ");
+  if (Hardware::A ())
+    result.append ("A ");
+  if (Hardware::B ())
+    result.append ("B ");
+  if (Hardware::X ())
+    result.append ("X ");
+  if (Hardware::Y ())
+    result.append ("Y ");
 
-  if(Hardware::DUp()) result.append("^ ");
-  if(Hardware::DDown()) result.append("v ");
-  if(Hardware::DRight()) result.append("> ");
-  if(Hardware::DLeft()) result.append("< ");
+  if (Hardware::DUp ())
+    result.append ("^ ");
+  if (Hardware::DDown ())
+    result.append ("v ");
+  if (Hardware::DRight ())
+    result.append ("> ");
+  if (Hardware::DLeft ())
+    result.append ("< ");
 
-  if(Hardware::L()) result.append("L ");
-  if(Hardware::ZL()) result.append("ZL ");
-  if(Hardware::R()) result.append("R ");
-  if(Hardware::ZR()) result.append("ZR ");
+  if (Hardware::L ())
+    result.append ("L ");
+  if (Hardware::ZL ())
+    result.append ("ZL ");
+  if (Hardware::R ())
+    result.append ("R ");
+  if (Hardware::ZR ())
+    result.append ("ZR ");
 
-  if(Hardware::OptSelect()) result.append("SELECT ");
-  if(Hardware::OptStart()) result.append("START ");
+  if (Hardware::OptSelect ())
+    result.append ("SELECT ");
+  if (Hardware::OptStart ())
+    result.append ("START ");
 
   return result;
 }
