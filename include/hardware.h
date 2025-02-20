@@ -4,36 +4,37 @@
 #include <3ds.h>
 #include <iostream>
 
-class Hardware
+namespace Hardware
 {
-public:
-  // Info
-  static bool isNewModel ();
+const u8 MAX_STICK_VALUE = 154;
+// Info
+bool isNewModel ();
 
-  // Joystics
-  /*
-  static const circlePosition &readCirclePad ();
-  static const circlePosition &readCStick ();
+// Joystics
+s8 toRelativeCircle (const s16 &);
+void readCirclePad (circlePosition &);
+/*s
+static const circlePosition &readCStick ();
 
-  // Buttons
-  static bool readA ();
-  static bool readB ();
-  static bool readX ();
-  static bool readY ();
+// Buttons
+static bool readA ();
+static bool readB ();
+static bool readX ();
+static bool readY ();
 
-  static bool readUp ();
-  static bool readDown ();
-  static bool readRight ();
-  static bool readLeft ();
+static bool readUp ();
+static bool readDown ();
+static bool readRight ();
+static bool readLeft ();
 
-  static bool readL ();
-  static bool readR ();
-  static bool readZR ();
-  static bool readZL ();
+static bool readL ();
+static bool readR ();
+static bool readZR ();
+static bool readZL ();
 
-  static bool readStart ();
-  static bool readSelect ();
-  */
-};
+static bool readStart ();
+static bool readSelect ();
+*/
+}
 
 #endif

@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 		circlePosition pos;
 
 		//Read the CirclePad position
-		hidCircleRead(&pos);
+		Hardware::readCirclePad(pos);
 
 		//Print the CirclePad position
 		printf("\x1b[3;1H%04d; %04d", pos.dx, pos.dy);
