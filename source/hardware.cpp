@@ -10,17 +10,24 @@ isNewModel ()
   return res;
 }
 
+
 s8
-toRelativeCircle (const s16 &x)
+toRelativeCircleRange (const s16 &x)
 {
   return (x * 100 / Hardware::MAX_STICK_VALUE);
+}
+
+void
+toRelativeCirclePosition (circlePosition &c)
+{
+  c.dx = toRelativeCircleRange(c.dx);
+  c.dy = toRelativeCircleRange(c.dy);
 }
 
 void
 readCirclePad (circlePosition &c)
 {
   hidCircleRead (&c);
-  c.dx = toRelativeCircle(c.dx);
-  c.dy = toRelativeCircle(c.dy);
+  toRelativeCirclePosition(c);
 };
 }

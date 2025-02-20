@@ -11,8 +11,11 @@ const u8 MAX_STICK_VALUE = 154;
 bool isNewModel ();
 
 // Joystics
-s8 toRelativeCircle (const s16 &);
+s8 toRelativeCircleRange (const s16 &);
+void toRelativeCirclePosition (circlePosition &);
 void readCirclePad (circlePosition &);
+void readCStick (circlePosition &);
+
 /*s
 static const circlePosition &readCStick ();
 
