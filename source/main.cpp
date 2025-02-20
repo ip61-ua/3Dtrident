@@ -1,69 +1,96 @@
-#include "hardware.h"
-#include <3ds.h>
+#include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <3ds.h>
+#include <citro2d.h>
 
-int
-main (int argc, char **argv)
+C2D_TextBuf g_staticBuf;
+C2D_Text g_staticText[3];
+C2D_Font font[3];
+
+static void sceneInit(void)
 {
-  gfxInitDefault ();
-  consoleInit (GFX_TOP, NULL);
+	g_staticBuf  = C2D_TextBufNew(4096); // support up to 4096 glyphs in the buffer
+	font[0] = C2D_FontLoadSystem(CFG_REGION_USA);
+	font[1] = C2D_FontLoadSystem(CFG_REGION_KOR);
+	font[2] = C2D_FontLoad("romfs:/cascadia.ttf");
 
-  u32 oldPressed = 0;
+	// Parse the text strings
+	// Loads system font
+	C2D_TextFontParse(&g_staticText[0], font[0], g_staticBuf, "A boring system font.");
+	// Uses loaded font
+	C2D_TextFontParse(&g_staticText[1], font[1], g_staticBuf, "이 텍스트는 한국어입니다.");
+	// Uses other loaded font
+	C2D_TextFontParse(&g_staticText[2], font[2], g_staticBuf, "Wow, this is interesting.");
 
-  printf ("\x1b[1;1HPress Start to exit.");
-  printf ("\nCirclePad position:");
+	// Optimize the text strings
+	C2D_TextOptimize(&g_staticText[0]);
+	C2D_TextOptimize(&g_staticText[1]);
+	C2D_TextOptimize(&g_staticText[2]);
+}
 
-  // Main loop
-  while (aptMainLoop ())
-    {
-      Hardware::listenInput();
+static void sceneRender(float size)
+{
+	// Draw static text strings
+	float text2PosX = 400.0f - 16.0f - g_staticText[2].width*0.75f; // right-justify
+	C2D_DrawText(&g_staticText[0], 0, 8.0f, 8.0f, 0.5f, size, size);
+	C2D_DrawText(&g_staticText[1], C2D_AtBaseline, 108.0f, 36.0f, 0.5f, size, size);
+	C2D_DrawText(&g_staticText[2], C2D_AtBaseline, text2PosX, 210.0f, 0.5f, size, size);
+}
 
-      if (Hardware::OptSelect () && Hardware::R())
-        break; // break in order to return to hbmenu
+static void sceneExit(void)
+{
+	// Delete the text buffers
+	C2D_TextBufDelete(g_staticBuf);
+	C2D_FontFree(font[0]);
+	C2D_FontFree(font[1]);
+	C2D_FontFree(font[2]);
+}
 
-      u32 newPressed = Hardware::rawButtons ();
+int main()
+{
+	romfsInit();
+	cfguInit(); // Allow C2D_FontLoadSystem to work
+	// Initialize the libs
+	gfxInitDefault();
+	C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
+	C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
+	C2D_Prepare();
 
-      if (oldPressed != newPressed)
-        {
-          // Clear console
-          consoleClear ();
+	// Create screen
+	C3D_RenderTarget* top = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
 
-          // These two lines must be rewritten because we cleared the whole
-          // console
-          printf ("\x1b[1;1HPress Start to exit.");
-          printf ("\nCirclePad position:");
+	// Initialize the scene
+	sceneInit();
 
-          printf (
-              "\x1b[4;1H"); // Move the cursor to the fourth row because on the
-                            // third one we'll write the circle pad position
+	float size = 0.5f;
 
-          std::cout << Hardware::toString () << std::endl;
-        }
+	// Main loop
+	while (aptMainLoop())
+	{
+		hidScanInput();
 
-      // Set keys old values for the next frame
-      oldPressed = newPressed;
+		// Respond to user input
+		u32 kDown = hidKeysDown();
+		if (kDown & KEY_START)
+			break; // break in order to return to hbmenu
 
-      circlePosition circle;
-      circlePosition cstick;
+		// Render the scene
+		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
+		C2D_TargetClear(top, C2D_Color32(0x68, 0xB0, 0xD8, 0xFF));
+		C2D_SceneBegin(top);
+		sceneRender(size);
+		C3D_FrameEnd(0);
+	}
 
-      Hardware::CirclePad (circle);
-      Hardware::CStick (cstick);
+	// Deinitialize the scene
+	sceneExit();
 
-      printf ("\x1b[5;1H");
-
-      std::cout << "Circle pad: " << Hardware::toString(circle) << std::endl
-                << "C-Stick: " << Hardware::toString(cstick) << std::endl
-                << "Is NEW 3DS? " << (Hardware::isNewModel () ? "true" : "false");
-
-      // Flush and swap framebuffers
-      gfxFlushBuffers ();
-      gfxSwapBuffers ();
-
-      // Wait for VBlank
-      gspWaitForVBlank ();
-    }
-
-  // Exit services
-  gfxExit ();
-  return 0;
+	// Deinitialize the libs
+	C2D_Fini();
+	C3D_Fini();
+	romfsExit();
+	cfguExit();
+	gfxExit();
+	return 0;
 }
