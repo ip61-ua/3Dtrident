@@ -24,16 +24,53 @@ toRelativeCirclePosition (circlePosition &c)
 }
 
 void
-readCirclePad (circlePosition &c)
+CirclePad (circlePosition &c)
 {
   hidCircleRead (&c);
   toRelativeCirclePosition (c);
 }
 
 void
-readCStick (circlePosition &c)
+CStick (circlePosition &c)
 {
   hidCstickRead (&c);
   toRelativeCirclePosition (c);
 }
+
+u32
+rawButtons ()
+{
+  return hidKeysHeld ();
+}
+
+bool
+isHeldButton (const unsigned &k)
+{
+  return Hardware::rawButtons () & k;
+};
+
+bool
+A ()
+{
+  return isHeldButton (KEY_A);
+}
+
+bool
+B ()
+{
+  return isHeldButton (KEY_B);
+};
+
+bool
+X ()
+{
+  return isHeldButton (KEY_X);
+};
+
+bool
+Y ()
+{
+  return isHeldButton (KEY_Y);
+};
+
 }

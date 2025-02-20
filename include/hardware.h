@@ -13,18 +13,18 @@ bool isNewModel ();
 // Joystics
 s8 toRelativeCircleRange (const s16 &);
 void toRelativeCirclePosition (circlePosition &);
-void readCirclePad (circlePosition &);
-void readCStick (circlePosition &);
-
-/*s
-static const circlePosition &readCStick ();
+void CirclePad (circlePosition &);
+void CStick (circlePosition &);
 
 // Buttons
-static bool readA ();
-static bool readB ();
-static bool readX ();
-static bool readY ();
+u32 rawButtons ();
+bool isHeldButton (const unsigned &);
+bool A ();
+bool B ();
+bool X ();
+bool Y ();
 
+/*
 static bool readUp ();
 static bool readDown ();
 static bool readRight ();
