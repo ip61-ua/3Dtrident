@@ -32,10 +32,7 @@ int main(int argc, char **argv)
 
 			printf("\x1b[4;1H"); //Move the cursor to the fourth row because on the third one we'll write the circle pad position
 
-			if(Hardware::B()) printf("Pulsando B");
-			if(Hardware::X()) printf("Pulsando X");
-			if(Hardware::Y()) printf("Pulsando Y");
-
+			std::cout << Hardware::toString() << std::endl;
 		}
 
 		//Set keys old values for the next frame

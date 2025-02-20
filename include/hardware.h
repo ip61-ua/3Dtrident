@@ -24,20 +24,23 @@ bool B ();
 bool X ();
 bool Y ();
 
-/*
-static bool readUp ();
-static bool readDown ();
-static bool readRight ();
-static bool readLeft ();
+bool DUp ();
+bool DDown ();
+bool DRight ();
+bool DLeft ();
 
-static bool readL ();
-static bool readR ();
-static bool readZR ();
-static bool readZL ();
+bool L ();
+bool R ();
+bool ZR ();
+bool ZL ();
 
-static bool readStart ();
-static bool readSelect ();
-*/
+bool OptStart ();
+bool OptSelect ();
+
+// Misc
+void listenInput ();
+std::string toString (const circlePosition &);
+std::string toString ();
 }
 
 #endif
