@@ -13,7 +13,7 @@ static void sceneInit(void)
 	g_staticBuf  = C2D_TextBufNew(4096); // support up to 4096 glyphs in the buffer
 	font[0] = C2D_FontLoadSystem(CFG_REGION_USA);
 	font[1] = C2D_FontLoadSystem(CFG_REGION_KOR);
-	font[2] = C2D_FontLoad("romfs:/cascadia.ttf");
+	font[2] = C2D_FontLoad("romfs:/cascadia.bcfnt");
 
 	// Parse the text strings
 	// Loads system font
