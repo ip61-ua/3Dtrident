@@ -3,12 +3,8 @@
 int
 main ()
 {
-  Application::start();
-
-  while (Application::mainLoop())
-    {
-    }
-
-  Application::end();
+  Application::start ();
+  Application::loop ();
+  Application::end ();
   return 0;
 }

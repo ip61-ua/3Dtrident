@@ -6,7 +6,7 @@
 
 namespace Application
 {
-enum ACTIVITY_STATE
+enum PAGE_STATE
 {
   PAGE_MAIN,
   PAGE_ABOUT,
@@ -16,9 +16,15 @@ enum ACTIVITY_STATE
   PAGE_AUDIO
 };
 
+C3D_RenderTarget* topScreen ();
+C3D_RenderTarget* bottomScreen ();
+
+C2D_TextBuf getTextBuf ();
+C2D_Font getFont ();
+
 void start ();
-bool mainLoop ();
-void load (ACTIVITY_STATE);
+void loop ();
+void load (PAGE_STATE);
 void end ();
 }
 
