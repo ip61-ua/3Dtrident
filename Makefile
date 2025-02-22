@@ -278,4 +278,5 @@ endif
 #---------------------------------------------------------------------------------------
 
 emulator : all $(OUTPUT).3dsx
+	flatpak kill io.github.lime3ds.Lime3DS
 	$(EMULATOR) $(OUTPUT).3dsx
