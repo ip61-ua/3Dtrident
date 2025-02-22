@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <3ds.h>
+#include <iostream>
 #include <citro2d.h>
 
 C2D_TextBuf g_staticBuf;
@@ -10,7 +11,7 @@ C2D_Font font[3];
 
 static void sceneInit(void)
 {
-	g_staticBuf  = C2D_TextBufNew(4096); // support up to 4096 glyphs in the buffer
+	g_staticBuf  = C2D_TextBufNew(4096);
 	font[0] = C2D_FontLoadSystem(CFG_REGION_USA);
 	font[1] = C2D_FontLoadSystem(CFG_REGION_KOR);
 	font[2] = C2D_FontLoad("romfs:/cascadia.bcfnt");
@@ -21,7 +22,7 @@ static void sceneInit(void)
 	// Uses loaded font
 	C2D_TextFontParse(&g_staticText[1], font[1], g_staticBuf, "이 텍스트는 한국어입니다.");
 	// Uses other loaded font
-	C2D_TextFontParse(&g_staticText[2], font[2], g_staticBuf, "Wow, this is interesting.");
+	C2D_TextFontParse(&g_staticText[2], font[2], g_staticBuf, "Hola mundo");
 
 	// Optimize the text strings
 	C2D_TextOptimize(&g_staticText[0]);
