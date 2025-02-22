@@ -10,6 +10,9 @@ extern C3D_RenderTarget *top;
 extern C3D_RenderTarget *bottom;
 extern C2D_TextBuf g_staticBuf;
 extern C2D_Font font;
+
+
+void setBackground (C3D_RenderTarget *, int);
 }
 
 #endif

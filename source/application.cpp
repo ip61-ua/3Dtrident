@@ -21,12 +21,20 @@ loop ()
   PAGE_CURRENT = PAGE_MAIN;
   while (aptMainLoop ())
     {
+      C3D_FrameBegin (C3D_FRAME_SYNCDRAW);
+
       switch (PAGE_CURRENT)
         {
         default:
           PAGE_MAIN::showPage ();
           break;
+
+        case PAGE_ABOUT:
+          PAGE_ABOUT::showPage ();
+          break;
         }
+
+      C3D_FrameEnd (0);
     };
 };
 

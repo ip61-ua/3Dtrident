@@ -5,9 +5,12 @@
 #include <citro2d.h>
 #include "screen.h"
 #include "page_main.h"
+#include "page_about.h"
 
 namespace Application
 {
+extern u8 PAGE_CURRENT;
+
 enum PAGE_STATE
 {
   PAGE_MAIN,
@@ -17,9 +20,6 @@ enum PAGE_STATE
   PAGE_GYRO,
   PAGE_AUDIO
 };
-
-C2D_TextBuf getTextBuf ();
-C2D_Font getFont ();
 
 void start ();
 void loop ();
