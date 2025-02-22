@@ -1,18 +1,14 @@
-#include <3ds.h>
-#include "screen.h"
-#include "main_menu.h"
+#include "application.h"
 
 int
 main ()
 {
-  Screen::initProgram();
-  setupControls();
+  Application::start();
 
-  while (aptMainLoop ())
+  while (Application::mainLoop())
     {
-      showControls();
     }
 
-  Screen::endProgram();
+  Application::end();
   return 0;
 }
