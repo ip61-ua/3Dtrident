@@ -3,6 +3,8 @@
 
 #include <3ds.h>
 #include <citro2d.h>
+#include "screen.h"
+#include "page_main.h"
 
 namespace Application
 {
@@ -15,9 +17,6 @@ enum PAGE_STATE
   PAGE_GYRO,
   PAGE_AUDIO
 };
-
-C3D_RenderTarget* topScreen ();
-C3D_RenderTarget* bottomScreen ();
 
 C2D_TextBuf getTextBuf ();
 C2D_Font getFont ();

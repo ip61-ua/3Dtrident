@@ -3,6 +3,7 @@
 
 #include <3ds.h>
 #include <citro2d.h>
+#include "screen.h"
 
 namespace PAGE_MAIN
 {
