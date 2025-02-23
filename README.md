@@ -6,4 +6,5 @@ Progreso actual:
 
 ![Demostración](demo.gif)
 
+Hecho con [devkitPro](https://github.com/devkitPro)
 Inspirada en [3DSident](https://github.com/joel16/3DSident)
