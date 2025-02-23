@@ -1,9 +1,7 @@
 #include "hardware.h"
 
-namespace Hardware
-{
 bool
-isNewModel ()
+Hardware_isNewModel ()
 {
   bool res = false;
   APT_CheckNew3DS (&res);
@@ -11,184 +9,168 @@ isNewModel ()
 };
 
 s8
-toRelativeCircleRange (const s16 &x)
+Hardware_toRelativeCircleRange (const s16 x)
 {
-  return (x * 100 / Hardware::MAX_STICK_VALUE);
+  return x * 100 / MAX_STICK_VALUE;
 };
 
 void
-toRelativeCirclePosition (circlePosition &c)
+Hardware_toRelativeCirclePosition (circlePosition *c)
 {
-  c.dx = toRelativeCircleRange (c.dx);
-  c.dy = toRelativeCircleRange (c.dy);
+  c->dx = Hardware_toRelativeCircleRange (c->dx);
+  c->dy = Hardware_toRelativeCircleRange (c->dy);
 };
 
 void
-CirclePad (circlePosition &c)
+Hardware_CirclePad (circlePosition *c)
 {
-  hidCircleRead (&c);
-  toRelativeCirclePosition (c);
+  hidCircleRead (c);
+  Hardware_toRelativeCirclePosition (c);
 };
 
 void
-CStick (circlePosition &c)
+Hardware_CStick (circlePosition *c)
 {
-  hidCstickRead (&c);
-  toRelativeCirclePosition (c);
+  hidCstickRead (c);
+  Hardware_toRelativeCirclePosition (c);
 };
 
 u32
-rawButtons ()
+Hardware_rawButtons ()
 {
   return hidKeysHeld ();
 };
 
 bool
-isHeldButton (const unsigned &k)
+Hardware_isHeldButton (const unsigned k)
 {
-  return Hardware::rawButtons () & k;
+  return Hardware_rawButtons () & k;
 };
 
 bool
-A ()
+Hardware_A ()
 {
-  return isHeldButton (KEY_A);
+  return Hardware_isHeldButton (KEY_A);
 };
 
 bool
-B ()
+Hardware_B ()
 {
-  return isHeldButton (KEY_B);
+  return Hardware_isHeldButton (KEY_B);
 };
 
 bool
-X ()
+Hardware_X ()
 {
-  return isHeldButton (KEY_X);
+  return Hardware_isHeldButton (KEY_X);
 };
 
 bool
-Y ()
+Hardware_Y ()
 {
-  return isHeldButton (KEY_Y);
+  return Hardware_isHeldButton (KEY_Y);
 };
 
 bool
-DUp ()
+Hardware_DUp ()
 {
-  return isHeldButton (KEY_DUP);
+  return Hardware_isHeldButton (KEY_DUP);
 };
 
 bool
-DDown ()
+Hardware_DDown ()
 {
-  return isHeldButton (KEY_DDOWN);
+  return Hardware_isHeldButton (KEY_DDOWN);
 };
 
 bool
-DRight ()
+Hardware_DRight ()
 {
-  return isHeldButton (KEY_DRIGHT);
+  return Hardware_isHeldButton (KEY_DRIGHT);
 };
 
 bool
-DLeft ()
+Hardware_DLeft ()
 {
-  return isHeldButton (KEY_DLEFT);
+  return Hardware_isHeldButton (KEY_DLEFT);
 };
 
 bool
-L ()
+Hardware_L ()
 {
-  return isHeldButton (KEY_L);
+  return Hardware_isHeldButton (KEY_L);
 };
 
 bool
-R ()
+Hardware_R ()
 {
-  return isHeldButton (KEY_R);
+  return Hardware_isHeldButton (KEY_R);
 };
 
 bool
-ZR ()
+Hardware_ZR ()
 {
-  return isHeldButton (KEY_ZR);
+  return Hardware_isHeldButton (KEY_ZR);
 };
 
 bool
-ZL ()
+Hardware_ZL ()
 {
-  return isHeldButton (KEY_ZL);
+  return Hardware_isHeldButton (KEY_ZL);
 };
 
 bool
-OptStart ()
+Hardware_OptStart ()
 {
-  return isHeldButton (KEY_START);
+  return Hardware_isHeldButton (KEY_START);
 };
 
 bool
-OptSelect ()
+Hardware_OptSelect ()
 {
-  return isHeldButton (KEY_SELECT);
+  return Hardware_isHeldButton (KEY_SELECT);
 };
 
 void
-listenInput ()
+Hardware_listenInput ()
 {
   hidScanInput ();
 }
 
-std::string
-toString (const circlePosition &pos)
+void
+Hardware_toLinkString (char *dst, const char *str, const bool cond)
 {
-  std::string result = "(";
-
-  result.append (std::to_string (pos.dx));
-  result.append (", ");
-  result.append (std::to_string (pos.dy));
-  result.append (")");
-
-  return result;
+  if (cond)
+    {
+      strcat (dst, str);
+      strcat (dst, " ");
+    }
 }
 
-std::string
-toString ()
+void
+Hardware_toString (char *dst, const circlePosition *pos)
 {
-  std::string result = "";
-
-  if (Hardware::A ())
-    result.append ("A ");
-  if (Hardware::B ())
-    result.append ("B ");
-  if (Hardware::X ())
-    result.append ("X ");
-  if (Hardware::Y ())
-    result.append ("Y ");
-
-  if (Hardware::DUp ())
-    result.append ("^ ");
-  if (Hardware::DDown ())
-    result.append ("v ");
-  if (Hardware::DRight ())
-    result.append ("> ");
-  if (Hardware::DLeft ())
-    result.append ("< ");
-
-  if (Hardware::L ())
-    result.append ("L ");
-  if (Hardware::ZL ())
-    result.append ("ZL ");
-  if (Hardware::R ())
-    result.append ("R ");
-  if (Hardware::ZR ())
-    result.append ("ZR ");
-
-  if (Hardware::OptSelect ())
-    result.append ("SELECT ");
-  if (Hardware::OptStart ())
-    result.append ("START ");
-
-  return result;
+  sprintf (dst, "(%d, %d)", pos->dx, pos->dy);
 }
+
+void
+Hardware_toString (char *dst)
+{
+  Hardware_toLinkString (dst, "A", Hardware_A ());
+  Hardware_toLinkString (dst, "B", Hardware_B ());
+  Hardware_toLinkString (dst, "X", Hardware_X ());
+  Hardware_toLinkString (dst, "Y", Hardware_Y ());
+
+  Hardware_toLinkString (dst, "^", Hardware_DUp ());
+  Hardware_toLinkString (dst, "<", Hardware_DLeft ());
+  Hardware_toLinkString (dst, ">", Hardware_DRight ());
+  Hardware_toLinkString (dst, "v", Hardware_DDown ());
+
+  Hardware_toLinkString (dst, "L", Hardware_L ());
+  Hardware_toLinkString (dst, "ZL", Hardware_ZL ());
+  Hardware_toLinkString (dst, "R", Hardware_R ());
+  Hardware_toLinkString (dst, "ZR", Hardware_ZR ());
+
+  Hardware_toLinkString (dst, "SELECT", Hardware_OptSelect ());
+  Hardware_toLinkString (dst, "START", Hardware_OptStart ());
 }
