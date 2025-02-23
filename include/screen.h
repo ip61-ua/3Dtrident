@@ -11,5 +11,6 @@ extern C2D_Font font;
 
 void Screen_setBackground (C3D_RenderTarget *, const int);
 void Screen_drawCircle (const float, const float, const float, const u32);
+void Screen_drawJoystick (const circlePosition *, const float, const float, const float);
 
 #endif

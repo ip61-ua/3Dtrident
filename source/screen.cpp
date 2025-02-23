@@ -1,7 +1,5 @@
 #include "screen.h"
 
-namespace Screen
-{
 C3D_RenderTarget *top = C2D_CreateScreenTarget (GFX_TOP, GFX_LEFT);
 C3D_RenderTarget *bottom = C2D_CreateScreenTarget (GFX_BOTTOM, GFX_LEFT);
 C2D_TextBuf g_staticBuf = C2D_TextBufNew (4096);
@@ -21,4 +19,14 @@ Screen_drawCircle (const float x, const float y, const float radius,
   C2D_DrawCircle (x, y, 0, radius, color, color, color, color);
 };
 
-}
+void
+Screen_drawJoystick (const circlePosition *p, const float x, const float y,
+                     const float r)
+{
+  u32 stick_color = C2D_Color32 (85, 88, 91, 255);
+
+  if (p->dx != 0 || p->dy != 0)
+    stick_color = C2D_Color32 (94, 205, 228, 255);
+
+  Screen_drawCircle (x + p->dx / 5.0f, y - p->dy / 5.0f, r, stick_color);
+};
