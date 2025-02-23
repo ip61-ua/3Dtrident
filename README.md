@@ -4,6 +4,6 @@ Es una aplicación de videoconsola retro cuya función es probar el funcionamien
 
 Progreso actual:
 
-![Demostración](demo.png)
+![Demostración](demo.gif)
 
 Inspirada en [3DSident](https://github.com/joel16/3DSident)
