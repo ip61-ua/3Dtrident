@@ -1,14 +1,15 @@
 #include "page_main.h"
+#include "hardware.h"
 
-bool PAGE_MAIN_active = false;
+static bool PAGE_MAIN_active = false;
 
-C2D_Text text_a, text_b, text_x, text_y,
+static C2D_Text text_a, text_b, text_x, text_y,
 
     text_r, text_zr, text_l, text_zl,
 
     text_start, text_select;
 
-void
+static void
 displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
                         const int new_rel_y, const u32 new_c)
 {
@@ -17,7 +18,7 @@ displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
   *c_font_dst = Color_white;
 }
 
-void
+static void
 displayABXY (float x_param, float y_param)
 {
   u32 color_a, color_b, color_y, color_x,
@@ -50,14 +51,14 @@ displayABXY (float x_param, float y_param)
   Screen_drawText (&text_y, x_param - 37, y_y - 15.7, 1, 1, color_text_y);
 }
 
-void
+static void
 displayGenericActive (const bool cond, u32 *c)
 {
   if (cond)
     *c = Color_light_blue;
 }
 
-void
+static void
 displayStartSelect (float x_param, float y_param)
 {
   u32 color_select, color_start;
@@ -75,7 +76,7 @@ displayStartSelect (float x_param, float y_param)
                    Color_white);
 }
 
-void
+static void
 PAGE_MAIN_startPage ()
 {
   Screen_initText (&text_a, g_staticBuf, "A");
@@ -92,7 +93,7 @@ PAGE_MAIN_startPage ()
   Screen_initText (&text_select, g_staticBuf, "SELECT");
 }
 
-void
+static void
 PAGE_MAIN_quitPage ()
 {
 }
@@ -115,7 +116,8 @@ PAGE_MAIN_showPage ()
 
   Screen_drawJoystick (&circle_pos, 60.0f, 80.0f, 20);
   Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
+  Screen_setBackground (bottom, Color_dark_grey);
 
-  if (Hardware_L ())
+  if (Hardware_L () && Hardware_A ())
     Screen_changePage (PAGE_ABOUT, PAGE_MAIN_quitPage);
 }
