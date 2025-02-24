@@ -6,5 +6,9 @@ Progreso actual:
 
 ![Demostración](demo.gif)
 
-Hecho con [devkitPro](https://github.com/devkitPro)
+# Recursos empleados
+
+- devkitPro [github](https://github.com/devkitPro)
+- Inter [github](https://github.com/rsms/inter)
+
 Inspirada en [3DSident](https://github.com/joel16/3DSident)
