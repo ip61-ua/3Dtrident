@@ -19,11 +19,12 @@ enum PAGE_STATE
 
 extern C3D_RenderTarget *top;
 extern C3D_RenderTarget *bottom;
+extern C2D_TextBuf g_staticBuf;
 extern C2D_Font font;
 
 void Screen_init ();
-void Screen_setupPage (bool *, void (*start)());
-void Screen_changePage (const enum PAGE_STATE);
+void Screen_setupPage (bool* ,void (*)());
+void Screen_changePage (const enum PAGE_STATE, void (*)());
 void Screen_setBackground (C3D_RenderTarget *, const int);
 void Screen_drawCircle (const float, const float, const float, const u32);
 void Screen_drawJoystick (const circlePosition *, const float, const float, const float);

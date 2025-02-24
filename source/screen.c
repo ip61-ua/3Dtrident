@@ -12,6 +12,7 @@ void
 Screen_init ()
 {
   PAGE_CURRENT = PAGE_MAIN;
+  g_staticBuf = C2D_TextBufNew (4096);
   top = C2D_CreateScreenTarget (GFX_TOP, GFX_LEFT);
   bottom = C2D_CreateScreenTarget (GFX_BOTTOM, GFX_LEFT);
   font = C2D_FontLoad ("romfs:/InterVariable.bcfnt");
@@ -30,8 +31,10 @@ Screen_setupPage (bool *cond, void (*start) ())
 }
 
 void
-Screen_changePage (const enum PAGE_STATE page)
+Screen_changePage (const enum PAGE_STATE page, void (*quit) ())
 {
+  if (quit != NULL)
+    quit ();
   PAGE_CURRENT = page;
 }
 
