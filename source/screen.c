@@ -10,8 +10,7 @@ Screen_init ()
 {
   top = C2D_CreateScreenTarget (GFX_TOP, GFX_LEFT);
   bottom = C2D_CreateScreenTarget (GFX_BOTTOM, GFX_LEFT);
-  g_staticBuf = C2D_TextBufNew (4096);
-  font = C2D_FontLoad ("romfs:/cascadia.bcfnt");
+  font = C2D_FontLoad ("romfs:/InterVariable.bcfnt");
 }
 
 void
