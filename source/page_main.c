@@ -2,9 +2,9 @@
 
 bool PAGE_MAIN_active = false;
 
-C2D_Text label_a,
-         label_b,
-         label_;
+char *label_a = "A", *label_b = "B", *label_x = "X", *label_y = "Y";
+
+C2D_Text text_a, text_b, text_x, text_y;
 
 void
 displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, const int new_rel_y,
@@ -25,7 +25,12 @@ displayABXY (float x, float y)
   color_a = color_b = color_y = color_x = btn_default;
 
   if (Hardware_A ())
-    displayABXY_updateVars (&y_a, &color_a, +2, C2D_Color32 (247, 56, 0, 255));
+    {
+      displayABXY_updateVars (&y_a, &color_a, +2, C2D_Color32 (247, 56, 0, 255));
+      C2D_TextFontParse (&text_a, font, g_staticBuf, "dddd");
+      C2D_TextOptimize (&text_a);
+
+    }
   if (Hardware_B ())
     displayABXY_updateVars (&y_b, &color_b, +2,
                             C2D_Color32 (248, 183, 2, 255));
@@ -34,8 +39,8 @@ displayABXY (float x, float y)
   if (Hardware_X ())
     displayABXY_updateVars (&y_x, &color_x, +2, C2D_Color32 (2, 87, 247, 255));
 
-  C2D_DrawText(&example, C2D_WithColor, x, y, 1, 1, 1, C2D_Color32 (2, 87, 247, 255));
-
+  C2D_DrawText (&text_a, C2D_WithColor, 330, 100, 0.5, 1, 1,
+                C2D_Color32 (2, 87, 247, 255));
 
   Screen_drawCircle (330, y_x, 11, color_x);
   Screen_drawCircle (360, y_a, 11, color_a);
@@ -46,20 +51,19 @@ displayABXY (float x, float y)
 void
 PAGE_MAIN_startPage ()
 {
-  C2D_TextFontParse(&label_a, font, g_staticBuf, "Hola desde texto");
-  C2D_TextOptimize(&example);
+  C2D_TextFontParse (&text_a, font, g_staticBuf, label_a);
+  C2D_TextOptimize (&text_a);
 }
 
 void
 PAGE_MAIN_quitPage ()
 {
-
 }
 
 void
 PAGE_MAIN_showPage ()
 {
-  Screen_setupPage(&PAGE_MAIN_active, PAGE_MAIN_startPage);
+  Screen_setupPage (&PAGE_MAIN_active, PAGE_MAIN_startPage);
 
   Hardware_listenInput ();
   Screen_setBackground (top, C2D_Color32 (29, 34, 39, 255));
@@ -74,5 +78,5 @@ PAGE_MAIN_showPage ()
   Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
 
   if (Hardware_OptStart ())
-    Screen_changePage(PAGE_ABOUT, PAGE_MAIN_quitPage);
+    Screen_changePage (PAGE_ABOUT, PAGE_MAIN_quitPage);
 }
