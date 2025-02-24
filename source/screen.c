@@ -1,5 +1,4 @@
 #include "screen.h"
-#include <stdbool.h>
 
 u8 PAGE_CURRENT;
 
@@ -72,7 +71,17 @@ Screen_drawJoystick (const circlePosition *p, const float x, const float y,
 const char *
 Screen_initText (C2D_Text *text, C2D_TextBuf buf, const char *str)
 {
-  const char * res = C2D_TextFontParse (text, font, buf, str);
+  const char *res = C2D_TextFontParse (text, font, buf, str);
   C2D_TextOptimize (text);
   return res;
 }
+
+void
+Screen_drawText (const C2D_Text *srctxt, const float x, const float y,
+                 const float scaleX, const float scaleY, const u32 c)
+{
+  C2D_DrawText (srctxt, C2D_WithColor, x, y, 1, scaleX, scaleY, c);
+}
+
+// Screen_drawText (const C2D_Text *text, u32 flags, float x, float y, float z,
+// float scaleX, float scaleY, ...)
