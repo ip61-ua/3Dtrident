@@ -55,13 +55,13 @@ void
 Screen_drawJoystick (const circlePosition *p, const float x, const float y,
                      const float r)
 {
-  u32 stick_color = C2D_Color32 (85, 88, 91, 255);
+  u32 stick_color = Color_grey;
   float _r = r;
 
   if (p->dx != 0 || p->dy != 0)
     {
       Screen_drawCircle (x, y, _r + 100 / 5.0f, stick_color);
-      stick_color = C2D_Color32 (94, 205, 228, 255);
+      stick_color = Color_light_blue;
       _r -= 1;
     }
 

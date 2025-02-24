@@ -1,4 +1,5 @@
 #include "page_main.h"
+#include "colors.h"
 
 bool PAGE_MAIN_active = false;
 
@@ -20,7 +21,7 @@ void
 displayABXY (float x_param, float y_param)
 {
   u32 color_a, color_b, color_y, color_x,
-      btn_default = C2D_Color32 (253, 253, 253, 255);
+      btn_default = Color_grey;
 
   unsigned y_a = y_param, y_b = y_param + 25, y_x = y_param - 25,
            y_y = y_param;
@@ -28,14 +29,13 @@ displayABXY (float x_param, float y_param)
   color_a = color_b = color_y = color_x = btn_default;
 
   if (Hardware_A ())
-    displayABXY_updateVars (&y_a, &color_a, +2, C2D_Color32 (247, 56, 0, 255));
+    displayABXY_updateVars (&y_a, &color_a, +2, Color_red);
   if (Hardware_B ())
-    displayABXY_updateVars (&y_b, &color_b, +2,
-                            C2D_Color32 (248, 183, 2, 255));
+    displayABXY_updateVars (&y_b, &color_b, +2, Color_yellow);
   if (Hardware_Y ())
-    displayABXY_updateVars (&y_y, &color_y, +2, C2D_Color32 (0, 184, 0, 255));
+    displayABXY_updateVars (&y_y, &color_y, +2, Color_green);
   if (Hardware_X ())
-    displayABXY_updateVars (&y_x, &color_x, +2, C2D_Color32 (2, 87, 247, 255));
+    displayABXY_updateVars (&y_x, &color_x, +2, Color_blue);
 
   Screen_drawCircle (x_param, y_x, 11, color_x);
   Screen_drawCircle (x_param + 30, y_a, 11, color_a);
@@ -43,7 +43,7 @@ displayABXY (float x_param, float y_param)
   Screen_drawCircle (x_param - 30, y_y, 11, color_y);
 
   Screen_drawText (&text_a, x_param, y_param, 1, 1,
-                   C2D_Color32 (2, 87, 247, 255));
+    Color_red);
 }
 
 void
@@ -74,7 +74,7 @@ PAGE_MAIN_showPage ()
   Screen_setupPage (&PAGE_MAIN_active, PAGE_MAIN_startPage);
 
   Hardware_listenInput ();
-  Screen_setBackground (top, C2D_Color32 (29, 34, 39, 255));
+  Screen_setBackground (top, Color_dark_grey);
 
   circlePosition circle_pos, cstick_pos;
   Hardware_CirclePad (&circle_pos);
@@ -86,7 +86,7 @@ PAGE_MAIN_showPage ()
   Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
 
   C2D_DrawText (&text_start, C2D_WithColor, 330, 100, 1, 1, 1,
-                C2D_Color32 (240, 240, 240, 255));
+                Color_light_blue);
 
   if (Hardware_OptStart ())
     Screen_changePage (PAGE_ABOUT, PAGE_MAIN_quitPage);

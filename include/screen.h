@@ -4,6 +4,7 @@
 #include <3ds.h>
 #include <citro2d.h>
 #include <stdlib.h>
+#include "colors.h"
 
 extern u8 PAGE_CURRENT;
 
