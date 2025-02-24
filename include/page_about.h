@@ -5,7 +5,6 @@
 #include <citro2d.h>
 #include "hardware.h"
 #include "screen.h"
-#include "application.h"
 
 void PAGE_ABOUT_showPage ();
 

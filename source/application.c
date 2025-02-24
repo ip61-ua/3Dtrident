@@ -1,7 +1,5 @@
 #include "application.h"
 
-u8 PAGE_CURRENT;
-
 void
 Application_start ()
 {
@@ -17,7 +15,6 @@ Application_start ()
 void
 Application_loop ()
 {
-  PAGE_CURRENT = PAGE_MAIN;
   while (aptMainLoop ())
     {
       C3D_FrameBegin (C3D_FRAME_SYNCDRAW);
@@ -31,11 +28,6 @@ Application_loop ()
       C3D_FrameEnd (0);
     };
 };
-
-void
-Application_load (enum PAGE_STATE p)
-{
-}
 
 void
 Application_end ()

@@ -1,4 +1,7 @@
 #include "screen.h"
+#include <stdbool.h>
+
+u8 PAGE_CURRENT;
 
 C3D_RenderTarget *top;
 C3D_RenderTarget *bottom;
@@ -8,9 +11,28 @@ C2D_Font font;
 void
 Screen_init ()
 {
+  PAGE_CURRENT = PAGE_MAIN;
   top = C2D_CreateScreenTarget (GFX_TOP, GFX_LEFT);
   bottom = C2D_CreateScreenTarget (GFX_BOTTOM, GFX_LEFT);
   font = C2D_FontLoad ("romfs:/InterVariable.bcfnt");
+}
+
+void
+Screen_setupPage (bool *cond, void (*start) ())
+{
+  if (!(*cond))
+    {
+      if (start != NULL)
+        start ();
+
+      *cond = true;
+    }
+}
+
+void
+Screen_changePage (const enum PAGE_STATE page)
+{
+  PAGE_CURRENT = page;
 }
 
 void
@@ -35,10 +57,10 @@ Screen_drawJoystick (const circlePosition *p, const float x, const float y,
   float _r = r;
 
   if (p->dx != 0 || p->dy != 0)
-  {
-    stick_color = C2D_Color32 (94, 205, 228, 255);
-    _r -= 1;
-  }
+    {
+      stick_color = C2D_Color32 (94, 205, 228, 255);
+      _r -= 1;
+    }
 
   Screen_drawCircle (x + p->dx / 5.0f, y - p->dy / 5.0f, _r, stick_color);
 };

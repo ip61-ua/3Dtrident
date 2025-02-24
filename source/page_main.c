@@ -1,5 +1,7 @@
 #include "page_main.h"
 
+bool PAGE_MAIN_active = false;
+
 void
 displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, const int new_rel_y,
                         const u32 new_c)
@@ -29,11 +31,11 @@ displayABXY (float x, float y)
     displayABXY_updateVars (&y_x, &color_x, +2, C2D_Color32 (2, 87, 247, 255));
 
   C2D_Text c2dText;
-  C2D_TextBuf buftext = C2D_TextBufNew (4096);
-  C2D_TextFontParse(&c2dText, font, buftext, "Hola desde texto");
-  C2D_TextOptimize(&c2dText);
-  C2D_DrawText(&c2dText, C2D_WithColor, x, y, 1, 1, 1, C2D_Color32 (2, 87, 247, 255));
-  free(buftext);
+  //C2D_TextBuf buftext = C2D_TextBufNew (4096);
+  //C2D_TextFontParse(&c2dText, font, buftext, "Hola desde texto");
+  //C2D_TextOptimize(&c2dText);
+  //C2D_DrawText(&c2dText, C2D_WithColor, x, y, 1, 1, 1, C2D_Color32 (2, 87, 247, 255));
+  //free(buftext);
 
   Screen_drawCircle (330, y_x, 11, color_x);
   Screen_drawCircle (360, y_a, 11, color_a);
@@ -44,6 +46,8 @@ displayABXY (float x, float y)
 void
 PAGE_MAIN_showPage ()
 {
+  Screen_setupPage(&PAGE_MAIN_active, NULL);
+
   Hardware_listenInput ();
   Screen_setBackground (top, C2D_Color32 (29, 34, 39, 255));
 
@@ -57,5 +61,5 @@ PAGE_MAIN_showPage ()
   Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
 
   if (Hardware_OptStart ())
-    PAGE_CURRENT = PAGE_ABOUT;
+    Screen_changePage(PAGE_ABOUT);
 }
