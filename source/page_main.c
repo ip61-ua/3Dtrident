@@ -1,5 +1,4 @@
 #include "page_main.h"
-#include "colors.h"
 
 bool PAGE_MAIN_active = false;
 
@@ -10,8 +9,8 @@ C2D_Text text_a, text_b, text_x, text_y,
     text_start, text_select;
 
 void
-displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst, const int new_rel_y,
-                        const u32 new_c)
+displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
+                        const int new_rel_y, const u32 new_c)
 {
   *y_dst += new_rel_y;
   *c_dst = new_c;
@@ -49,7 +48,31 @@ displayABXY (float x_param, float y_param)
   Screen_drawText (&text_b, x_param - 6.5, y_b - 15.5, 1, 1, color_text_b);
   Screen_drawText (&text_x, x_param - 6.5, y_x - 15.5, 1, 1, color_text_x);
   Screen_drawText (&text_y, x_param - 37, y_y - 15.7, 1, 1, color_text_y);
+}
 
+void
+displayGenericActive (const bool cond, u32 *c)
+{
+  if (cond)
+    *c = Color_light_blue;
+}
+
+void
+displayStartSelect (float x_param, float y_param)
+{
+  u32 color_select, color_start;
+
+  color_start = color_select = Color_white;
+
+  displayGenericActive (Hardware_OptStart (), &color_start);
+  Screen_drawCircle (x_param, y_param, 7, color_start);
+  Screen_drawText (&text_start, x_param + 14, y_param - 11, 0.75, 0.75,
+                   Color_white);
+
+  displayGenericActive (Hardware_OptSelect (), &color_select);
+  Screen_drawCircle (x_param, y_param + 30, 7, color_select);
+  Screen_drawText (&text_select, x_param + 14, y_param + 19, 0.75, 0.75,
+                   Color_white);
 }
 
 void
@@ -79,8 +102,8 @@ PAGE_MAIN_showPage ()
 {
   Screen_setupPage (&PAGE_MAIN_active, PAGE_MAIN_startPage);
 
-  Hardware_listenInput ();
   Screen_setBackground (top, Color_dark_grey);
+  Hardware_listenInput ();
 
   circlePosition circle_pos, cstick_pos;
   Hardware_CirclePad (&circle_pos);
@@ -88,9 +111,11 @@ PAGE_MAIN_showPage ()
 
   displayABXY (330, 125);
 
+  displayStartSelect (300, 185);
+
   Screen_drawJoystick (&circle_pos, 60.0f, 80.0f, 20);
   Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
 
-  if (Hardware_OptStart ())
+  if (Hardware_L ())
     Screen_changePage (PAGE_ABOUT, PAGE_MAIN_quitPage);
 }
