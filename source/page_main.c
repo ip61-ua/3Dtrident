@@ -1,5 +1,4 @@
 #include "page_main.h"
-#include "hardware.h"
 
 static bool PAGE_MAIN_active = false;
 

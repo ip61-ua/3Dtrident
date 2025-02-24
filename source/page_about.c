@@ -3,6 +3,7 @@
 static bool PAGE_ABOUT_active = false;
 static float r_init = 1;
 
+
 void
 PAGE_ABOUT_quitPage ()
 {
