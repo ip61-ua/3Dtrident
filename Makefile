@@ -40,6 +40,7 @@ GRAPHICS	:=	gfx
 ROMFS		:=	romfs
 GFXBUILD	:=	$(ROMFS)
 EMULATOR	:=	flatpak run io.github.lime3ds.Lime3DS
+CLANGD		:= .clangd
 #GFXBUILD	:=	$(ROMFS)/gfx
 
 #---------------------------------------------------------------------------------
@@ -276,6 +277,25 @@ endef
 #---------------------------------------------------------------------------------------
 endif
 #---------------------------------------------------------------------------------------
+
+INCLUDE_PATHS = \
+	"-I$(shell pwd)/include" \
+	"-I/opt/devkitpro/libctru/include" \
+	"-I/opt/devkitpro/devkitARM/arm-none-eabi/include" \
+	"-I/opt/devkitpro/devkitARM/arm-none-eabi/3ds_rules" \
+	"-I/opt/devkitpro/libctru/include/3ds/services" \
+	"-lcitro2d" \
+	"-lcitro3d" \
+	"-lctru" \
+	"-lm"
+
+$(CLANGD) :
+	@echo "$(CLANGD)"
+	@echo "CompileFlags:" > $(CLANGD)
+	@echo "    Add:" >> $(CLANGD)
+	@for entry_include in $(INCLUDE_PATHS); do \
+		echo "        - $$entry_include" >> $(CLANGD); \
+	done
 
 emulator : all $(OUTPUT).3dsx
 	flatpak kill io.github.lime3ds.Lime3DS
