@@ -1,8 +1,5 @@
 #include "page_main.h"
 
-namespace PAGE_MAIN
-{
-
 void
 displayABXY (float x, float y)
 {
@@ -42,7 +39,7 @@ displayABXY (float x, float y)
 }
 
 void
-showPage ()
+PAGE_MAIN_showPage ()
 {
   Hardware_listenInput ();
   Screen_setBackground (top, C2D_Color32 (29, 34, 39, 255));
@@ -58,6 +55,5 @@ showPage ()
 
   // Screen::setBackground (Screen::bottom, C2D_Color32 (29, 34, 39, 255));
   if (Hardware_OptStart ())
-    Application::PAGE_CURRENT = Application::PAGE_ABOUT;
+    PAGE_CURRENT = PAGE_ABOUT;
 }
-};

@@ -7,8 +7,6 @@
 #include "page_main.h"
 #include "page_about.h"
 
-namespace Application
-{
 extern u8 PAGE_CURRENT;
 
 enum PAGE_STATE
@@ -21,10 +19,9 @@ enum PAGE_STATE
   PAGE_AUDIO
 };
 
-void start ();
-void loop ();
-void load (PAGE_STATE);
-void end ();
-}
+void Application_start ();
+void Application_loop ();
+void Application_load (enum PAGE_STATE);
+void Application_end ();
 
 #endif

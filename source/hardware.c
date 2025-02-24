@@ -1,5 +1,7 @@
 #include "hardware.h"
 
+unsigned MAX_STICK_VALUE = 154;
+
 bool
 Hardware_isNewModel ()
 {
@@ -148,7 +150,7 @@ Hardware_toLinkString (char *dst, const char *str, const bool cond)
 }
 
 void
-Hardware_toString (char *dst, const circlePosition *pos)
+Hardware_toStringPosition (char *dst, const circlePosition *pos)
 {
   sprintf (dst, "(%d, %d)", pos->dx, pos->dy);
 }

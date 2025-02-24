@@ -7,9 +7,6 @@
 #include "screen.h"
 #include "application.h"
 
-namespace PAGE_MAIN
-{
-void showPage ();
-};
+void PAGE_ABOUT_showPage ();
 
 #endif
