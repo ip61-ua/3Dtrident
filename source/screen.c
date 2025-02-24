@@ -61,9 +61,18 @@ Screen_drawJoystick (const circlePosition *p, const float x, const float y,
 
   if (p->dx != 0 || p->dy != 0)
     {
+      Screen_drawCircle (x, y, _r + 100 / 5.0f, stick_color);
       stick_color = C2D_Color32 (94, 205, 228, 255);
       _r -= 1;
     }
 
   Screen_drawCircle (x + p->dx / 5.0f, y - p->dy / 5.0f, _r, stick_color);
 };
+
+const char *
+Screen_initText (C2D_Text *text, C2D_TextBuf buf, const char *str)
+{
+  const char * res = C2D_TextFontParse (text, font, buf, str);
+  C2D_TextOptimize (text);
+  return res;
+}
