@@ -49,4 +49,6 @@ void Screen_drawTriangle (const float x0, const float y0, const float x1,
                           const float y1, const float x2, const float y2,
                           const u32 c);
 
+void Screen_drawDPadArrow (const float x, const float y, const float rotation);
+
 #endif

@@ -115,9 +115,9 @@ PAGE_MAIN_showPage ()
 
   Screen_drawJoystick (&circle_pos, 60.0f, 80.0f, 20);
   Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
-  C2D_DrawTriangle (100, 60, Color_yellow, 0, 70, Color_green, 50, 23,
-                    Color_blue, 0);
-  Screen_drawRect (100, 100, 20, 40, Color_white);
+
+  Screen_drawDPadArrow (100, 100, 0);
+
   Screen_setBackground (bottom, Color_dark_grey);
 
   if (Hardware_L () && Hardware_A ())

@@ -1,5 +1,4 @@
 #include "screen.h"
-#include "c2d/base.h"
 
 u8 PAGE_CURRENT;
 
@@ -97,4 +96,10 @@ Screen_drawTriangle (const float x0, const float y0, const float x1,
                      const u32 c)
 {
   C2D_DrawTriangle (x0, y0, c, x1, y1, c, x2, y2, c, 0);
+}
+
+void
+Screen_drawDPadArrow (const float x, const float y, const float rotation)
+{
+  Screen_drawTriangle (x, y, x+10, y+10, x-10, y+10, Color_white);
 }
