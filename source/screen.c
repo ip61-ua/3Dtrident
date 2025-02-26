@@ -65,16 +65,35 @@ Screen_drawJoystick (const circlePosition *p, const float x, const float y,
                      const float r)
 {
   u32 stick_color = Color_grey;
-  float _r = r;
 
-  if (p->dx != 0 || p->dy != 0)
+  const bool cond = p->dx != 0 || p->dy != 0;
+
+  if (cond)
     {
-      Screen_drawCircle (x, y, _r + 100 / 5.0f, stick_color);
+      const float expanded_relative = 100 / 5.0f;
+      Screen_drawCircle (x, y, r + expanded_relative, stick_color);
       stick_color = Color_light_blue;
-      _r -= 1;
+
+      Screen_drawLine (x - r - expanded_relative, y, x + r + expanded_relative,
+                       y, 1, Color_white);
+
+      Screen_drawLine (x, y - r - expanded_relative, x,
+                       y + r + expanded_relative, 1, Color_white);
     }
 
-  Screen_drawCircle (x + p->dx / 5.0f, y - p->dy / 5.0f, _r, stick_color);
+  const float x_center_relative = x + p->dx / 5.0f,
+              y_center_relative = y - p->dy / 5.0f;
+
+  Screen_drawCircle (x_center_relative, y_center_relative, r, stick_color);
+  if (cond)
+    {
+      Screen_drawLine (x_center_relative, y_center_relative - r,
+                       x_center_relative, y_center_relative + r, 1,
+                       Color_white);
+      Screen_drawLine (x_center_relative - r, y_center_relative,
+                       x_center_relative + r, y_center_relative, 1,
+                       Color_white);
+    }
 };
 
 const char *
@@ -121,8 +140,7 @@ void
 Screen_drawDPadArrow (const bool cond, const float x, const float y,
                       const float pi_rad)
 {
-  u32 btn_color = Color_white,
-      pill_color = Color_grey;
+  u32 btn_color = Color_white, pill_color = Color_grey;
 
   if (cond)
     btn_color = Color_light_blue;
