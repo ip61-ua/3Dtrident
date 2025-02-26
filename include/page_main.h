@@ -6,6 +6,7 @@
 #include "hardware.h"
 #include "screen.h"
 #include "colors.h"
+#include "math.h"
 
 void PAGE_MAIN_showPage ();
 

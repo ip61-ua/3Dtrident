@@ -1,4 +1,6 @@
 #include "screen.h"
+#include "c2d/base.h"
+#include "colors.h"
 
 u8 PAGE_CURRENT;
 
@@ -42,6 +44,13 @@ Screen_setBackground (C3D_RenderTarget *target, const int color)
 {
   C2D_TargetClear (target, color);
   C2D_SceneBegin (target);
+}
+
+void
+Screen_drawLine (const float x0, const float y0, const float x1,
+                 const float y1, const float g, const u32 c)
+{
+  C2D_DrawLine (x0, y0, c, x1, y1, c, g, 0);
 }
 
 void
@@ -98,6 +107,7 @@ Screen_drawTriangle (const float x0, const float y0, const float x1,
   C2D_DrawTriangle (x0, y0, c, x1, y1, c, x2, y2, c, 0);
 }
 
+// Las clases de trigonometría dieron sus frutos...
 void
 Screen_rotatePoint (float *x_dst, float *y_dst, const float x, const float y,
                     const float offset_x, const float offset_y,
@@ -108,24 +118,39 @@ Screen_rotatePoint (float *x_dst, float *y_dst, const float x, const float y,
 }
 
 void
-Screen_drawDPadArrow (const float x, const float y, const float radians)
+Screen_drawDPadArrow (const bool cond, const float x, const float y,
+                      const float pi_rad)
 {
-  float factor_sin = sin (radians), factor_cos = cos (radians),
+  u32 btn_color = Color_white,
+      pill_color = Color_grey;
+
+  if (cond)
+    btn_color = Color_light_blue;
+
+  float factor_sin = sin (pi_rad * M_PI), factor_cos = cos (pi_rad * M_PI),
 
         x0 = +10, y0 = -10,
 
         x1 = -10, y1 = -10,
 
-        x2 = -10, y2 = -30,
+        x2 = -10, y2 = -35,
 
-        x3 = +10, y3 = -30;
+        x3 = +10, y3 = -35,
 
-  Screen_rotatePoint(&x0, &y0, x0, y0, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint(&x1, &y1, x1, y1, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint(&x2, &y2, x2, y2, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint(&x3, &y3, x3, y3, x, y, factor_sin, factor_cos);
+        x4 = 0, y4 = -15,
 
-  Screen_drawTriangle (x, y, x0, y0, x1, y1, Color_white);
-  Screen_drawTriangle (x0, y0, x1, y1, x2, y2, Color_white);
-  Screen_drawTriangle (x0, y0, x2, y2, x3, y3, Color_white);
+        x5 = 0, y5 = -30;
+
+  Screen_rotatePoint (&x0, &y0, x0, y0, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x1, &y1, x1, y1, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x2, &y2, x2, y2, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x3, &y3, x3, y3, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x4, &y4, x4, y4, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x5, &y5, x5, y5, x, y, factor_sin, factor_cos);
+
+  Screen_drawTriangle (x, y, x0, y0, x1, y1, btn_color);
+  Screen_drawTriangle (x0, y0, x1, y1, x2, y2, btn_color);
+  Screen_drawTriangle (x0, y0, x2, y2, x3, y3, btn_color);
+
+  Screen_drawLine (x4, y4, x5, y5, 2, pill_color);
 }

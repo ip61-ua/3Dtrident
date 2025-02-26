@@ -1,4 +1,5 @@
 #include "page_main.h"
+#include "hardware.h"
 
 static bool PAGE_MAIN_active = false;
 
@@ -97,6 +98,15 @@ PAGE_MAIN_quitPage ()
 {
 }
 
+static void
+displayDPad (const float x, const float y)
+{
+  Screen_drawDPadArrow (Hardware_DUp()    , x, y, 0);
+  Screen_drawDPadArrow (Hardware_DRight() , x, y, .5);
+  Screen_drawDPadArrow (Hardware_DLeft()  , x, y, -0.5);
+  Screen_drawDPadArrow (Hardware_DDown()  , x, y, 1);
+}
+
 void
 PAGE_MAIN_showPage ()
 {
@@ -113,10 +123,10 @@ PAGE_MAIN_showPage ()
 
   displayStartSelect (300, 185);
 
-  Screen_drawJoystick (&circle_pos, 60.0f, 80.0f, 20);
-  Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
+  Screen_drawJoystick (&circle_pos, 60, 80, 20);
+  Screen_drawJoystick (&cstick_pos, 300, 70, 10);
 
-  Screen_drawDPadArrow (100, 100, -3.14/2);
+  displayDPad (60, 180);
 
   Screen_setBackground (bottom, Color_dark_grey);
 

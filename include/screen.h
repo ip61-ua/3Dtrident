@@ -2,9 +2,9 @@
 #define _SCREEN_H_
 
 #include "colors.h"
-#include <math.h>
 #include <3ds.h>
 #include <citro2d.h>
+#include <math.h>
 #include <stdlib.h>
 
 extern u8 PAGE_CURRENT;
@@ -32,6 +32,9 @@ void Screen_changePage (const enum PAGE_STATE page, void (*quit) ());
 
 void Screen_setBackground (C3D_RenderTarget *target, const int color);
 
+void Screen_drawLine (const float x0, const float y0, const float x1,
+                      const float y1, const float g, const u32 c);
+
 void Screen_drawCircle (const float x, const float y, const float radius,
                         const u32 color);
 
@@ -50,11 +53,12 @@ void Screen_drawTriangle (const float x0, const float y0, const float x1,
                           const float y1, const float x2, const float y2,
                           const u32 c);
 
-void
-Screen_rotatePoint (float *x_dst, float *y_dst, const float x, const float y,
-                    const float offset_x, const float offset_y,
-                    const float factor_sin, const float factor_cos);
+void Screen_rotatePoint (float *x_dst, float *y_dst, const float x,
+                         const float y, const float offset_x,
+                         const float offset_y, const float factor_sin,
+                         const float factor_cos);
 
-void Screen_drawDPadArrow (const float x, const float y, const float rotation);
+void Screen_drawDPadArrow (const bool cond, const float x, const float y,
+                           const float pi_rad);
 
 #endif
