@@ -1,6 +1,4 @@
 #include "screen.h"
-#include "c2d/base.h"
-#include "colors.h"
 
 u8 PAGE_CURRENT;
 

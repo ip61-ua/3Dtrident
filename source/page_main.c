@@ -1,5 +1,7 @@
 #include "page_main.h"
-#include "hardware.h"
+#include "colors.h"
+#include "screen.h"
+#include "sys/_types.h"
 
 static bool PAGE_MAIN_active = false;
 
@@ -101,10 +103,27 @@ PAGE_MAIN_quitPage ()
 static void
 displayDPad (const float x, const float y)
 {
-  Screen_drawDPadArrow (Hardware_DUp()    , x, y, 0);
-  Screen_drawDPadArrow (Hardware_DRight() , x, y, .5);
-  Screen_drawDPadArrow (Hardware_DLeft()  , x, y, -0.5);
-  Screen_drawDPadArrow (Hardware_DDown()  , x, y, 1);
+  Screen_drawDPadArrow (Hardware_DUp (), x, y, 0);
+  Screen_drawDPadArrow (Hardware_DRight (), x, y, .5);
+  Screen_drawDPadArrow (Hardware_DLeft (), x, y, -0.5);
+  Screen_drawDPadArrow (Hardware_DDown (), x, y, 1);
+}
+
+static void
+displayShulder (const float x, const float y, const bool is_r, const bool cond)
+{
+  u32 color_btn = Color_white;
+  short int width = (is_r ? -50 : 50);
+
+  displayGenericActive (cond, &color_btn);
+  Screen_drawCircle (x, y, 10, color_btn);
+  Screen_drawLine (x, y, x + width, y, 20, color_btn);
+
+  if (is_r)
+    Screen_drawText(&text_r, x, y, 1, 1, Color_grey);
+  else
+    Screen_drawText(&text_l, x, y, 1, 1, Color_grey);
+
 }
 
 void
@@ -119,14 +138,17 @@ PAGE_MAIN_showPage ()
   Hardware_CirclePad (&circle_pos);
   Hardware_CStick (&cstick_pos);
 
-  displayABXY (330, 125);
+  displayABXY (330, 132);
 
-  displayStartSelect (300, 185);
+  displayStartSelect (300, 190);
 
-  Screen_drawJoystick (&circle_pos, 60, 80, 20);
+  Screen_drawJoystick (&circle_pos, 60, 95, 20);
   Screen_drawJoystick (&cstick_pos, 300, 70, 10);
 
   displayDPad (60, 180);
+
+  displayShulder (370, 30, 1, Hardware_R ());
+  displayShulder (30, 30, 0, Hardware_L ());
 
   Screen_setBackground (bottom, Color_dark_grey);
 
