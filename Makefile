@@ -31,6 +31,9 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
+APP_TITLE        := trident
+APP_DESCRIPTION  := Application fror testing 3DS hardware
+# APP_AUTHOR       :=
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source
