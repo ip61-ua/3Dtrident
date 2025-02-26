@@ -2,6 +2,7 @@
 #define _SCREEN_H_
 
 #include "colors.h"
+#include <math.h>
 #include <3ds.h>
 #include <citro2d.h>
 #include <stdlib.h>

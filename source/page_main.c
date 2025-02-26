@@ -116,7 +116,7 @@ PAGE_MAIN_showPage ()
   Screen_drawJoystick (&circle_pos, 60.0f, 80.0f, 20);
   Screen_drawJoystick (&cstick_pos, 300.0f, 70.0f, 10);
 
-  Screen_drawDPadArrow (100, 100, 0);
+  Screen_drawDPadArrow (100, 100, 3.14/2);
 
   Screen_setBackground (bottom, Color_dark_grey);
 
