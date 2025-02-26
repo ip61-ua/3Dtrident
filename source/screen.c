@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "c2d/base.h"
 
 u8 PAGE_CURRENT;
 
@@ -48,7 +49,7 @@ void
 Screen_drawCircle (const float x, const float y, const float radius,
                    const u32 color)
 {
-  C2D_DrawCircle (x, y, 0, radius, color, color, color, color);
+  C2D_DrawCircleSolid (x, y, 0, radius, color);
 };
 
 void
@@ -83,5 +84,17 @@ Screen_drawText (const C2D_Text *srctxt, const float x, const float y,
   C2D_DrawText (srctxt, C2D_WithColor, x, y, 1, scaleX, scaleY, c);
 }
 
-// Screen_drawText (const C2D_Text *text, u32 flags, float x, float y, float z,
-// float scaleX, float scaleY, ...)
+void
+Screen_drawRect (const float x, const float y, const float w, const float h,
+                 const u32 c)
+{
+  C2D_DrawRectSolid (x, y, 0, w, h, c);
+}
+
+void
+Screen_drawTriangle (const float x0, const float y0, const float x1,
+                     const float y1, const float x2, const float y2,
+                     const u32 c)
+{
+  C2D_DrawTriangle (x0, y0, c, x1, y1, c, x2, y2, c, 0);
+}
