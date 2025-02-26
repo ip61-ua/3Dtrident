@@ -42,7 +42,7 @@ void Screen_drawJoystick (const circlePosition *, const float, const float,
 
 const char *Screen_initText (C2D_Text *, C2D_TextBuf, const char *);
 
-void Screen_drawText (const C2D_Text *, const float, const float, const float,
+void Screen_drawText (const C2D_Text *, const u32, const float, const float, const float,
                       const float, const u32);
 
 void Screen_drawRect (const float, const float, const float, const float,

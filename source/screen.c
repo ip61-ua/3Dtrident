@@ -103,10 +103,10 @@ Screen_initText (C2D_Text *text, C2D_TextBuf buf, const char *str)
 }
 
 void
-Screen_drawText (const C2D_Text *srctxt, const float x, const float y,
+Screen_drawText (const C2D_Text *srctxt, const u32 flags, const float x, const float y,
                  const float scaleX, const float scaleY, const u32 c)
 {
-  C2D_DrawText (srctxt, C2D_WithColor, x, y, 1, scaleX, scaleY, c);
+  C2D_DrawText (srctxt, C2D_WithColor | flags, x, y, 1, scaleX, scaleY, c);
 }
 
 void

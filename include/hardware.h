@@ -7,6 +7,16 @@
 #include <string.h>
 
 extern unsigned MAX_STICK_VALUE;
+
+enum HARDWARE_BACK_BUTTONS
+{
+  SHOULDER_R,
+  SHOULDER_L,
+
+  TRIGGER_ZR,
+  TRIGGER_ZL,
+};
+
 // Info
 bool Hardware_isNewModel ();
 

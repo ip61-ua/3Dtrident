@@ -1,7 +1,4 @@
 #include "page_main.h"
-#include "colors.h"
-#include "screen.h"
-#include "sys/_types.h"
 
 static bool PAGE_MAIN_active = false;
 
@@ -47,10 +44,14 @@ displayABXY (float x_param, float y_param)
   Screen_drawCircle (x_param, y_x, 11, color_x);
   Screen_drawCircle (x_param - 30, y_y, 11, color_y);
 
-  Screen_drawText (&text_a, x_param + 23, y_a - 15.7, 1, 1, color_text_a);
-  Screen_drawText (&text_b, x_param - 6.5, y_b - 15.5, 1, 1, color_text_b);
-  Screen_drawText (&text_x, x_param - 6.5, y_x - 15.5, 1, 1, color_text_x);
-  Screen_drawText (&text_y, x_param - 37, y_y - 15.7, 1, 1, color_text_y);
+  Screen_drawText (&text_a, C2D_AlignCenter, x_param + 30, y_a - 15.7, 1, 1,
+                   color_text_a);
+  Screen_drawText (&text_b, C2D_AlignCenter, x_param, y_b - 15.5, 1, 1,
+                   color_text_b);
+  Screen_drawText (&text_x, C2D_AlignCenter, x_param, y_x - 15.5, 1, 1,
+                   color_text_x);
+  Screen_drawText (&text_y, C2D_AlignCenter, x_param - 30, y_y - 15.7, 1, 1,
+                   color_text_y);
 }
 
 static void
@@ -69,12 +70,12 @@ displayStartSelect (float x_param, float y_param)
 
   displayGenericActive (Hardware_OptStart (), &color_start);
   Screen_drawCircle (x_param, y_param, 7, color_start);
-  Screen_drawText (&text_start, x_param + 14, y_param - 11, 0.75, 0.75,
+  Screen_drawText (&text_start, 0, x_param + 14, y_param - 11, 0.75, 0.75,
                    Color_white);
 
   displayGenericActive (Hardware_OptSelect (), &color_select);
-  Screen_drawCircle (x_param, y_param + 30, 7, color_select);
-  Screen_drawText (&text_select, x_param + 14, y_param + 19, 0.75, 0.75,
+  Screen_drawCircle (x_param, y_param + 25, 7, color_select);
+  Screen_drawText (&text_select, 0, x_param + 14, y_param + 14, 0.75, 0.75,
                    Color_white);
 }
 
@@ -110,20 +111,49 @@ displayDPad (const float x, const float y)
 }
 
 static void
-displayShulder (const float x, const float y, const bool is_r, const bool cond)
+displayBackButton (const float x, const float y,
+                   const enum HARDWARE_BACK_BUTTONS btn)
 {
-  u32 color_btn = Color_white;
-  short int width = (is_r ? -50 : 50);
+  u32 color_btn = Color_white, flags;
+  short int width;
+  bool cond = false;
+  C2D_Text *text_curr;
+
+  if (btn == SHOULDER_R)
+    {
+      cond = Hardware_R ();
+      flags = C2D_AlignRight;
+      text_curr = &text_r;
+      width = -50;
+    }
+  else if (btn == SHOULDER_L)
+    {
+      cond = Hardware_L ();
+      flags = C2D_AlignLeft;
+      text_curr = &text_l;
+      width = +50;
+    }
+  else if (btn == TRIGGER_ZR)
+    {
+      cond = Hardware_ZR ();
+      flags = C2D_AlignRight;
+      text_curr = &text_zr;
+      width = -32;
+    }
+  else if (btn == TRIGGER_ZL)
+    {
+      cond = Hardware_ZL ();
+      flags = C2D_AlignLeft;
+      text_curr = &text_zl;
+      width = +32;
+    }
 
   displayGenericActive (cond, &color_btn);
-  Screen_drawCircle (x, y, 10, color_btn);
+  if (btn == SHOULDER_R || btn == SHOULDER_L)
+    Screen_drawCircle (x, y, 10, color_btn);
   Screen_drawLine (x, y, x + width, y, 20, color_btn);
 
-  if (is_r)
-    Screen_drawText(&text_r, x, y, 1, 1, Color_grey);
-  else
-    Screen_drawText(&text_l, x, y, 1, 1, Color_grey);
-
+  Screen_drawText (text_curr, flags, x + width / 10.0f, y - 15, 1, 1, Color_grey);
 }
 
 void
@@ -138,17 +168,20 @@ PAGE_MAIN_showPage ()
   Hardware_CirclePad (&circle_pos);
   Hardware_CStick (&cstick_pos);
 
-  displayABXY (330, 132);
+  displayABXY (330, 140);
 
-  displayStartSelect (300, 190);
+  displayStartSelect (300, 200);
 
   Screen_drawJoystick (&circle_pos, 60, 95, 20);
-  Screen_drawJoystick (&cstick_pos, 300, 70, 10);
+  Screen_drawJoystick (&cstick_pos, 300, 80, 10);
 
   displayDPad (60, 180);
 
-  displayShulder (370, 30, 1, Hardware_R ());
-  displayShulder (30, 30, 0, Hardware_L ());
+  displayBackButton (370, 30, SHOULDER_R);
+  displayBackButton (30, 30, SHOULDER_L);
+
+  displayBackButton (300, 30, TRIGGER_ZR);
+  displayBackButton (100, 30, TRIGGER_ZL);
 
   Screen_setBackground (bottom, Color_dark_grey);
 
