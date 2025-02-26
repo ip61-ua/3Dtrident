@@ -99,7 +99,7 @@ Screen_drawTriangle (const float x0, const float y0, const float x1,
 }
 
 void
-Screen_rotatePoint (double *x_dst, float *y_dst, const float x, const float y,
+Screen_rotatePoint (float *x_dst, float *y_dst, const float x, const float y,
                     const float offset_x, const float offset_y,
                     const float factor_sin, const float factor_cos)
 {
@@ -110,17 +110,22 @@ Screen_rotatePoint (double *x_dst, float *y_dst, const float x, const float y,
 void
 Screen_drawDPadArrow (const float x, const float y, const float radians)
 {
-  const float factor_sin = sin (radians), factor_cos = cos (radians),
+  float factor_sin = sin (radians), factor_cos = cos (radians),
 
-              x0 = 10, y0 = -10,
+        x0 = +10, y0 = -10,
 
-              x1 = -10, y1 = -10,
+        x1 = -10, y1 = -10,
 
-              x3 = -10, y2 = -30;
+        x2 = -10, y2 = -30,
 
+        x3 = +10, y3 = -30;
 
+  Screen_rotatePoint(&x0, &y0, x0, y0, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint(&x1, &y1, x1, y1, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint(&x2, &y2, x2, y2, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint(&x3, &y3, x3, y3, x, y, factor_sin, factor_cos);
 
   Screen_drawTriangle (x, y, x0, y0, x1, y1, Color_white);
-  // Screen_drawTriangle (x0, y0, x1, y1, x0, y2, Color_white);
-  // Screen_drawTriangle (x0, y2, x1, y1, x1, y2, Color_white);
+  Screen_drawTriangle (x0, y0, x1, y1, x2, y2, Color_white);
+  Screen_drawTriangle (x0, y0, x2, y2, x3, y3, Color_white);
 }
