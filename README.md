@@ -44,9 +44,8 @@ make
 
 Obtendrás en el directorio raíz al menos 2 archivos, `.3dsx` y `.elf`. Ejecuta cualquiera de los dos en la consola.
 
-# Recursos empleados
+# Créditos
 
-- devkitPro [github](https://github.com/devkitPro)
-- Inter [github](https://github.com/rsms/inter)
-
-Inspirada en [3DSident](https://github.com/joel16/3DSident)
+- devkitPro [[github](https://github.com/devkitPro)] por las librerías de desarrollo para la consola.
+- Inter [[github](https://github.com/rsms/inter)] por la tipografía personalizada empleda.
+- Inspirado en 3DSident [[3DSident](https://github.com/joel16/3DSident)].
