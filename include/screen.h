@@ -7,17 +7,9 @@
 #include <math.h>
 #include <stdlib.h>
 
-extern u8 PAGE_CURRENT;
-
-enum PAGE_STATE
-{
-  PAGE_MAIN,
-  PAGE_ABOUT,
-  PAGE_PAINT,
-  PAGE_3D,
-  PAGE_GYRO,
-  PAGE_AUDIO
-};
+typedef void EntryPage;
+typedef EntryPage (*Page) ();
+extern Page PAGE_CURRENT;
 
 extern C3D_RenderTarget *top;
 extern C3D_RenderTarget *bottom;
@@ -28,7 +20,7 @@ void Screen_init ();
 
 void Screen_setupPage (bool *, void (*) ());
 
-void Screen_changePage (const enum PAGE_STATE, void (*) ());
+void Screen_changePage (Page, void (*) ());
 
 void Screen_setBackground (C3D_RenderTarget *, const int);
 

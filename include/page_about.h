@@ -6,7 +6,8 @@
 #include "hardware.h"
 #include "screen.h"
 #include "colors.h"
+#include "pages.h"
 
-void PAGE_ABOUT_showPage ();
+extern Page PAGE_ABOUT;
 
 #endif

@@ -7,7 +7,8 @@
 #include "screen.h"
 #include "colors.h"
 #include "math.h"
+#include "pages.h"
 
-void PAGE_MAIN_showPage ();
+extern Page PAGE_MAIN;
 
 #endif

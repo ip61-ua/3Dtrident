@@ -3,6 +3,7 @@
 void
 Application_start ()
 {
+  PAGE_CURRENT = PAGE_MAIN;
   romfsInit ();
   cfguInit ();
   gfxInitDefault ();
@@ -19,11 +20,7 @@ Application_loop ()
     {
       C3D_FrameBegin (C3D_FRAME_SYNCDRAW);
 
-      if (PAGE_CURRENT == PAGE_MAIN)
-        PAGE_MAIN_showPage ();
-
-      if (PAGE_CURRENT == PAGE_ABOUT)
-        PAGE_ABOUT_showPage ();
+      PAGE_CURRENT ();
 
       C3D_FrameEnd (0);
     };

@@ -1,11 +1,29 @@
 #include "page_about.h"
 
-static bool PAGE_ABOUT_active = false;
+static bool active = false;
 static float r_init = 1;
 
+static EntryPage entry ();
+static void quitPage ();
+
+Page PAGE_ABOUT = entry;
+
+EntryPage
+entry ()
+{
+  r_init = 5;
+  Screen_setupPage (&active, NULL);
+
+  Hardware_listenInput ();
+
+  Screen_setBackground (top, Color_red);
+  Screen_setBackground (bottom, Color_blue);
+  if (Hardware_R ())
+    Screen_changePage (PAGE_MAIN, quitPage);
+}
 
 void
-PAGE_ABOUT_quitPage ()
+quitPage ()
 {
   while (true)
     {
@@ -14,18 +32,4 @@ PAGE_ABOUT_quitPage ()
         break;
       r_init += 1;
     }
-}
-
-void
-PAGE_ABOUT_showPage ()
-{
-  r_init = 5;
-  Screen_setupPage (&PAGE_ABOUT_active, NULL);
-
-  Hardware_listenInput ();
-
-  Screen_setBackground (top, Color_red);
-  Screen_setBackground (bottom, Color_blue);
-  if (Hardware_R ())
-    Screen_changePage (PAGE_MAIN, PAGE_ABOUT_quitPage);
 }

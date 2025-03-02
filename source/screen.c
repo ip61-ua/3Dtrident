@@ -1,6 +1,6 @@
 #include "screen.h"
 
-u8 PAGE_CURRENT;
+Page PAGE_CURRENT;
 
 C3D_RenderTarget *top;
 C3D_RenderTarget *bottom;
@@ -10,7 +10,6 @@ C2D_Font font;
 void
 Screen_init ()
 {
-  PAGE_CURRENT = PAGE_MAIN;
   g_staticBuf = C2D_TextBufNew (4096);
   top = C2D_CreateScreenTarget (GFX_TOP, GFX_LEFT);
   bottom = C2D_CreateScreenTarget (GFX_BOTTOM, GFX_LEFT);
@@ -30,7 +29,7 @@ Screen_setupPage (bool *cond, void (*start) ())
 }
 
 void
-Screen_changePage (const enum PAGE_STATE page, void (*quit) ())
+Screen_changePage (Page page, void (*quit) ())
 {
   if (quit != NULL)
     quit ();

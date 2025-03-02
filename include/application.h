@@ -4,6 +4,7 @@
 #include <3ds.h>
 #include <citro2d.h>
 #include "screen.h"
+#include "pages.h"
 #include "page_main.h"
 #include "page_about.h"
 

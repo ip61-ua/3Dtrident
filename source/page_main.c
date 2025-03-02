@@ -1,14 +1,60 @@
 #include "page_main.h"
+#include "screen.h"
 
-static bool PAGE_MAIN_active = false;
+static bool active = false;
+static void startPage ();
+static void quitPage ();
 
-static C2D_Text text_a, text_b, text_x, text_y,
+static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
+    text_zl, text_start, text_select;
 
-    text_r, text_zr, text_l, text_zl,
+static void displayABXY_updateVars (unsigned *y_dst, u32 *c_dst,
+                                    u32 *c_font_dst, const int new_rel_y,
+                                    const u32 new_c);
+static void displayABXY (float x_param, float y_param);
+static void displayGenericActive (const bool cond, u32 *c);
+static void displayStartSelect (float x_param, float y_param);
+static void displayDPad (const float x, const float y);
+static void displayBackButton (const float x, const float y,
+                               const enum HARDWARE_BACK_BUTTONS btn);
+static EntryPage entry ();
 
-    text_start, text_select;
+Page PAGE_MAIN = entry;
 
-static void
+EntryPage
+entry ()
+{
+  Screen_setupPage (&active, startPage);
+
+  Screen_setBackground (top, Color_dark_grey);
+  Hardware_listenInput ();
+
+  circlePosition circle_pos, cstick_pos;
+  Hardware_CirclePad (&circle_pos);
+  Hardware_CStick (&cstick_pos);
+
+  displayABXY (330, 140);
+
+  displayStartSelect (300, 200);
+
+  Screen_drawJoystick (&circle_pos, 60, 95, 20);
+  Screen_drawJoystick (&cstick_pos, 300, 80, 10);
+
+  displayDPad (60, 180);
+
+  displayBackButton (370, 30, SHOULDER_R);
+  displayBackButton (30, 30, SHOULDER_L);
+
+  displayBackButton (300, 30, TRIGGER_ZR);
+  displayBackButton (100, 30, TRIGGER_ZL);
+
+  Screen_setBackground (bottom, Color_dark_grey);
+
+  if (Hardware_L () && Hardware_A ())
+    Screen_changePage (PAGE_ABOUT, quitPage);
+}
+
+void
 displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
                         const int new_rel_y, const u32 new_c)
 {
@@ -17,7 +63,7 @@ displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
   *c_font_dst = Color_white;
 }
 
-static void
+void
 displayABXY (float x_param, float y_param)
 {
   u32 color_a, color_b, color_y, color_x,
@@ -54,14 +100,14 @@ displayABXY (float x_param, float y_param)
                    color_text_y);
 }
 
-static void
+void
 displayGenericActive (const bool cond, u32 *c)
 {
   if (cond)
     *c = Color_light_blue;
 }
 
-static void
+void
 displayStartSelect (float x_param, float y_param)
 {
   u32 color_select, color_start;
@@ -79,8 +125,8 @@ displayStartSelect (float x_param, float y_param)
                    Color_white);
 }
 
-static void
-PAGE_MAIN_startPage ()
+void
+startPage ()
 {
   Screen_initText (&text_a, g_staticBuf, "A");
   Screen_initText (&text_b, g_staticBuf, "B");
@@ -96,12 +142,12 @@ PAGE_MAIN_startPage ()
   Screen_initText (&text_select, g_staticBuf, "SELECT");
 }
 
-static void
-PAGE_MAIN_quitPage ()
+void
+quitPage ()
 {
 }
 
-static void
+void
 displayDPad (const float x, const float y)
 {
   Screen_drawDPadArrow (Hardware_DUp (), x, y, 0);
@@ -110,7 +156,7 @@ displayDPad (const float x, const float y)
   Screen_drawDPadArrow (Hardware_DDown (), x, y, 1);
 }
 
-static void
+void
 displayBackButton (const float x, const float y,
                    const enum HARDWARE_BACK_BUTTONS btn)
 {
@@ -153,38 +199,6 @@ displayBackButton (const float x, const float y,
     Screen_drawCircle (x, y, 10, color_btn);
   Screen_drawLine (x, y, x + width, y, 20, color_btn);
 
-  Screen_drawText (text_curr, flags, x + width / 10.0f, y - 15, 1, 1, Color_grey);
-}
-
-void
-PAGE_MAIN_showPage ()
-{
-  Screen_setupPage (&PAGE_MAIN_active, PAGE_MAIN_startPage);
-
-  Screen_setBackground (top, Color_dark_grey);
-  Hardware_listenInput ();
-
-  circlePosition circle_pos, cstick_pos;
-  Hardware_CirclePad (&circle_pos);
-  Hardware_CStick (&cstick_pos);
-
-  displayABXY (330, 140);
-
-  displayStartSelect (300, 200);
-
-  Screen_drawJoystick (&circle_pos, 60, 95, 20);
-  Screen_drawJoystick (&cstick_pos, 300, 80, 10);
-
-  displayDPad (60, 180);
-
-  displayBackButton (370, 30, SHOULDER_R);
-  displayBackButton (30, 30, SHOULDER_L);
-
-  displayBackButton (300, 30, TRIGGER_ZR);
-  displayBackButton (100, 30, TRIGGER_ZL);
-
-  Screen_setBackground (bottom, Color_dark_grey);
-
-  if (Hardware_L () && Hardware_A ())
-    Screen_changePage (PAGE_ABOUT, PAGE_MAIN_quitPage);
+  Screen_drawText (text_curr, flags, x + width / 10.0f, y - 15, 1, 1,
+                   Color_grey);
 }
