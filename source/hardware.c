@@ -1,7 +1,7 @@
 #include "hardware.h"
 
 const unsigned MAX_STICK_VALUE = 154;
-touchPosition last_position = { .px = 0, .py = 0 };
+static touchPosition last_position;
 static bool touch_on_last_frame = false;
 
 bool
@@ -59,15 +59,9 @@ Hardware_Touch (touchPosition *t)
 {
   if (Hardware_isTouching())
     {
-      if (touch_on_last_frame)
-        {
-          last_position.px = t->px;
-          last_position.py = t->py;
-        }
 
       hidTouchRead(t);
-
-      if (touch_on_last_frame)
+      if (!touch_on_last_frame)
         {
           last_position.px = t->px;
           last_position.py = t->py;

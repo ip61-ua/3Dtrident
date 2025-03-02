@@ -52,11 +52,11 @@ entry ()
 
   Screen_atScreen (bottom);
 
-  touchPosition pos, *last;
+  touchPosition pos, last;
   if (Hardware_Touch (&pos))
     {
-      if(Hardware_TouchLast (last))
-        Screen_drawLine (last->px, last->py, pos.px, pos.py, 2, Color_yellow);
+      if(Hardware_TouchLast (&last))
+        Screen_drawLine (last.px, last.py, pos.px, pos.py, 2, Color_yellow);
     }
 
   if (Hardware_L () && Hardware_A ())
