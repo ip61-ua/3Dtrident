@@ -2,18 +2,19 @@
 
 Es una aplicación de videoconsola retro cuya función es probar el funcionamiento de la consola en sí.
 
-Progreso actual:
+# Progreso actual
 
 ![Demostración](demo.gif)
 
 # Objetivos
 
-- [ ] [POR ACABAR] Pantalla para probar la entrada del hardware como _joysticks_, gatillos, cruceta...
+- [ ] [POR ACABAR] Pantalla para probar la entrada del *hardware* como _joysticks_, gatillos, cruceta...
 - [ ] [AHORA] Pantalla para probar el táctil de la consola mediante un _paint_.
 - [ ] [~] Apartado en donde _testear_ el micrófono, audio y volumen.
 - [ ] [~] Comprobar el funcionamiento de la función _3D_ de la pantalla de la pantalla superior.
 - [ ] [~] Pantalla de acerca de la aplicación.
-- [ ] [~] Página en la que verificar el correcto funcionamiento de sensores como infrarrojo, giroscópio, acelerómetro...
+- [ ] [~] Página en la que verificar el correcto funcionamiento de sensores.
+- [ ] [~] Exportación en formato instalable. Extender Makefile.
 
 # Estructura del proyecto
 
@@ -23,7 +24,7 @@ Punto de entrada de la aplicación.
 
 ### Hardware
 
-Interfaz entre la I/O de la consola y el programador. Leer botones, *joysticks*, pantalla táctil, giroscópio...
+Interfaz entre la I/O de la consola y el programador. Leer botones, *joysticks*, pantalla táctil, giroscopio...
 
 ### Pages
 
@@ -74,13 +75,13 @@ Obtendrás en el directorio raíz al menos 2 archivos, `.3dsx` y `.elf`. Ejecuta
 ## Estilo de código
 
 - Estilo de código _GNU_. Emplea un formateador de código como `clang-format`.
-- Por convención: cada función de un módulo que pueda ser usada por otros módulos, su signatura deberá de empezar con el nombre al principio. Formato `<type> Module_func (<args>)`.
+- Por convención: cada función de un módulo que pueda ser usada por otros módulos, su signatura deberá de empezar con el nombre del módulo. Formato `<type> Module_func (<args>)`.
 
 # Motivación
 
-La razón de llevar a cabo este proyecto es la preservación de la consola. Así como el estudio de las capacidades y limitaciones de la misma.
-Facilitar la consulta y comprobación de funciones y propiedades de la consola al usuario final o a un técnico que vaya a reparar la consola.
-Por diversión, por amor al arte, por el *software* libre y por mejorar habilidades desarrollo de programas en bajo nivel.
+La razón de llevar a cabo este proyecto es la conservación de la consola. Así como el estudio de las capacidades y limitaciones de la misma.
+Facilitar la consulta y comprobación de funciones y propiedades de la consola al usuario final.
+Por diversión, por amor al arte, por el *software* libre y por mejorar habilidades en el desarrollo de programas de bajo nivel.
 
 # Créditos
 
