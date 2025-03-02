@@ -1,7 +1,7 @@
 #include "hardware.h"
 
 const unsigned MAX_STICK_VALUE = 154;
-static touchPosition last_position = { .px = 0, .py = 0 };
+touchPosition last_position = { .px = 0, .py = 0 };
 static bool touch_on_last_frame = false;
 
 bool
