@@ -1,5 +1,4 @@
 #include "page_main.h"
-#include "screen.h"
 
 static bool active = false;
 static void startPage ();
@@ -24,7 +23,7 @@ Page PAGE_MAIN = entry;
 EntryPage
 entry ()
 {
-  Screen_setupPage (&active, startPage);
+  Page_setup (&active, startPage);
 
   Screen_setBackground (top, Color_dark_grey);
   Hardware_listenInput ();
@@ -51,7 +50,7 @@ entry ()
   Screen_setBackground (bottom, Color_dark_grey);
 
   if (Hardware_L () && Hardware_A ())
-    Screen_changePage (PAGE_ABOUT, quitPage);
+    Page_changeTo (PAGE_ABOUT, quitPage);
 }
 
 void

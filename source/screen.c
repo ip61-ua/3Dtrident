@@ -1,7 +1,5 @@
 #include "screen.h"
 
-Page PAGE_CURRENT;
-
 C3D_RenderTarget *top;
 C3D_RenderTarget *bottom;
 C2D_TextBuf g_staticBuf;
@@ -14,26 +12,6 @@ Screen_init ()
   top = C2D_CreateScreenTarget (GFX_TOP, GFX_LEFT);
   bottom = C2D_CreateScreenTarget (GFX_BOTTOM, GFX_LEFT);
   font = C2D_FontLoad ("romfs:/InterVariable.bcfnt");
-}
-
-void
-Screen_setupPage (bool *cond, void (*start) ())
-{
-  if (!(*cond))
-    {
-      if (start != NULL)
-        start ();
-
-      *cond = true;
-    }
-}
-
-void
-Screen_changePage (Page page, void (*quit) ())
-{
-  if (quit != NULL)
-    quit ();
-  PAGE_CURRENT = page;
 }
 
 void

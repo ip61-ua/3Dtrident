@@ -12,14 +12,14 @@ EntryPage
 entry ()
 {
   r_init = 5;
-  Screen_setupPage (&active, NULL);
+  Page_setup (&active, NULL);
 
   Hardware_listenInput ();
 
   Screen_setBackground (top, Color_red);
   Screen_setBackground (bottom, Color_blue);
   if (Hardware_R ())
-    Screen_changePage (PAGE_MAIN, quitPage);
+    Page_changeTo (PAGE_MAIN, quitPage);
 }
 
 void

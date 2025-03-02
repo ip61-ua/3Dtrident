@@ -6,7 +6,6 @@
 #include "hardware.h"
 #include "screen.h"
 #include "colors.h"
-#include "math.h"
 #include "pages.h"
 
 extern Page PAGE_MAIN;

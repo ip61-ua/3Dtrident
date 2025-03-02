@@ -5,11 +5,6 @@
 #include <3ds.h>
 #include <citro2d.h>
 #include <math.h>
-#include <stdlib.h>
-
-typedef void EntryPage;
-typedef EntryPage (*Page) ();
-extern Page PAGE_CURRENT;
 
 extern C3D_RenderTarget *top;
 extern C3D_RenderTarget *bottom;
@@ -17,10 +12,6 @@ extern C2D_TextBuf g_staticBuf;
 extern C2D_Font font;
 
 void Screen_init ();
-
-void Screen_setupPage (bool *, void (*) ());
-
-void Screen_changePage (Page, void (*) ());
 
 void Screen_setBackground (C3D_RenderTarget *, const int);
 
