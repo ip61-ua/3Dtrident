@@ -132,9 +132,9 @@ Screen_drawDPadArrow (const bool cond, const float x, const float y,
 
         x1 = -10, y1 = -10,
 
-        x2 = -10, y2 = -35,
+        x2 = 0, y2 = -10,
 
-        x3 = +10, y3 = -35,
+        x3 = 0, y3 = -35,
 
         x4 = 0, y4 = -15,
 
@@ -148,8 +148,7 @@ Screen_drawDPadArrow (const bool cond, const float x, const float y,
   Screen_rotatePoint (&x5, &y5, x5, y5, x, y, factor_sin, factor_cos);
 
   Screen_drawTriangle (x, y, x0, y0, x1, y1, btn_color);
-  Screen_drawTriangle (x0, y0, x1, y1, x2, y2, btn_color);
-  Screen_drawTriangle (x0, y0, x2, y2, x3, y3, btn_color);
+  Screen_drawLine (x2, y2, x3, y3, 20, btn_color);
 
   Screen_drawLine (x4, y4, x5, y5, 2, pill_color);
 }
