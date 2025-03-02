@@ -1,8 +1,9 @@
 #include "hardware.h"
 
 const unsigned MAX_STICK_VALUE = 154;
-static touchPosition last_position;
-static bool touch_on_last_frame = false;
+static touchPosition lastest_touch[]
+    = { { .px = 0, .py = 0 }, { .px = 0, .py = 0 } };
+static bool lastest_touch_is_safe = false;
 
 bool
 Hardware_isNewModel ()
@@ -45,33 +46,34 @@ Hardware_isTouching ()
   return Hardware_isHeldButton (KEY_TOUCH);
 };
 
-bool
-Hardware_TouchLast (touchPosition* t)
+const touchPosition *
+Hardware_TouchLast ()
 {
-  t->px = last_position.px;
-  t->py = last_position.py;
-
-  return touch_on_last_frame;
+  return &lastest_touch[1];
 }
 
 bool
 Hardware_Touch (touchPosition *t)
 {
-  if (Hardware_isTouching())
+  if (Hardware_isTouching ())
     {
+      lastest_touch[1].px = lastest_touch[0].px;
+      lastest_touch[1].py = lastest_touch[0].py;
+      hidTouchRead (&lastest_touch[0]);
+      t->px = lastest_touch[0].px;
+      t->py = lastest_touch[0].py;
 
-      hidTouchRead(t);
-      if (!touch_on_last_frame)
+      if (!lastest_touch_is_safe)
         {
-          last_position.px = t->px;
-          last_position.py = t->py;
+          lastest_touch[1].px = lastest_touch[0].px;
+          lastest_touch[1].py = lastest_touch[0].py;
+          lastest_touch_is_safe = true;
         }
 
-      touch_on_last_frame = true;
       return true;
     }
-  else touch_on_last_frame = false;
 
+  lastest_touch_is_safe = false;
   return false;
 };
 

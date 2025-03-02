@@ -28,7 +28,7 @@ void Hardware_CStick (circlePosition *);
 
 // Touch
 bool Hardware_isTouching ();
-bool Hardware_TouchLast (touchPosition *);
+const touchPosition * Hardware_TouchLast ();
 bool Hardware_Touch (touchPosition *);
 
 // Buttons
