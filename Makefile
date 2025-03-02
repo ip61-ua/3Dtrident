@@ -302,3 +302,5 @@ $(CLANGD) :
 
 emulator : all $(OUTPUT).elf
 	flatpak kill io.github.lime3ds.Lime3DS & $(EMULATOR) $(OUTPUT).3dsx #& /opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb -iex "target remote localhost:24689"
+
+	#ffmpeg -i hola.webm -pix_fmt rgb24 demo.gif
