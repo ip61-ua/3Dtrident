@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-extern unsigned MAX_STICK_VALUE;
+extern const unsigned MAX_STICK_VALUE;
 
 enum HARDWARE_BACK_BUTTONS
 {
@@ -28,6 +28,7 @@ void Hardware_CStick (circlePosition *);
 
 // Touch
 bool Hardware_isTouching ();
+bool Hardware_TouchLast (touchPosition *);
 bool Hardware_Touch (touchPosition *);
 
 // Buttons

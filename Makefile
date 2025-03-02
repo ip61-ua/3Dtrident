@@ -301,5 +301,4 @@ $(CLANGD) :
 	done
 
 emulator : all $(OUTPUT).3dsx
-	flatpak kill io.github.lime3ds.Lime3DS
-	$(EMULATOR) $(OUTPUT).3dsx
+	flatpak kill io.github.lime3ds.Lime3DS & $(EMULATOR) $(OUTPUT).3dsx & /opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb -iex "target remote localhost:24689"

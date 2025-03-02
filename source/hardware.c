@@ -1,6 +1,8 @@
 #include "hardware.h"
 
-unsigned MAX_STICK_VALUE = 154;
+const unsigned MAX_STICK_VALUE = 154;
+static touchPosition last_position = { .px = 0, .py = 0 };
+static bool touch_on_last_frame = false;
 
 bool
 Hardware_isNewModel ()
@@ -44,10 +46,39 @@ Hardware_isTouching ()
 };
 
 bool
+Hardware_TouchLast (touchPosition* t)
+{
+  t->px = last_position.px;
+  t->py = last_position.py;
+
+  return touch_on_last_frame;
+}
+
+bool
 Hardware_Touch (touchPosition *t)
 {
-  hidTouchRead(t);
-  return Hardware_isTouching();
+  if (Hardware_isTouching())
+    {
+      if (touch_on_last_frame)
+        {
+          last_position.px = t->px;
+          last_position.py = t->py;
+        }
+
+      hidTouchRead(t);
+
+      if (touch_on_last_frame)
+        {
+          last_position.px = t->px;
+          last_position.py = t->py;
+        }
+
+      touch_on_last_frame = true;
+      return true;
+    }
+  else touch_on_last_frame = false;
+
+  return false;
 };
 
 u32
