@@ -26,6 +26,10 @@ void Hardware_toRelativeCirclePosition (circlePosition *);
 void Hardware_CirclePad (circlePosition *);
 void Hardware_CStick (circlePosition *);
 
+// Touch
+bool Hardware_isTouching ();
+bool Hardware_Touch (touchPosition *);
+
 // Buttons
 u32 Hardware_rawButtons ();
 bool Hardware_isHeldButton (const unsigned);
@@ -49,8 +53,7 @@ bool Hardware_OptSelect ();
 
 // Misc
 void Hardware_listenInput ();
-// void Hardware_toLinkString (char *, const char *, const bool);
-void Hardware_toStringPosition (char *, const circlePosition *);
+void Hardware_toStringPosition (char *, const int, const int);
 void Hardware_toString (char *);
 
 #endif

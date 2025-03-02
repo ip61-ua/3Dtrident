@@ -1,8 +1,11 @@
 #include "page_main.h"
+#include "hardware.h"
+#include "screen.h"
 
 static bool active = false;
 static void startPage ();
 static void quitPage ();
+static EntryPage entry ();
 
 static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
     text_zl, text_start, text_select;
@@ -16,7 +19,6 @@ static void displayStartSelect (float x_param, float y_param);
 static void displayDPad (const float x, const float y);
 static void displayBackButton (const float x, const float y,
                                const enum HARDWARE_BACK_BUTTONS btn);
-static EntryPage entry ();
 
 Page PAGE_MAIN = entry;
 
@@ -26,6 +28,7 @@ entry ()
   Page_setup (&active, startPage);
 
   Screen_setBackground (top, Color_dark_grey);
+
   Hardware_listenInput ();
 
   circlePosition circle_pos, cstick_pos;
@@ -47,7 +50,13 @@ entry ()
   displayBackButton (300, 30, TRIGGER_ZR);
   displayBackButton (100, 30, TRIGGER_ZL);
 
-  Screen_setBackground (bottom, Color_dark_grey);
+  Screen_atScreen (bottom);
+
+  touchPosition pos;
+  if (Hardware_Touch (&pos))
+    {
+      Screen_drawCircle (pos.px, pos.py, 1, Color_yellow);
+    }
 
   if (Hardware_L () && Hardware_A ())
     Page_changeTo (PAGE_ABOUT, quitPage);
@@ -127,6 +136,8 @@ displayStartSelect (float x_param, float y_param)
 void
 startPage ()
 {
+  Screen_setBackground (bottom, Color_dark_grey);
+
   Screen_initText (&text_a, g_staticBuf, "A");
   Screen_initText (&text_b, g_staticBuf, "B");
   Screen_initText (&text_x, g_staticBuf, "X");

@@ -37,6 +37,19 @@ Hardware_CStick (circlePosition *c)
   Hardware_toRelativeCirclePosition (c);
 };
 
+bool
+Hardware_isTouching ()
+{
+  return Hardware_isHeldButton (KEY_TOUCH);
+};
+
+bool
+Hardware_Touch (touchPosition *t)
+{
+  hidTouchRead(t);
+  return Hardware_isTouching();
+};
+
 u32
 Hardware_rawButtons ()
 {
@@ -150,9 +163,9 @@ Hardware_toLinkString (char *dst, const char *str, const bool cond)
 }
 
 void
-Hardware_toStringPosition (char *dst, const circlePosition *pos)
+Hardware_toStringPosition (char *dst, const int dx, const int dy)
 {
-  sprintf (dst, "(%d, %d)", pos->dx, pos->dy);
+  sprintf (dst, "(%d, %d)", dx, dy);
 }
 
 void

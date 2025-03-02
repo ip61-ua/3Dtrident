@@ -5,7 +5,6 @@
 #include <citro2d.h>
 #include "screen.h"
 #include "page_main.h"
-#include "page_about.h"
 
 void Application_start ();
 void Application_loop ();

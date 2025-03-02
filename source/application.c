@@ -23,6 +23,9 @@ Application_loop ()
       PAGE_CURRENT ();
 
       C3D_FrameEnd (0);
+      //gfxFlushBuffers();
+      //gfxSwapBuffers();
+      gspWaitForVBlank (); // Limita FPS
     };
 };
 

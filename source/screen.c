@@ -15,10 +15,16 @@ Screen_init ()
 }
 
 void
+Screen_atScreen (C3D_RenderTarget *target)
+{
+  C2D_SceneBegin (target);
+}
+
+void
 Screen_setBackground (C3D_RenderTarget *target, const int color)
 {
   C2D_TargetClear (target, color);
-  C2D_SceneBegin (target);
+  Screen_atScreen (target);
 }
 
 void

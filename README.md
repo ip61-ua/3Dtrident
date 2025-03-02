@@ -9,7 +9,7 @@ Progreso actual:
 # Objetivos
 
 - [ ] [POR ACABAR] Pantalla para probar la entrada del hardware como _joysticks_, gatillos, cruceta...
-- [ ] [PRÓXIMO] Pantalla para probar el táctil de la consola mediante un _paint_.
+- [ ] [AHORA] Pantalla para probar el táctil de la consola mediante un _paint_.
 - [ ] [~] Apartado en donde _testear_ el micrófono, audio y volumen.
 - [ ] [~] Comprobar el funcionamiento de la función _3D_ de la pantalla de la pantalla superior.
 - [ ] [~] Pantalla de acerca de la aplicación.
