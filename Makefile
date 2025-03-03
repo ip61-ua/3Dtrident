@@ -42,8 +42,17 @@ INCLUDES	:=	include
 GRAPHICS	:=	gfx
 ROMFS		:=	romfs
 GFXBUILD	:=	$(ROMFS)
-EMULATOR	:=	flatpak run io.github.lime3ds.Lime3DS
-CLANGD		:= .clangd
+EMULATOR	:=	io.github.lime3ds.Lime3DS
+EMU_OPEN	:=	flatpak run
+EMU_KILL	:=	flatpak kill
+GDB_BIN		:=	/opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb
+GDB_ADDR	:=	localhost
+GDB_PORT	:=	24689
+CLANGD		:=	.clangd
+MPEG	:= ffmpeg
+VID_IN	:= example.webm
+VID_OUT	:= demo.gif
+
 #GFXBUILD	:=	$(ROMFS)/gfx
 
 #---------------------------------------------------------------------------------
@@ -300,7 +309,16 @@ $(CLANGD) :
 		echo "        - $$entry_include" >> $(CLANGD); \
 	done
 
-emulator : all $(OUTPUT).elf
-	flatpak kill io.github.lime3ds.Lime3DS & $(EMULATOR) $(OUTPUT).3dsx #& /opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb -iex "target remote localhost:24689"
+# URGENTE VOLVER AL TIPO DE LETRA DEL SISTEMA
 
-	#ffmpeg -i hola.webm -pix_fmt rgb24 demo.gif
+emulator : all $(OUTPUT).elf
+	$(EMU_KILL) $(EMULATOR) &
+	$(EMU_OPEN) $(EMULATOR) $(OUTPUT).elf
+
+debug : all $(OUTPUT).elf
+	$(EMU_KILL) $(EMULATOR) &
+	$(EMU_OPEN) $(EMULATOR) -g $(GDB_PORT) $(OUTPUT).elf &
+	$(GDB_BIN) $(OUTPUT).elf -iex "target remote $(GDB_ADDR):$(GDB_PORT)"
+
+gif : $(VID_IN)
+	$(VIDEOCOD) -i $(VID_IN) -pix_fmt rgb24 $(VID_OUT)

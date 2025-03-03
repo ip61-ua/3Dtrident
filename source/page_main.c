@@ -56,7 +56,7 @@ entry ()
   if (Hardware_Touch (&pos))
     {
       const touchPosition* last = Hardware_TouchLast ();
-        Screen_drawLine (last->px, last->py, pos.px, pos.py, 2, Color_yellow);
+        Screen_drawLine (last->px, last->py, pos.px, pos.py, 4, Color_yellow);
     }
 
   if (Hardware_L () && Hardware_A ())
