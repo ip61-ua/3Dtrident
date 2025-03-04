@@ -1,13 +1,15 @@
 # 3Dtrident
 
-Es una aplicación de videoconsola retro cuya función es probar el funcionamiento de la consola en sí.
+Es una aplicación de videoconsola retro cuya función es probar el funcionamiento del *hardware* y facilitar otras propiedades de *software*.
 
-# Progreso actual
+# Demostración
 
 ![Demostración](demo.gif)
 
 # Objetivos
 
+- [ ] [LO SIGUIENTE] Cambiar de tipología a la del sistema.
+- [ ] [LO SIGUIENTE] Crear menú principal.
 - [ ] [POR ACABAR] Pantalla para probar la entrada del *hardware* como _joysticks_, gatillos, cruceta...
 - [ ] [AHORA] Pantalla para probar el táctil de la consola mediante un _paint_.
 - [ ] [~] Apartado en donde _testear_ el micrófono, audio y volumen.
@@ -72,9 +74,41 @@ make
 
 Obtendrás en el directorio raíz al menos 2 archivos, `.3dsx` y `.elf`. Ejecuta cualquiera de los dos en la consola.
 
+## Ejecuando simulación
+
+Compila y carga automáticamente el binario obtenido.
+
+```sh
+make emulator
+```
+
+Es **fundamental** que revises y adaptes el `Makefile` para un mejor flujo de trabajo con el programa de emulación de
+preferencia.
+
+## Depuración
+
+Puedes depurar el programa obtenido con el depurador facilitado por [[devkitPro](https://github.com/devkitPro)]. 
+Consulta los parámetros del `Makefile` para adaptarlas a las características de un trabajo. 
+
+```sh
+make debug
+```
+
+En primer lugar, este comando hace lo mismo que `make emulator`. Por lo que necesitarás de un emulador de la consola. 
+Aunque si lo prefieres es posible usar una videoconsola para la depuración. Investiga por tu cuenta para esto.
+
+En segundo lugar, la orden indicada se diferencia en que inicia el entorno de emulación en modo depuración. Este modo 
+consiste en que la aplicación de emulación usada abre un servidor en local en un puerto (`localhost:port`) a la escucha
+de peticiones. Este tipo de peticiones son *breakpoints*, detener la ejecución, inspeccionar el valor de variable... del
+depurador.
+
+Es importante que el programa que vaya a simular la ejecución tenga conexión de red local.
+
+En tercer lugar, la consola donde hayas ejecutado esta instrucción será en la que vayes a operar con el depurador GDB.
+
 ## Estilo de código
 
-- Estilo de código _GNU_. Emplea un formateador de código como `clang-format`.
+- Estilo de código **GNU**. Emplea un formateador de código como `clang-format`.
 - Por convención: cada función de un módulo que pueda ser usada por otros módulos, su signatura deberá de empezar con el nombre del módulo. Formato `<type> Module_func (<args>)`.
 
 # Motivación
