@@ -7,6 +7,7 @@
 #define FONT_SCALE_STANDARD .8
 #define FONT_SCALE_BIG 1
 #define FONT_SCALE_LETTLE .5
+#define FONT_Y_DIFF_BASELINE 8
 
 #define Color_red C2D_Color32 (247, 56, 0, 255)
 #define Color_yellow C2D_Color32 (248, 183, 2, 255)
