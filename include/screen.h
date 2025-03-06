@@ -1,18 +1,25 @@
 #ifndef _SCREEN_H_
 #define _SCREEN_H_
 
+#include "constants.h"
 #include <3ds.h>
 #include <citro2d.h>
 #include <math.h>
-#include "constants.h"
 
 extern C3D_RenderTarget *top;
 extern C3D_RenderTarget *bottom;
 extern C2D_TextBuf g_staticBuf;
 extern C2D_Font font;
 
+/**
+ * @brief Inicializa las variables globales top, bottom, g_staticBuf y font.
+ */
 void Screen_init ();
 
+/**
+ * @brief Selecciona la pantalla en la se vaya a dibujar contenido.
+ * @param target Puntero de C3D_RenderTarget de pantalla deseada.
+ */
 void Screen_atScreen (C3D_RenderTarget *target);
 
 void Screen_setBackground (C3D_RenderTarget *, const int);

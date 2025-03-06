@@ -1,7 +1,4 @@
 #include "page_main.h"
-#include "c2d/text.h"
-#include "hardware.h"
-#include "screen.h"
 
 static bool active = false;
 static void startPage ();
