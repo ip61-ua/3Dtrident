@@ -77,44 +77,48 @@ void
 displayABXY (float x_param, float y_param)
 {
   const unsigned Y_ONACTIVE = 2, X_DIST_YA = 30, BTN_RADIUS = 11,
-    Y_DIFFCENTER = 25;
+                 Y_DIFFCENTER = 25;
 
   u32 color_a, color_b, color_y, color_x,
 
       color_text_a = Color_red, color_text_b = Color_yellow,
       color_text_y = Color_green, color_text_x = Color_blue;
 
-  unsigned y_a = y_param, y_b = y_param + Y_DIFFCENTER, y_x = y_param - Y_DIFFCENTER,
-            y_y = y_param;
+  unsigned y_a = y_param, y_b = y_param + Y_DIFFCENTER,
+           y_x = y_param - Y_DIFFCENTER, y_y = y_param;
 
   color_a = color_b = color_y = color_x = Color_white;
 
   if (Hardware_A ())
-    displayABXY_updateVars (&y_a, &color_a, &color_text_a, Y_ONACTIVE, Color_red);
+    displayABXY_updateVars (&y_a, &color_a, &color_text_a, Y_ONACTIVE,
+                            Color_red);
   if (Hardware_B ())
-    displayABXY_updateVars (&y_b, &color_b, &color_text_b, Y_ONACTIVE, Color_yellow);
+    displayABXY_updateVars (&y_b, &color_b, &color_text_b, Y_ONACTIVE,
+                            Color_yellow);
   if (Hardware_Y ())
-    displayABXY_updateVars (&y_y, &color_y, &color_text_y, Y_ONACTIVE, Color_green);
+    displayABXY_updateVars (&y_y, &color_y, &color_text_y, Y_ONACTIVE,
+                            Color_green);
   if (Hardware_X ())
-    displayABXY_updateVars (&y_x, &color_x, &color_text_x, Y_ONACTIVE, Color_blue);
+    displayABXY_updateVars (&y_x, &color_x, &color_text_x, Y_ONACTIVE,
+                            Color_blue);
 
   Screen_drawCircle (x_param + X_DIST_YA, y_a, BTN_RADIUS, color_a);
   Screen_drawCircle (x_param, y_b, BTN_RADIUS, color_b);
   Screen_drawCircle (x_param, y_x, BTN_RADIUS, color_x);
   Screen_drawCircle (x_param - X_DIST_YA, y_y, BTN_RADIUS, color_y);
 
-  Screen_drawText (&text_a, C2D_AlignCenter | C2D_AtBaseline, x_param + X_DIST_YA,
-                   y_a + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
-                   FONT_SCALE_STANDARD, color_text_a);
+  Screen_drawText (&text_a, C2D_AlignCenter | C2D_AtBaseline,
+                   x_param + X_DIST_YA, y_a + FONT_Y_DIFF_BASELINE,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_a);
   Screen_drawText (&text_b, C2D_AlignCenter | C2D_AtBaseline, x_param,
                    y_b + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
                    FONT_SCALE_STANDARD, color_text_b);
   Screen_drawText (&text_x, C2D_AlignCenter | C2D_AtBaseline, x_param,
                    y_x + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
                    FONT_SCALE_STANDARD, color_text_x);
-  Screen_drawText (&text_y, C2D_AlignCenter | C2D_AtBaseline, x_param - X_DIST_YA,
-                   y_y + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
-                   FONT_SCALE_STANDARD, color_text_y);
+  Screen_drawText (&text_y, C2D_AlignCenter | C2D_AtBaseline,
+                   x_param - X_DIST_YA, y_y + FONT_Y_DIFF_BASELINE,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_y);
 }
 
 void
@@ -127,21 +131,21 @@ displayGenericActive (const bool cond, u32 *c)
 void
 displayStartSelect (float x_param, float y_param)
 {
-  const unsigned diff_options = 25;
+  const unsigned DIFF_Y_OPTIONS = 25, DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7;
   u32 color_select, color_start;
 
   color_start = color_select = Color_white;
 
   displayGenericActive (Hardware_OptStart (), &color_start);
-  Screen_drawCircle (x_param, y_param, 7, color_start);
-  Screen_drawText (&text_start, C2D_AtBaseline, x_param + 14,
+  Screen_drawCircle (x_param, y_param, RADIUS_OPTIONS, color_start);
+  Screen_drawText (&text_start, C2D_AtBaseline, x_param + DIFF_X_PARAM,
                    y_param + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
                    FONT_SCALE_STANDARD, Color_white);
 
   displayGenericActive (Hardware_OptSelect (), &color_select);
-  Screen_drawCircle (x_param, y_param + diff_options, 7, color_select);
-  Screen_drawText (&text_select, C2D_AtBaseline, x_param + 14,
-                   y_param + diff_options + FONT_Y_DIFF_BASELINE,
+  Screen_drawCircle (x_param, y_param + DIFF_Y_OPTIONS, RADIUS_OPTIONS, color_select);
+  Screen_drawText (&text_select, C2D_AtBaseline, x_param + DIFF_X_PARAM,
+                   y_param + DIFF_Y_OPTIONS + FONT_Y_DIFF_BASELINE,
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
 }
 
