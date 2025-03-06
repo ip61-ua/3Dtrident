@@ -1,4 +1,5 @@
 #include "page_main.h"
+#include "c2d/text.h"
 #include "hardware.h"
 #include "screen.h"
 
@@ -55,8 +56,8 @@ entry ()
   touchPosition pos;
   if (Hardware_Touch (&pos))
     {
-      const touchPosition* last = Hardware_TouchLast ();
-        Screen_drawLine (last->px, last->py, pos.px, pos.py, 4, Color_yellow);
+      const touchPosition *last = Hardware_TouchLast ();
+      Screen_drawLine (last->px, last->py, pos.px, pos.py, 4, Color_yellow);
     }
 
   if (Hardware_L () && Hardware_A ())
@@ -99,14 +100,14 @@ displayABXY (float x_param, float y_param)
   Screen_drawCircle (x_param, y_x, 11, color_x);
   Screen_drawCircle (x_param - 30, y_y, 11, color_y);
 
-  Screen_drawText (&text_a, C2D_AlignCenter, x_param + 30, y_a - 15.7, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
-                   color_text_a);
-  Screen_drawText (&text_b, C2D_AlignCenter, x_param, y_b - 15.5, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
-                   color_text_b);
-  Screen_drawText (&text_x, C2D_AlignCenter, x_param, y_x - 15.5, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
-                   color_text_x);
-  Screen_drawText (&text_y, C2D_AlignCenter, x_param - 30, y_y - 15.7, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
-                   color_text_y);
+  Screen_drawText (&text_a, C2D_AlignCenter, x_param + 30, y_a - 15.7,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_a);
+  Screen_drawText (&text_b, C2D_AlignCenter, x_param, y_b - 15.5,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_b);
+  Screen_drawText (&text_x, C2D_AlignCenter, x_param, y_x - 15.5,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_x);
+  Screen_drawText (&text_y, C2D_AlignCenter, x_param - 30, y_y - 15.7,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_y);
 }
 
 void
@@ -125,13 +126,13 @@ displayStartSelect (float x_param, float y_param)
 
   displayGenericActive (Hardware_OptStart (), &color_start);
   Screen_drawCircle (x_param, y_param, 7, color_start);
-  Screen_drawText (&text_start, 0, x_param + 14, y_param - 11, 0.75, 0.75,
-                   Color_white);
+  Screen_drawText (&text_start, C2D_AtBaseline, x_param + 14, y_param - 11,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
 
   displayGenericActive (Hardware_OptSelect (), &color_select);
   Screen_drawCircle (x_param, y_param + 25, 7, color_select);
-  Screen_drawText (&text_select, 0, x_param + 14, y_param + 14, 0.75, 0.75,
-                   Color_white);
+  Screen_drawText (&text_select, C2D_AtBaseline, x_param + 14, y_param + 14,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
 }
 
 void
@@ -210,6 +211,6 @@ displayBackButton (const float x, const float y,
     Screen_drawCircle (x, y, 10, color_btn);
   Screen_drawLine (x, y, x + width, y, 20, color_btn);
 
-  Screen_drawText (text_curr, flags, x + width / 10.0f, y - 15, 1, 1,
-                   Color_grey);
+  Screen_drawText (text_curr, flags, x + width / 10.0f, y - 15,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_grey);
 }
