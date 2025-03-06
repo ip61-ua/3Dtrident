@@ -1,10 +1,10 @@
 #ifndef _SCREEN_H_
 #define _SCREEN_H_
 
-#include "colors.h"
 #include <3ds.h>
 #include <citro2d.h>
 #include <math.h>
+#include "constants.h"
 
 extern C3D_RenderTarget *top;
 extern C3D_RenderTarget *bottom;

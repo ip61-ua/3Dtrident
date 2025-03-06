@@ -5,7 +5,7 @@
 #include <citro2d.h>
 #include "hardware.h"
 #include "screen.h"
-#include "colors.h"
+#include "constants.h"
 #include "pages.h"
 
 extern Page PAGE_MAIN;

@@ -4,6 +4,10 @@
 #include <3ds.h>
 #include <citro2d.h>
 
+#define FONT_SCALE_STANDARD .8
+#define FONT_SCALE_BIG 1
+#define FONT_SCALE_LETTLE .5
+
 #define Color_red C2D_Color32 (247, 56, 0, 255)
 #define Color_yellow C2D_Color32 (248, 183, 2, 255)
 #define Color_green C2D_Color32 (0, 184, 0, 255)

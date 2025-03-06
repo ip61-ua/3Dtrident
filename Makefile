@@ -50,8 +50,8 @@ GDB_ADDR	:=	localhost
 GDB_PORT	:=	24689
 CLANGD		:=	.clangd
 MPEG	:= ffmpeg
-VID_IN	:= example.webm
-VID_OUT	:= demo.gif
+VID_IN	:=	example.webm
+VID_OUT	:=	demo.gif
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
@@ -89,6 +89,8 @@ ifneq ($(BUILD),$(notdir $(CURDIR)))
 
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
 export TOPDIR	:=	$(CURDIR)
+
+EXECUTE	:=	$(OUTPUT).elf
 
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 			$(foreach dir,$(GRAPHICS),$(CURDIR)/$(dir)) \
@@ -311,14 +313,14 @@ $(CLANGD) :
 
 # URGENTE VOLVER AL TIPO DE LETRA DEL SISTEMA
 
-emulator : all $(OUTPUT).elf
+emulator : all $(EXECUTE)
 	$(EMU_KILL) $(EMULATOR) &
-	$(EMU_OPEN) $(EMULATOR) $(OUTPUT).elf
+	$(EMU_OPEN) $(EMULATOR) $(EXECUTE)
 
-debug : all $(OUTPUT).elf
+debug : all $(EXECUTE)
 	$(EMU_KILL) $(EMULATOR) &
-	$(EMU_OPEN) $(EMULATOR) -g $(GDB_PORT) $(OUTPUT).elf &
-	$(GDB_BIN) $(OUTPUT).elf -iex "target remote $(GDB_ADDR):$(GDB_PORT)"
+	$(EMU_OPEN) $(EMULATOR) -g $(GDB_PORT) $(EXECUTE) &
+	$(GDB_BIN) $(EXECUTE) -iex "target remote $(GDB_ADDR):$(GDB_PORT)"
 
 gif : $(VID_IN)
 	$(VIDEOCOD) -i $(VID_IN) -pix_fmt rgb24 $(VID_OUT)

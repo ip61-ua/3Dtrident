@@ -99,13 +99,13 @@ displayABXY (float x_param, float y_param)
   Screen_drawCircle (x_param, y_x, 11, color_x);
   Screen_drawCircle (x_param - 30, y_y, 11, color_y);
 
-  Screen_drawText (&text_a, C2D_AlignCenter, x_param + 30, y_a - 15.7, 1, 1,
+  Screen_drawText (&text_a, C2D_AlignCenter, x_param + 30, y_a - 15.7, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
                    color_text_a);
-  Screen_drawText (&text_b, C2D_AlignCenter, x_param, y_b - 15.5, 1, 1,
+  Screen_drawText (&text_b, C2D_AlignCenter, x_param, y_b - 15.5, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
                    color_text_b);
-  Screen_drawText (&text_x, C2D_AlignCenter, x_param, y_x - 15.5, 1, 1,
+  Screen_drawText (&text_x, C2D_AlignCenter, x_param, y_x - 15.5, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
                    color_text_x);
-  Screen_drawText (&text_y, C2D_AlignCenter, x_param - 30, y_y - 15.7, 1, 1,
+  Screen_drawText (&text_y, C2D_AlignCenter, x_param - 30, y_y - 15.7, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
                    color_text_y);
 }
 
