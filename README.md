@@ -8,7 +8,6 @@ Es una aplicación de videoconsola retro cuya función es probar el funcionamien
 
 # Objetivos
 
-- [ ] [LO SIGUIENTE] Cambiar de tipología a la del sistema.
 - [ ] [LO SIGUIENTE] Crear menú principal.
 - [ ] [POR ACABAR] Pantalla para probar la entrada del *hardware* como _joysticks_, gatillos, cruceta...
 - [ ] [AHORA] Pantalla para probar el táctil de la consola mediante un _paint_.
@@ -87,17 +86,17 @@ preferencia.
 
 ## Depuración
 
-Puedes depurar el programa obtenido con el depurador facilitado por [[devkitPro](https://github.com/devkitPro)]. 
-Consulta los parámetros del `Makefile` para adaptarlas a las características de un trabajo. 
+Puedes depurar el programa obtenido con el depurador facilitado por [[devkitPro](https://github.com/devkitPro)].
+Consulta los parámetros del `Makefile` para adaptarlas a las características de un trabajo.
 
 ```sh
 make debug
 ```
 
-En primer lugar, este comando hace lo mismo que `make emulator`. Por lo que necesitarás de un emulador de la consola. 
+En primer lugar, este comando hace lo mismo que `make emulator`. Por lo que necesitarás de un emulador de la consola.
 Aunque si lo prefieres es posible usar una videoconsola para la depuración. Investiga por tu cuenta para esto.
 
-En segundo lugar, la orden indicada se diferencia en que inicia el entorno de emulación en modo depuración. Este modo 
+En segundo lugar, la orden indicada se diferencia en que inicia el entorno de emulación en modo depuración. Este modo
 consiste en que la aplicación de emulación usada abre un servidor en local en un puerto (`localhost:port`) a la escucha
 de peticiones. Este tipo de peticiones son *breakpoints*, detener la ejecución, inspeccionar el valor de variable... del
 depurador.
