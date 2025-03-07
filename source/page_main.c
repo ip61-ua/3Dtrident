@@ -140,7 +140,8 @@ displayStartSelect (float x_param, float y_param)
                    FONT_SCALE_STANDARD, Color_white);
 
   displayGenericActive (Hardware_OptSelect (), &color_select);
-  Screen_drawCircle (x_param, y_param + DIFF_Y_OPTIONS, RADIUS_OPTIONS, color_select);
+  Screen_drawCircle (x_param, y_param + DIFF_Y_OPTIONS, RADIUS_OPTIONS,
+                     color_select);
   Screen_drawText (&text_select, C2D_AtBaseline, x_param + DIFF_X_PARAM,
                    y_param + DIFF_Y_OPTIONS + FONT_Y_DIFF_BASELINE,
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);

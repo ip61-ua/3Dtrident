@@ -11,7 +11,7 @@ Screen_init ()
   g_staticBuf = C2D_TextBufNew (4096);
   top = C2D_CreateScreenTarget (GFX_TOP, GFX_LEFT);
   bottom = C2D_CreateScreenTarget (GFX_BOTTOM, GFX_LEFT);
-  //font = C2D_FontLoad ("romfs:/InterVariable.bcfnt");
+  // font = C2D_FontLoad ("romfs:/InterVariable.bcfnt");
   font = C2D_FontLoadSystem (CFG_REGION_EUR);
 }
 
@@ -22,7 +22,7 @@ Screen_atScreen (C3D_RenderTarget *target)
 }
 
 void
-Screen_setBackground (C3D_RenderTarget *target, const int color)
+Screen_setBackground (C3D_RenderTarget *target, const u32 color)
 {
   C2D_TargetClear (target, color);
   Screen_atScreen (target);
@@ -87,8 +87,9 @@ Screen_initText (C2D_Text *text, C2D_TextBuf buf, const char *str)
 }
 
 void
-Screen_drawText (const C2D_Text *srctxt, const u32 flags, const float x, const float y,
-                 const float scaleX, const float scaleY, const u32 c)
+Screen_drawText (const C2D_Text *srctxt, const u32 flags, const float x,
+                 const float y, const float scaleX, const float scaleY,
+                 const u32 c)
 {
   C2D_DrawText (srctxt, C2D_WithColor | flags, x, y, 1, scaleX, scaleY, c);
 }
@@ -128,18 +129,8 @@ Screen_drawDPadArrow (const bool cond, const float x, const float y,
     btn_color = Color_light_blue;
 
   float factor_sin = sin (pi_rad * M_PI), factor_cos = cos (pi_rad * M_PI),
-
-        x0 = +10, y0 = -10,
-
-        x1 = -10, y1 = -10,
-
-        x2 = 0, y2 = -10,
-
-        x3 = 0, y3 = -35,
-
-        x4 = 0, y4 = -15,
-
-        x5 = 0, y5 = -30;
+        x0 = +10, y0 = -10, x1 = -10, y1 = -10, x2 = 0, y2 = -10, x3 = 0,
+        y3 = -35, x4 = 0, y4 = -15, x5 = 0, y5 = -30;
 
   Screen_rotatePoint (&x0, &y0, x0, y0, x, y, factor_sin, factor_cos);
   Screen_rotatePoint (&x1, &y1, x1, y1, x, y, factor_sin, factor_cos);
