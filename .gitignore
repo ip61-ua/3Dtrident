@@ -1,7 +1,10 @@
 # Misc
 .~*#
 res
-.zed
+.zed/*
+!.zed/tasks.json
+
+# Exception
 
 # Config files
 .clangd

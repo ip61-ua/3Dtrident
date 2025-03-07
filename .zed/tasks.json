@@ -1,0 +1,58 @@
+[
+  {
+    "label": "Emulator",
+    "command": "make emulator",
+    //"args": [],
+    "env": { "foo": "bar" },
+    //"cwd": "/path/to/working/directory",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    // What to do with the terminal pane and tab, after the command has finished:
+    // * `never` — Do nothing when the command finishes (default)
+    // * `always` — always hide the terminal tab, hide the pane also if it was the last tab in it
+    // * `on_success` — hide the terminal tab on task success only, otherwise behaves similar to `always`
+    "hide": "never",
+    // Which shell to use when running a task inside the terminal.
+    // May take 3 values:
+    // 1. (default) Use the system's default terminal configuration in /etc/passwd
+    //      "shell": "system"
+    // 2. A program:
+    //      "shell": {
+    //        "program": "sh"
+    //      }
+    // 3. A program with arguments:
+    //     "shell": {
+    //         "with_arguments": {
+    //           "program": "/bin/bash",
+    //           "args": ["--login"]
+    //         }
+    //     }
+    "shell": "system",
+    // Whether to show the task line in the output of the spawned task, defaults to `true`.
+    "show_summary": true,
+    "show_output": true
+  },
+  {
+    "label": "Clean & compile",
+    "command": "make clean && make",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "shell": "system",
+    "show_summary": true,
+    "show_output": true
+  },
+  {
+    "label": "Debug",
+    "command": "make debug",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "shell": "system",
+    "show_summary": true,
+    "show_output": true
+  }
+]
