@@ -82,29 +82,3 @@ Screen_rotatePoint (float *x_dst, float *y_dst, const float x, const float y,
   *x_dst = x * factor_cos - y * factor_sin + offset_x;
   *y_dst = x * factor_sin + y * factor_cos + offset_y;
 }
-
-void
-Screen_drawDPadArrow (const bool cond, const float x, const float y,
-                      const float pi_rad)
-{
-  u32 btn_color = Color_white, pill_color = Color_grey;
-
-  if (cond)
-    btn_color = Color_light_blue;
-
-  float factor_sin = sin (pi_rad * M_PI), factor_cos = cos (pi_rad * M_PI),
-        x0 = +10, y0 = -10, x1 = -10, y1 = -10, x2 = 0, y2 = -10, x3 = 0,
-        y3 = -35, x4 = 0, y4 = -15, x5 = 0, y5 = -30;
-
-  Screen_rotatePoint (&x0, &y0, x0, y0, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint (&x1, &y1, x1, y1, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint (&x2, &y2, x2, y2, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint (&x3, &y3, x3, y3, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint (&x4, &y4, x4, y4, x, y, factor_sin, factor_cos);
-  Screen_rotatePoint (&x5, &y5, x5, y5, x, y, factor_sin, factor_cos);
-
-  Screen_drawTriangle (x, y, x0, y0, x1, y1, btn_color);
-  Screen_drawLine (x2, y2, x3, y3, 20, btn_color);
-
-  Screen_drawLine (x4, y4, x5, y5, 2, pill_color);
-}

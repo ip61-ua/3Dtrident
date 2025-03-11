@@ -141,15 +141,4 @@ void Screen_rotatePoint (float *x_dst, float *y_dst, const float x,
                          const float offset_y, const float factor_sin,
                          const float factor_cos);
 
-/**
- * @brief Dibuja un botón de flecha de cruceta.
- * @param cond Resultado de condición de activación o pulsación.
- * @param x Componente X de origen.
- * @param y Componente Y de origen.
- * @param pi_rad Pi radianes para efactuar rotación. Suponer que dentro de la
- * función se calcula pi_rad * M_PI.
- */
-void Screen_drawDPadArrow (const bool cond, const float x, const float y,
-                           const float pi_rad);
-
 #endif

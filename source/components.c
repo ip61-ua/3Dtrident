@@ -168,12 +168,37 @@ Component_RZRLZL (const float x, const float y)
 }
 
 void
+Component_DPadArrow (const float x, const float y, const bool cond,
+                      const float pi_rad)
+{
+  u32 btn_color = Color_white, pill_color = Color_grey;
+
+  if (cond)
+    btn_color = Color_light_blue;
+
+  float factor_sin = sin (pi_rad * M_PI), factor_cos = cos (pi_rad * M_PI),
+        x0 = +10, y0 = -10, x1 = -10, y1 = -10, x2 = 0, y2 = -10, x3 = 0,
+        y3 = -35, x4 = 0, y4 = -15, x5 = 0, y5 = -30;
+
+  Screen_rotatePoint (&x0, &y0, x0, y0, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x1, &y1, x1, y1, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x2, &y2, x2, y2, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x3, &y3, x3, y3, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x4, &y4, x4, y4, x, y, factor_sin, factor_cos);
+  Screen_rotatePoint (&x5, &y5, x5, y5, x, y, factor_sin, factor_cos);
+
+  Screen_drawTriangle (x, y, x0, y0, x1, y1, btn_color);
+  Screen_drawLine (x2, y2, x3, y3, 20, btn_color);
+
+  Screen_drawLine (x4, y4, x5, y5, 2, pill_color);
+}
+void
 Component_DPad (const float x, const float y)
 {
-  Screen_drawDPadArrow (Hardware_DUp (), x, y, 0);
-  Screen_drawDPadArrow (Hardware_DRight (), x, y, .5);
-  Screen_drawDPadArrow (Hardware_DLeft (), x, y, -0.5);
-  Screen_drawDPadArrow (Hardware_DDown (), x, y, 1);
+  Component_DPadArrow (x, y, Hardware_DUp (), 0);
+  Component_DPadArrow (x, y, Hardware_DRight (), .5);
+  Component_DPadArrow (x, y, Hardware_DLeft (), -0.5);
+  Component_DPadArrow (x, y, Hardware_DDown (), 1);
 }
 
 void
