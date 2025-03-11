@@ -11,12 +11,20 @@ static void displayABXY_updateVars (unsigned *y_dst, u32 *c_dst,
                                     u32 *c_font_dst, const int new_rel_y,
                                     const u32 new_c);
 
-// void displayGenericActive (const bool cond, u32 *c);
+static void displayGenericActive (const bool cond, u32 *c);
+
 void Component_newABXY ();
 void Component_ABXY (float x_param, float y_param);
 void Component_deleteABXY ();
 
+void Component_newStartSelect ();
 void Component_StartSelect (float x_param, float y_param);
+void Component_deleteStartSelect ();
+
+void Component_newRZRLZL ();
+void Component_RZRLZL (float x_param, float y_param);
+void Component_deleteRZRLZL ();
+
 void Component_DPad (const float x, const float y);
 
 #endif

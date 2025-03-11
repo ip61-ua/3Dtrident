@@ -22,6 +22,13 @@ displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
   *c_font_dst = Color_white;
 }
 
+static void
+displayGenericActive (const bool cond, u32 *c)
+{
+  if (cond)
+    *c = Color_light_blue;
+}
+
 void
 Component_ABXY (float x_param, float y_param)
 {
@@ -65,4 +72,99 @@ Component_ABXY (float x_param, float y_param)
   Screen_drawText (&text_y, C2D_AlignCenter | C2D_AtBaseline,
                    x_param - X_DIST_YA, y_y + FONT_Y_DIFF_BASELINE,
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_y);
+}
+
+
+void
+Component_newStartSelect ()
+{
+  Screen_initText (&text_start, g_staticBuf, "START");
+  Screen_initText (&text_select, g_staticBuf, "SELECT");
+}
+
+void
+Component_StartSelect (float x_param, float y_param)
+{
+  u32 color_select, color_start;
+
+  color_start = color_select = Color_white;
+
+  displayGenericActive (Hardware_OptStart (), &color_start);
+  Screen_drawCircle (x_param, y_param, RADIUS_OPTIONS, color_start);
+  Screen_drawText (&text_start, C2D_AtBaseline, x_param + DIFF_X_PARAM,
+                   y_param + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
+                   FONT_SCALE_STANDARD, Color_white);
+
+  displayGenericActive (Hardware_OptSelect (), &color_select);
+  Screen_drawCircle (x_param, y_param + DIFF_Y_OPTIONS, RADIUS_OPTIONS,
+                     color_select);
+  Screen_drawText (&text_select, C2D_AtBaseline, x_param + DIFF_X_PARAM,
+                   y_param + DIFF_Y_OPTIONS + FONT_Y_DIFF_BASELINE,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
+}
+
+void
+displayBackButton (const float x, const float y,
+                   const enum HARDWARE_BACK_BUTTONS btn)
+{
+  u32 color_btn = Color_white, flags;
+  short int width;
+  bool cond = false;
+  C2D_Text *text_curr;
+
+  if (btn == SHOULDER_R)
+    {
+      cond = Hardware_R ();
+      flags = C2D_AlignRight;
+      text_curr = &text_r;
+      width = -50;
+    }
+  else if (btn == SHOULDER_L)
+    {
+      cond = Hardware_L ();
+      flags = C2D_AlignLeft;
+      text_curr = &text_l;
+      width = +50;
+    }
+  else if (btn == TRIGGER_ZR)
+    {
+      cond = Hardware_ZR ();
+      flags = C2D_AlignRight;
+      text_curr = &text_zr;
+      width = -32;
+    }
+  else if (btn == TRIGGER_ZL)
+    {
+      cond = Hardware_ZL ();
+      flags = C2D_AlignLeft;
+      text_curr = &text_zl;
+      width = +32;
+    }
+
+  displayGenericActive (cond, &color_btn);
+  if (btn == SHOULDER_R || btn == SHOULDER_L)
+    Screen_drawCircle (x, y, 10, color_btn);
+  Screen_drawLine (x, y, x + width, y, 20, color_btn);
+
+  Screen_drawText (text_curr, flags | C2D_AtBaseline, x + width / 10.0f,
+                   y + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
+                   FONT_SCALE_STANDARD, Color_grey);
+}
+
+void
+Component_newRZRLZL ()
+{
+  Screen_initText (&text_r, g_staticBuf, "R");
+  Screen_initText (&text_zr, g_staticBuf, "ZR");
+  Screen_initText (&text_l, g_staticBuf, "L");
+  Screen_initText (&text_zl, g_staticBuf, "ZL");
+}
+void
+Component_RZRLZL (float x_param, float y_param)
+{
+  displayBackButton (340 + x_param, y_param, SHOULDER_R);
+  displayBackButton (x_param, y_param, SHOULDER_L);
+
+  displayBackButton (270 + x_param, y_param, TRIGGER_ZR);
+  displayBackButton (70 + x_param, y_param, TRIGGER_ZL);
 }
