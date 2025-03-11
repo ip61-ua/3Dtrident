@@ -19,17 +19,33 @@ static void displayDPad (const float x, const float y);
 static void displayBackButton (const float x, const float y,
                                const enum HARDWARE_BACK_BUTTONS btn);
 
+const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
+                      BTN_RADIUS = 11, Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
+                      DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7;
+
+static void drawTopScreen ();
+static void drawBottomScreen ();
+
 Page PAGE_MAIN = entry;
 
 EntryPage
 entry ()
 {
   Page_setup (&active, startPage);
-
-  Screen_setBackground (top, Color_dark_grey);
-
   Hardware_listenInput ();
 
+  drawTopScreen ();
+
+  drawBottomScreen ();
+
+  if (Hardware_L () && Hardware_A ())
+    Page_changeTo (PAGE_ABOUT, quitPage);
+}
+
+void
+drawTopScreen ()
+{
+  Screen_setBackground (top, Color_dark_grey);
   circlePosition circle_pos, cstick_pos;
   Hardware_CirclePad (&circle_pos);
   Hardware_CStick (&cstick_pos);
@@ -48,21 +64,21 @@ entry ()
 
   displayBackButton (300, 30, TRIGGER_ZR);
   displayBackButton (100, 30, TRIGGER_ZL);
+}
 
+void
+drawBottomScreen ()
+{
   Screen_atScreen (bottom);
-
-  const unsigned int RADIUS_DRAW = 2;
 
   touchPosition pos;
   if (Hardware_Touch (&pos))
     {
       const touchPosition *last = Hardware_TouchLast ();
-      Screen_drawLine (last->px, last->py, pos.px, pos.py, RADIUS_DRAW, Color_yellow);
-      Screen_drawCircle (last->px, last->py, RADIUS_DRAW/2.0, Color_yellow);
+      Screen_drawLine (last->px, last->py, pos.px, pos.py, RADIUS_DRAW,
+                       Color_yellow);
+      Screen_drawCircle (last->px, last->py, RADIUS_DRAW / 2.0, Color_yellow);
     }
-
-  if (Hardware_L () && Hardware_A ())
-    Page_changeTo (PAGE_ABOUT, quitPage);
 }
 
 void
@@ -77,9 +93,6 @@ displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
 void
 displayABXY (float x_param, float y_param)
 {
-  const unsigned Y_ONACTIVE = 2, X_DIST_YA = 30, BTN_RADIUS = 11,
-                 Y_DIFFCENTER = 25;
-
   u32 color_a, color_b, color_y, color_x,
 
       color_text_a = Color_red, color_text_b = Color_yellow,
@@ -132,7 +145,6 @@ displayGenericActive (const bool cond, u32 *c)
 void
 displayStartSelect (float x_param, float y_param)
 {
-  const unsigned DIFF_Y_OPTIONS = 25, DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7;
   u32 color_select, color_start;
 
   color_start = color_select = Color_white;
