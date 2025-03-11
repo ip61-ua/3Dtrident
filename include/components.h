@@ -27,4 +27,7 @@ void Component_deleteRZRLZL ();
 
 void Component_DPad (const float x, const float y);
 
+void Component_CirclePad (const float x, const float y, const circlePosition * p);
+void Component_CStick (const float x, const float y, const circlePosition * p);
+
 #endif

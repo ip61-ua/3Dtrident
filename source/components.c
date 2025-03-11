@@ -176,3 +176,15 @@ Component_DPad (const float x, const float y)
   Screen_drawDPadArrow (Hardware_DLeft (), x, y, -0.5);
   Screen_drawDPadArrow (Hardware_DDown (), x, y, 1);
 }
+
+void
+Component_CirclePad (const float x, const float y, const circlePosition * p)
+{
+  Screen_drawJoystick (p, x, y, 20);
+}
+
+void
+Component_CStick (const float x, const float y, const circlePosition * p)
+{
+  Screen_drawJoystick (p, x, y, 10);
+}

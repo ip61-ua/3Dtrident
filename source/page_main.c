@@ -9,8 +9,6 @@ static EntryPage entry ();
 static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
     text_zl, text_start, text_select;
 
-static void displayGenericActive (const bool cond, u32 *c);
-static void displayDPad (const float x, const float y);
 static void displayPaint ();
 
 const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
@@ -47,8 +45,8 @@ drawTopScreen ()
   Component_ABXY (330, 140);
   Component_StartSelect (300, 200);
 
-  Screen_drawJoystick (&circle_pos, 60, 95, 20);
-  Screen_drawJoystick (&cstick_pos, 300, 80, 10);
+  Component_CirclePad (60, 95, &circle_pos);
+  Component_CStick (300, 80, &cstick_pos);
 
   Component_DPad (60, 180);
 
