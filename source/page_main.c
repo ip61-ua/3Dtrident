@@ -78,7 +78,6 @@ displayPaint ()
 void
 startPage ()
 {
-  Screen_setBackground (bottom, Color_dark_grey);
   Component_newABXY();
   Component_newStartSelect();
   Component_newRZRLZL();

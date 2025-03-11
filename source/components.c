@@ -14,8 +14,8 @@ Component_newABXY ()
 }
 
 static void
-displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
-                        const int new_rel_y, const u32 new_c)
+Component_ABXY_active (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
+                       const int new_rel_y, const u32 new_c)
 {
   *y_dst += new_rel_y;
   *c_dst = new_c;
@@ -23,7 +23,7 @@ displayABXY_updateVars (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
 }
 
 static void
-displayGenericActive (const bool cond, u32 *c)
+Component_Generic_active (const bool cond, u32 *c)
 {
   if (cond)
     *c = Color_light_blue;
@@ -43,17 +43,17 @@ Component_ABXY (float x_param, float y_param)
   color_a = color_b = color_y = color_x = Color_white;
 
   if (Hardware_A ())
-    displayABXY_updateVars (&y_a, &color_a, &color_text_a, Y_ONACTIVE,
-                            Color_red);
+    Component_ABXY_active (&y_a, &color_a, &color_text_a, Y_ONACTIVE,
+                           Color_red);
   if (Hardware_B ())
-    displayABXY_updateVars (&y_b, &color_b, &color_text_b, Y_ONACTIVE,
-                            Color_yellow);
+    Component_ABXY_active (&y_b, &color_b, &color_text_b, Y_ONACTIVE,
+                           Color_yellow);
   if (Hardware_Y ())
-    displayABXY_updateVars (&y_y, &color_y, &color_text_y, Y_ONACTIVE,
-                            Color_green);
+    Component_ABXY_active (&y_y, &color_y, &color_text_y, Y_ONACTIVE,
+                           Color_green);
   if (Hardware_X ())
-    displayABXY_updateVars (&y_x, &color_x, &color_text_x, Y_ONACTIVE,
-                            Color_blue);
+    Component_ABXY_active (&y_x, &color_x, &color_text_x, Y_ONACTIVE,
+                           Color_blue);
 
   Screen_drawCircle (x_param + X_DIST_YA, y_a, BTN_RADIUS, color_a);
   Screen_drawCircle (x_param, y_b, BTN_RADIUS, color_b);
@@ -88,15 +88,14 @@ Component_StartSelect (const float x, const float y)
 
   color_start = color_select = Color_white;
 
-  displayGenericActive (Hardware_OptStart (), &color_start);
+  Component_Generic_active (Hardware_OptStart (), &color_start);
   Screen_drawCircle (x, y, RADIUS_OPTIONS, color_start);
   Screen_drawText (&text_start, C2D_AtBaseline, x + DIFF_X_PARAM,
                    y + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
                    FONT_SCALE_STANDARD, Color_white);
 
-  displayGenericActive (Hardware_OptSelect (), &color_select);
-  Screen_drawCircle (x, y + DIFF_Y_OPTIONS, RADIUS_OPTIONS,
-                     color_select);
+  Component_Generic_active (Hardware_OptSelect (), &color_select);
+  Screen_drawCircle (x, y + DIFF_Y_OPTIONS, RADIUS_OPTIONS, color_select);
   Screen_drawText (&text_select, C2D_AtBaseline, x + DIFF_X_PARAM,
                    y + DIFF_Y_OPTIONS + FONT_Y_DIFF_BASELINE,
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
@@ -140,7 +139,7 @@ displayBackButton (const float x, const float y,
       width = +32;
     }
 
-  displayGenericActive (cond, &color_btn);
+  Component_Generic_active (cond, &color_btn);
   if (btn == SHOULDER_R || btn == SHOULDER_L)
     Screen_drawCircle (x, y, 10, color_btn);
   Screen_drawLine (x, y, x + width, y, 20, color_btn);
@@ -178,13 +177,49 @@ Component_DPad (const float x, const float y)
 }
 
 void
-Component_CirclePad (const float x, const float y, const circlePosition * p)
+Component_Joystick (const float x, const float y, const circlePosition *p,
+                    const float r)
 {
-  Screen_drawJoystick (p, x, y, 20);
+  u32 stick_color = Color_grey;
+
+  const bool cond = p->dx != 0 || p->dy != 0;
+
+  if (cond)
+    {
+      const float expanded_relative = 100 / 5.0f;
+      Screen_drawCircle (x, y, r + expanded_relative, stick_color);
+      stick_color = Color_light_blue;
+
+      Screen_drawLine (x - r - expanded_relative, y, x + r + expanded_relative,
+                       y, 1, Color_white);
+
+      Screen_drawLine (x, y - r - expanded_relative, x,
+                       y + r + expanded_relative, 1, Color_white);
+    }
+
+  const float x_center_relative = x + p->dx / 5.0f,
+              y_center_relative = y - p->dy / 5.0f;
+
+  Screen_drawCircle (x_center_relative, y_center_relative, r, stick_color);
+  if (cond)
+    {
+      Screen_drawLine (x_center_relative, y_center_relative - r,
+                       x_center_relative, y_center_relative + r, 1,
+                       Color_white);
+      Screen_drawLine (x_center_relative - r, y_center_relative,
+                       x_center_relative + r, y_center_relative, 1,
+                       Color_white);
+    }
+};
+
+void
+Component_CirclePad (const float x, const float y, const circlePosition *p)
+{
+  Component_Joystick (x, y, p, 20);
 }
 
 void
-Component_CStick (const float x, const float y, const circlePosition * p)
+Component_CStick (const float x, const float y, const circlePosition *p)
 {
-  Screen_drawJoystick (p, x, y, 10);
+  Component_Joystick (x, y, p, 10);
 }

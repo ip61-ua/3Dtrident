@@ -58,17 +58,6 @@ void Screen_drawCircle (const float x, const float y, const float radius,
                         const u32 color);
 
 /**
- * @brief Dibuja el estado de un *joystick* (o palanca) en función de la
- * entrada del mismo.
- * @param p Puntero circlePosition que contiene los valores de entrada.
- * @param x Componente X de la posición absoluta de dibujado.
- * @param y Componente Y de la posición absoluta de dibujado.
- * @param r Radio del círculo de la palanca.
- */
-void Screen_drawJoystick (const circlePosition *p, const float x,
-                          const float y, const float r);
-
-/**
  * @brief Inicializa el dibujado de texto en pantalla. Cargando los glifos
  * necesarios, además de optimizarlos para su dibujado.
  *

@@ -42,42 +42,6 @@ Screen_drawCircle (const float x, const float y, const float radius,
   C2D_DrawCircleSolid (x, y, 0, radius, color);
 };
 
-void
-Screen_drawJoystick (const circlePosition *p, const float x, const float y,
-                     const float r)
-{
-  u32 stick_color = Color_grey;
-
-  const bool cond = p->dx != 0 || p->dy != 0;
-
-  if (cond)
-    {
-      const float expanded_relative = 100 / 5.0f;
-      Screen_drawCircle (x, y, r + expanded_relative, stick_color);
-      stick_color = Color_light_blue;
-
-      Screen_drawLine (x - r - expanded_relative, y, x + r + expanded_relative,
-                       y, 1, Color_white);
-
-      Screen_drawLine (x, y - r - expanded_relative, x,
-                       y + r + expanded_relative, 1, Color_white);
-    }
-
-  const float x_center_relative = x + p->dx / 5.0f,
-              y_center_relative = y - p->dy / 5.0f;
-
-  Screen_drawCircle (x_center_relative, y_center_relative, r, stick_color);
-  if (cond)
-    {
-      Screen_drawLine (x_center_relative, y_center_relative - r,
-                       x_center_relative, y_center_relative + r, 1,
-                       Color_white);
-      Screen_drawLine (x_center_relative - r, y_center_relative,
-                       x_center_relative + r, y_center_relative, 1,
-                       Color_white);
-    }
-};
-
 const char *
 Screen_initText (C2D_Text *text, C2D_TextBuf buf, const char *str)
 {
