@@ -74,7 +74,6 @@ Component_ABXY (float x_param, float y_param)
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_y);
 }
 
-
 void
 Component_newStartSelect ()
 {
@@ -83,23 +82,23 @@ Component_newStartSelect ()
 }
 
 void
-Component_StartSelect (float x_param, float y_param)
+Component_StartSelect (const float x, const float y)
 {
   u32 color_select, color_start;
 
   color_start = color_select = Color_white;
 
   displayGenericActive (Hardware_OptStart (), &color_start);
-  Screen_drawCircle (x_param, y_param, RADIUS_OPTIONS, color_start);
-  Screen_drawText (&text_start, C2D_AtBaseline, x_param + DIFF_X_PARAM,
-                   y_param + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
+  Screen_drawCircle (x, y, RADIUS_OPTIONS, color_start);
+  Screen_drawText (&text_start, C2D_AtBaseline, x + DIFF_X_PARAM,
+                   y + FONT_Y_DIFF_BASELINE, FONT_SCALE_STANDARD,
                    FONT_SCALE_STANDARD, Color_white);
 
   displayGenericActive (Hardware_OptSelect (), &color_select);
-  Screen_drawCircle (x_param, y_param + DIFF_Y_OPTIONS, RADIUS_OPTIONS,
+  Screen_drawCircle (x, y + DIFF_Y_OPTIONS, RADIUS_OPTIONS,
                      color_select);
-  Screen_drawText (&text_select, C2D_AtBaseline, x_param + DIFF_X_PARAM,
-                   y_param + DIFF_Y_OPTIONS + FONT_Y_DIFF_BASELINE,
+  Screen_drawText (&text_select, C2D_AtBaseline, x + DIFF_X_PARAM,
+                   y + DIFF_Y_OPTIONS + FONT_Y_DIFF_BASELINE,
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
 }
 
@@ -160,11 +159,20 @@ Component_newRZRLZL ()
   Screen_initText (&text_zl, g_staticBuf, "ZL");
 }
 void
-Component_RZRLZL (float x_param, float y_param)
+Component_RZRLZL (const float x, const float y)
 {
-  displayBackButton (340 + x_param, y_param, SHOULDER_R);
-  displayBackButton (x_param, y_param, SHOULDER_L);
+  displayBackButton (340 + x, y, SHOULDER_R);
+  displayBackButton (x, y, SHOULDER_L);
 
-  displayBackButton (270 + x_param, y_param, TRIGGER_ZR);
-  displayBackButton (70 + x_param, y_param, TRIGGER_ZL);
+  displayBackButton (270 + x, y, TRIGGER_ZR);
+  displayBackButton (70 + x, y, TRIGGER_ZL);
+}
+
+void
+Component_DPad (const float x, const float y)
+{
+  Screen_drawDPadArrow (Hardware_DUp (), x, y, 0);
+  Screen_drawDPadArrow (Hardware_DRight (), x, y, .5);
+  Screen_drawDPadArrow (Hardware_DLeft (), x, y, -0.5);
+  Screen_drawDPadArrow (Hardware_DDown (), x, y, 1);
 }

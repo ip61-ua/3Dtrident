@@ -50,7 +50,7 @@ drawTopScreen ()
   Screen_drawJoystick (&circle_pos, 60, 95, 20);
   Screen_drawJoystick (&cstick_pos, 300, 80, 10);
 
-  displayDPad (60, 180);
+  Component_DPad (60, 180);
 
   Component_RZRLZL(30, 30);
 }
@@ -89,13 +89,4 @@ startPage ()
 void
 quitPage ()
 {
-}
-
-void
-displayDPad (const float x, const float y)
-{
-  Screen_drawDPadArrow (Hardware_DUp (), x, y, 0);
-  Screen_drawDPadArrow (Hardware_DRight (), x, y, .5);
-  Screen_drawDPadArrow (Hardware_DLeft (), x, y, -0.5);
-  Screen_drawDPadArrow (Hardware_DDown (), x, y, 1);
 }
