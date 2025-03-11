@@ -190,29 +190,7 @@ Hardware_toLinkString (char *dst, const char *str, const bool cond)
 }
 
 void
-Hardware_toStringPosition (char *dst, const int dx, const int dy)
+Hardware_toStringPosition (char *dst, const int x, const int y)
 {
-  sprintf (dst, "(%d, %d)", dx, dy);
-}
-
-void
-Hardware_toString (char *dst)
-{
-  Hardware_toLinkString (dst, "A", Hardware_A ());
-  Hardware_toLinkString (dst, "B", Hardware_B ());
-  Hardware_toLinkString (dst, "X", Hardware_X ());
-  Hardware_toLinkString (dst, "Y", Hardware_Y ());
-
-  Hardware_toLinkString (dst, "^", Hardware_DUp ());
-  Hardware_toLinkString (dst, "<", Hardware_DLeft ());
-  Hardware_toLinkString (dst, ">", Hardware_DRight ());
-  Hardware_toLinkString (dst, "v", Hardware_DDown ());
-
-  Hardware_toLinkString (dst, "L", Hardware_L ());
-  Hardware_toLinkString (dst, "ZL", Hardware_ZL ());
-  Hardware_toLinkString (dst, "R", Hardware_R ());
-  Hardware_toLinkString (dst, "ZR", Hardware_ZR ());
-
-  Hardware_toLinkString (dst, "SELECT", Hardware_OptSelect ());
-  Hardware_toLinkString (dst, "START", Hardware_OptStart ());
+  sprintf (dst, "(%d, %d)", x, y);
 }
