@@ -1,4 +1,5 @@
 #include "page_main.h"
+#include "constants.h"
 #include "screen.h"
 
 static bool active = false;
@@ -18,6 +19,7 @@ static void displayStartSelect (float x_param, float y_param);
 static void displayDPad (const float x, const float y);
 static void displayBackButton (const float x, const float y,
                                const enum HARDWARE_BACK_BUTTONS btn);
+static void displayPaint ();
 
 const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
                       BTN_RADIUS = 11, Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
@@ -69,8 +71,15 @@ drawTopScreen ()
 void
 drawBottomScreen ()
 {
-  Screen_atScreen (bottom);
+  //Screen_atScreen (bottom);
+  Screen_setBackground (bottom, Color_dark_grey);
 
+  Screen_drawRect(10, 10, SCREEN_BOTTOM_WIDTH/2.f, SCREEN_BOTTOM_HEIGHT/2.f, Color_grey);
+}
+
+void
+displayPaint ()
+{
   touchPosition pos;
   if (Hardware_Touch (&pos))
     {

@@ -6,6 +6,11 @@
 #include <citro2d.h>
 #include <math.h>
 
+#define SCREEN_TOP_WIDTH  400
+#define SCREEN_TOP_HEIGHT 240
+#define SCREEN_BOTTOM_WIDTH  320
+#define SCREEN_BOTTOM_HEIGHT 240
+
 extern C3D_RenderTarget *top;
 extern C3D_RenderTarget *bottom;
 extern C2D_TextBuf g_staticBuf;
