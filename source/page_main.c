@@ -6,14 +6,9 @@ static void startPage ();
 static void quitPage ();
 static EntryPage entry ();
 
-static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
-    text_zl, text_start, text_select;
 
 static void displayPaint ();
 
-const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
-                      BTN_RADIUS = 11, Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
-                      DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7;
 
 static void drawTopScreen ();
 static void drawBottomScreen ();

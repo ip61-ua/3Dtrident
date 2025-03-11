@@ -4,17 +4,17 @@
 #include "hardware.h"
 #include "screen.h"
 
-static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
-    text_zl, text_start, text_select;
+const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
+                      BTN_RADIUS = 11, Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
+                      DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7;
 
-static void Component_Generic_active (const bool cond, u32 *c);
+void Component_Generic_active (const bool cond, u32 *c);
 
 void Component_newABXY ();
 void Component_ABXY (const float x, const float y);
 void Component_deleteABXY ();
-static void Component_ABXY_active (unsigned *y_dst, u32 *c_dst,
-                                   u32 *c_font_dst, const int new_rel_y,
-                                   const u32 new_c);
+void Component_ABXY_active (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
+                            const int new_rel_y, const u32 new_c);
 
 void Component_newStartSelect ();
 void Component_StartSelect (const float x, float y);

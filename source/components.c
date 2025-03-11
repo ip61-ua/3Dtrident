@@ -1,8 +1,16 @@
 #include "components.h"
 
-const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
-                      BTN_RADIUS = 11, Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
-                      DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7;
+static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
+    text_zl, text_start, text_select;
+
+enum HARDWARE_BACK_BUTTONS
+{
+  SHOULDER_R,
+  SHOULDER_L,
+
+  TRIGGER_ZR,
+  TRIGGER_ZL,
+};
 
 void
 Component_newABXY ()
@@ -13,7 +21,7 @@ Component_newABXY ()
   Screen_initText (&text_y, g_staticBuf, "Y");
 }
 
-static void
+void
 Component_ABXY_active (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
                        const int new_rel_y, const u32 new_c)
 {
@@ -22,7 +30,7 @@ Component_ABXY_active (unsigned *y_dst, u32 *c_dst, u32 *c_font_dst,
   *c_font_dst = Color_white;
 }
 
-static void
+void
 Component_Generic_active (const bool cond, u32 *c)
 {
   if (cond)
@@ -105,10 +113,10 @@ void
 displayBackButton (const float x, const float y,
                    const enum HARDWARE_BACK_BUTTONS btn)
 {
-  u32 color_btn = Color_white, flags;
-  short int width;
+  u32 color_btn = Color_white, flags = 0;
+  short int width = 0;
   bool cond = false;
-  C2D_Text *text_curr;
+  C2D_Text *text_curr = NULL;
 
   if (btn == SHOULDER_R)
     {

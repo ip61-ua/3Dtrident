@@ -8,15 +8,6 @@
 
 extern const unsigned MAX_STICK_VALUE;
 
-enum HARDWARE_BACK_BUTTONS
-{
-  SHOULDER_R,
-  SHOULDER_L,
-
-  TRIGGER_ZR,
-  TRIGGER_ZL,
-};
-
 // Info
 /**
  * @brief Comprueba si el sistema es NEW o OLD.
