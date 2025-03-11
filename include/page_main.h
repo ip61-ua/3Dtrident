@@ -5,6 +5,7 @@
 #include <citro2d.h>
 #include "hardware.h"
 #include "screen.h"
+#include "components.h"
 #include "constants.h"
 #include "pages.h"
 
