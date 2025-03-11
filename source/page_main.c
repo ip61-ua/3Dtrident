@@ -1,4 +1,5 @@
 #include "page_main.h"
+#include "screen.h"
 
 static bool active = false;
 static void startPage ();
@@ -50,11 +51,14 @@ entry ()
 
   Screen_atScreen (bottom);
 
+  const unsigned int RADIUS_DRAW = 2;
+
   touchPosition pos;
   if (Hardware_Touch (&pos))
     {
       const touchPosition *last = Hardware_TouchLast ();
-      Screen_drawLine (last->px, last->py, pos.px, pos.py, 4, Color_yellow);
+      Screen_drawLine (last->px, last->py, pos.px, pos.py, RADIUS_DRAW, Color_yellow);
+      Screen_drawCircle (last->px, last->py, RADIUS_DRAW/2.0, Color_yellow);
     }
 
   if (Hardware_L () && Hardware_A ())
