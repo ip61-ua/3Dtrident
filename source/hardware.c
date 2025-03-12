@@ -77,6 +77,13 @@ Hardware_Touch (touchPosition *t)
   return false;
 };
 
+bool
+Hardware_CurrentTouch (touchPosition *t)
+{
+  hidTouchRead (t);
+  return Hardware_isTouching ();
+}
+
 u32
 Hardware_rawButtons ()
 {

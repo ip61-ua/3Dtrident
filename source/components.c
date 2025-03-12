@@ -1,5 +1,8 @@
 #include "components.h"
 #include "constants.h"
+#include "hardware.h"
+#include "hid.h"
+#include "screen.h"
 
 static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
     text_zl, text_start, text_select;
@@ -178,11 +181,11 @@ Component_RZRLZL (const float x, const float y)
 
 void
 Component_DPadArrow (const float x, const float y, const bool cond,
-                      const float pi_rad)
+                     const float pi_rad)
 {
   u32 btn_color = Color_white, pill_color = Color_grey;
 
-  Component_Generic_active(cond, &btn_color);
+  Component_Generic_active (cond, &btn_color);
 
   float factor_sin = sin (pi_rad * M_PI), factor_cos = cos (pi_rad * M_PI),
         x0 = +10, y0 = -10, x1 = -10, y1 = -10, x2 = 0, y2 = -10, x3 = 0,
@@ -255,4 +258,17 @@ void
 Component_CStick (const float x, const float y, const circlePosition *p)
 {
   Component_Joystick (x, y, p, 10);
+}
+
+void
+Component_TouchBtn (const float x_i, const float y_i, const float x_f,
+                    const float y_f, const C2D_Text *text, void (*onclick) (),
+                    bool *touch_valid, touchPosition *p)
+{
+  Screen_drawRect (x_i, y_i, x_f, y_f, Color_grey);
+
+  if(touch_valid == NULL || p == NULL)
+    *touch_valid = Hardware_CurrentTouch(p);
+
+
 }

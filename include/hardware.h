@@ -58,6 +58,13 @@ const touchPosition * Hardware_TouchLast ();
  * @returns true si la posición guardada en t es válida.
  */
 bool Hardware_Touch (touchPosition *t);
+/**
+ * @brief Lee la entrada de la posición actual tocada en el panel
+ * táctil exclusivamente.
+ * @param t Puntero de touchPosition destino.
+ * @returns true si la posición guardada en t es válida.
+ */
+bool Hardware_CurrentTouch (touchPosition *t);
 
 // Buttons
 /**
