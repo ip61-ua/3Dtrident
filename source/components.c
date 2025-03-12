@@ -1,4 +1,5 @@
 #include "components.h"
+#include "constants.h"
 
 static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
     text_zl, text_start, text_select;
@@ -181,8 +182,7 @@ Component_DPadArrow (const float x, const float y, const bool cond,
 {
   u32 btn_color = Color_white, pill_color = Color_grey;
 
-  if (cond)
-    btn_color = Color_light_blue;
+  Component_Generic_active(cond, &btn_color);
 
   float factor_sin = sin (pi_rad * M_PI), factor_cos = cos (pi_rad * M_PI),
         x0 = +10, y0 = -10, x1 = -10, y1 = -10, x2 = 0, y2 = -10, x3 = 0,
@@ -221,7 +221,6 @@ Component_Joystick (const float x, const float y, const circlePosition *p,
     {
       const float expanded_relative = 100 / 5.0f;
       Screen_drawCircle (x, y, r + expanded_relative, stick_color);
-      stick_color = Color_light_blue;
 
       Screen_drawLine (x - r - expanded_relative, y, x + r + expanded_relative,
                        y, 1, Color_white);
@@ -233,6 +232,7 @@ Component_Joystick (const float x, const float y, const circlePosition *p,
   const float x_center_relative = x + p->dx / 5.0f,
               y_center_relative = y - p->dy / 5.0f;
 
+  Component_Generic_active (cond, &stick_color);
   Screen_drawCircle (x_center_relative, y_center_relative, r, stick_color);
   if (cond)
     {
