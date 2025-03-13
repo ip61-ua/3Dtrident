@@ -1,6 +1,6 @@
 # 3Dtrident
 
-Es una aplicación de videoconsola retro cuya función es probar el funcionamiento del *hardware* y facilitar otras propiedades de *software*.
+Es una aplicación libre de videoconsola retro cuya función es probar el funcionamiento del *hardware* y facilitar otras propiedades de *software*.
 
 # Demostración
 
@@ -8,9 +8,9 @@ Es una aplicación de videoconsola retro cuya función es probar el funcionamien
 
 # Objetivos
 
-- [ ] [LO SIGUIENTE] Crear menú principal.
+- [ ] [Ahora] Crear menú principal.
 - [ ] [POR ACABAR] Pantalla para probar la entrada del *hardware* como _joysticks_, gatillos, cruceta...
-- [ ] [AHORA] Pantalla para probar el táctil de la consola mediante un _paint_.
+- [ ] [POR ACABAR] Pantalla para probar el táctil de la consola mediante un _paint_.
 - [ ] [~] Apartado en donde _testear_ el micrófono, audio y volumen.
 - [ ] [~] Comprobar el funcionamiento de la función _3D_ de la pantalla de la pantalla superior.
 - [ ] [~] Pantalla de acerca de la aplicación.
@@ -26,6 +26,10 @@ Punto de entrada de la aplicación.
 ### Hardware
 
 Interfaz entre la I/O de la consola y el programador. Leer botones, *joysticks*, pantalla táctil, giroscopio...
+
+### Components
+
+Elementos de, principalmente, interfaz gráfica en forma de bloques reutilizables y lógica propia.
 
 ### Pages
 
