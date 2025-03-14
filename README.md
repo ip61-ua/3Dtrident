@@ -123,5 +123,4 @@ Por diversión, por amor al arte, por el *software* libre y por mejorar habilida
 # Créditos
 
 - devkitPro [[github](https://github.com/devkitPro)] por las librerías de desarrollo para la consola.
-- Inter [[github](https://github.com/rsms/inter)] por la tipografía personalizada empleda.
 - Inspirado en 3DSident [[3DSident](https://github.com/joel16/3DSident)].
