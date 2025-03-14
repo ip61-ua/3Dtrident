@@ -1,8 +1,4 @@
 #include "components.h"
-#include "constants.h"
-#include "hardware.h"
-#include "hid.h"
-#include "screen.h"
 
 static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
     text_zl, text_start, text_select;
@@ -267,8 +263,16 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_f,
 {
   Screen_drawRect (x_i, y_i, x_f, y_f, Color_grey);
 
-  if(touch_valid == NULL || p == NULL)
-    *touch_valid = Hardware_CurrentTouch(p);
+  if (onclick == NULL || text == NULL)
+    return;
 
+  if (touch_valid == NULL || p == NULL)
+    *touch_valid = Hardware_CurrentTouch (p);
 
+  Screen_drawText (text, C2D_AlignCenter, x_i + (x_f - x_i) / 2.0,
+                   y_i + (y_f - y_i) / 2.0, FONT_SCALE_STANDARD,
+                   FONT_SCALE_STANDARD, Color_blue);
+
+  if (p->px < x_f && p->px > x_i && p->py < y_f && p->py > y_i)
+    onclick();
 }

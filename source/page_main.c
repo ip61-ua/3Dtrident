@@ -1,19 +1,24 @@
 #include "page_main.h"
-#include "components.h"
 
 static bool active = false;
 static void startPage ();
 static void quitPage ();
 static EntryPage entry ();
 
-
 static void displayPaint ();
 
-
+C2D_Text mylabel;
 static void drawTopScreen ();
 static void drawBottomScreen ();
 
 Page PAGE_MAIN = entry;
+
+void
+cb_goto ()
+{
+  Page_changeTo(PAGE_ABOUT, NULL);
+}
+
 
 EntryPage
 entry ()
@@ -25,6 +30,12 @@ entry ()
 
   drawBottomScreen ();
 
+  touchPosition p;
+  bool a = Hardware_CurrentTouch(&p);
+
+
+  Component_TouchBtn (10, 10, SCREEN_BOTTOM_WIDTH / 2.0,
+                      SCREEN_BOTTOM_HEIGHT / 2.0, &mylabel, cb_goto, &a, &p);
   if (Hardware_L () && Hardware_A ())
     Page_changeTo (PAGE_ABOUT, quitPage);
 }
@@ -45,16 +56,15 @@ drawTopScreen ()
 
   Component_DPad (60, 180);
 
-  Component_RZRLZL(30, 30);
+  Component_RZRLZL (30, 30);
 }
+
 
 void
 drawBottomScreen ()
 {
-  //Screen_atScreen (bottom);
+  // Screen_atScreen (bottom);
   Screen_setBackground (bottom, Color_dark_grey);
-
-  Screen_drawRect(10, 10, SCREEN_BOTTOM_WIDTH/2.f, SCREEN_BOTTOM_HEIGHT/2.f, Color_grey);
 }
 
 void
@@ -73,9 +83,10 @@ displayPaint ()
 void
 startPage ()
 {
-  Component_newABXY();
-  Component_newStartSelect();
-  Component_newRZRLZL();
+  Component_newABXY ();
+  Component_newStartSelect ();
+  Component_newRZRLZL ();
+  Screen_initText (&mylabel, g_staticBuf, "Ir al menú\noculto");
 }
 
 void
