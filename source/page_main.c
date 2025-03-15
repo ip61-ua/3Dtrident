@@ -37,6 +37,7 @@ entry ()
   Component_TouchBtn (0, 0, SCREEN_BOTTOM_WIDTH / 2.0,
                       SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
 
+  /*
   Component_TouchBtn (SCREEN_BOTTOM_WIDTH / 2.0, 0, SCREEN_BOTTOM_WIDTH,
                       SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
 
@@ -45,6 +46,7 @@ entry ()
 
   Component_TouchBtn (SCREEN_BOTTOM_WIDTH / 2.0, SCREEN_BOTTOM_HEIGHT / 3.0, SCREEN_BOTTOM_WIDTH,
                       2 * SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
+  */
 
   if (Hardware_L () && Hardware_A ())
     Page_changeTo (PAGE_ABOUT, quitPage);
