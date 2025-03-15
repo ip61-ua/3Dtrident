@@ -261,17 +261,30 @@ Component_CStick (const float x, const float y, const circlePosition *p)
 
 void
 Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
-                    const float y_inc_f, const C2D_Text *text, void (*onclick) (),
-                    bool *touch_valid, touchPosition *p)
+                    const float y_inc_f, const C2D_Text *text,
+                    void (*onclick) (), bool *touch_valid, touchPosition *p)
 {
-  Screen_drawRect (x_i + 9, y_i + 5, x_inc_f - x_i - 9 - 4, y_inc_f - y_i - 5, Color_grey);
-  Screen_drawCircle (x_i + 9, y_i + 9, RADIUS_BTN, Color_white);
-  Screen_drawCircle (x_i + 9, y_inc_f - 4, RADIUS_BTN, Color_white);
-  Screen_drawCircle (x_inc_f - 4, y_i + 9, RADIUS_BTN, Color_white);
-  Screen_drawCircle (x_inc_f - 4, y_inc_f - 4, RADIUS_BTN, Color_white);
+  const float c1_center_x = x_i + MARGIN_BTN + RADIUS_BTN;
 
-  Screen_drawLine (x_i + 9, y_i + 9, x_i + 9, y_inc_f - 4, 8, Color_white);
-  Screen_drawLine (x_inc_f - 4, y_i + 9, x_inc_f - 4, y_inc_f - 4, 8, Color_white);
+  Screen_drawCircle (c1_center_x, y_i + MARGIN_BTN + RADIUS_BTN, RADIUS_BTN,
+                     Color_white);
+  Screen_drawCircle (c1_center_x, y_inc_f - RADIUS_BTN, RADIUS_BTN,
+                     Color_white);
+  Screen_drawCircle (x_inc_f - RADIUS_BTN, y_i + MARGIN_BTN + RADIUS_BTN, RADIUS_BTN,
+                     Color_white);
+  Screen_drawCircle (x_inc_f - RADIUS_BTN, y_inc_f - RADIUS_BTN, RADIUS_BTN,
+                     Color_white);
+
+  Screen_drawRect (x_i + MARGIN_BTN + RADIUS_BTN, y_i + MARGIN_BTN,
+                   x_inc_f - x_i - MARGIN_BTN - 2 * RADIUS_BTN, y_inc_f - y_i - MARGIN_BTN,
+                   Color_grey);
+
+  Screen_drawLine (x_i + MARGIN_BTN + RADIUS_BTN / 2.0, y_i + MARGIN_BTN + RADIUS_BTN,
+                   x_i + MARGIN_BTN + RADIUS_BTN / 2.0, y_inc_f - RADIUS_BTN,
+                   RADIUS_BTN, Color_white);
+  Screen_drawLine (x_inc_f - RADIUS_BTN / 2.0, y_i + MARGIN_BTN + RADIUS_BTN,
+                   x_inc_f - RADIUS_BTN / 2.0, y_inc_f - RADIUS_BTN,
+                   RADIUS_BTN, Color_white);
 
   if (onclick == NULL || text == NULL)
     return;
@@ -284,8 +297,8 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
                             NULL, &realY);
 
   Screen_drawText (text, C2D_AlignCenter, x_i + (x_inc_f - x_i) / 2.0,
-                   (y_i + (y_inc_f - y_i) / 2.0) - realY * .5, FONT_SCALE_STANDARD,
-                   FONT_SCALE_STANDARD, Color_white);
+                   (y_i + (y_inc_f - y_i) / 2.0) - realY * .5,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
 
   if (p->px < x_inc_f && p->px > x_i && p->py < y_inc_f && p->py > y_i)
     onclick ();
