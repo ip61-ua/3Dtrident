@@ -50,7 +50,7 @@ GDB_ADDR	:=	localhost
 GDB_PORT	:=	24689
 CLANGD		:=	.clangd
 MPEG	:= ffmpeg
-VID_IN	:=	example.webm
+VID_IN	?=	example.webm
 VID_OUT	:=	demo.gif
 
 #GFXBUILD	:=	$(ROMFS)/gfx
@@ -322,5 +322,7 @@ debug : all $(EXECUTE)
 	$(EMU_OPEN) $(EMULATOR) -g $(GDB_PORT) $(EXECUTE) &
 	$(GDB_BIN) $(EXECUTE) -iex "target remote $(GDB_ADDR):$(GDB_PORT)"
 
-gif : $(VID_IN)
+$(VID_IN) :
 	$(VIDEOCOD) -i $(VID_IN) -pix_fmt rgb24 $(VID_OUT)
+
+gif : $(VID_IN)
