@@ -51,8 +51,8 @@ void Component_CirclePad (const float x, const float y,
                           const circlePosition *p);
 void Component_CStick (const float x, const float y, const circlePosition *p);
 
-void Component_TouchBtn (const float x_i, const float y_i, const float x_f,
-                         const float y_f, const C2D_Text *text,
+void Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
+                         const float y_inc_f, const C2D_Text *text,
                          void (*onclick) (), bool *touch_valid,
                          touchPosition *p);
 
