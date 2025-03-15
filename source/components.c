@@ -264,27 +264,26 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
                     const float y_inc_f, const C2D_Text *text,
                     void (*onclick) (), bool *touch_valid, touchPosition *p)
 {
-  const float c1_center_x = x_i + MARGIN_BTN + RADIUS_BTN;
+  const float c1_center_x = x_i + MARGIN_BTN + RADIUS_BTN,
+              c1_center_y = y_i + MARGIN_BTN + RADIUS_BTN,
+              c2_center_y = y_inc_f - RADIUS_BTN,
+              c3_center_x = x_inc_f - RADIUS_BTN;
 
-  Screen_drawCircle (c1_center_x, y_i + MARGIN_BTN + RADIUS_BTN, RADIUS_BTN,
-                     Color_white);
-  Screen_drawCircle (c1_center_x, y_inc_f - RADIUS_BTN, RADIUS_BTN,
-                     Color_white);
-  Screen_drawCircle (x_inc_f - RADIUS_BTN, y_i + MARGIN_BTN + RADIUS_BTN, RADIUS_BTN,
-                     Color_white);
-  Screen_drawCircle (x_inc_f - RADIUS_BTN, y_inc_f - RADIUS_BTN, RADIUS_BTN,
-                     Color_white);
+  Screen_drawCircle (c1_center_x, c1_center_y, RADIUS_BTN, Color_grey);
+  Screen_drawCircle (c1_center_x, c2_center_y, RADIUS_BTN, Color_grey);
+  Screen_drawCircle (c3_center_x, c1_center_y, RADIUS_BTN, Color_grey);
+  Screen_drawCircle (c3_center_x, c2_center_y, RADIUS_BTN, Color_grey);
 
-  Screen_drawRect (x_i + MARGIN_BTN + RADIUS_BTN, y_i + MARGIN_BTN,
-                   x_inc_f - x_i - MARGIN_BTN - 2 * RADIUS_BTN, y_inc_f - y_i - MARGIN_BTN,
+  Screen_drawRect (c1_center_x, y_i + MARGIN_BTN,
+                   x_inc_f - x_i - MARGIN_BTN - 2 * RADIUS_BTN,
+                   y_inc_f - y_i - MARGIN_BTN, Color_grey);
+
+  Screen_drawLine (x_i + MARGIN_BTN + RADIUS_BTN / 2.0, c1_center_y,
+                   x_i + MARGIN_BTN + RADIUS_BTN / 2.0, c2_center_y,
+                   RADIUS_BTN, Color_grey);
+  Screen_drawLine (x_inc_f - RADIUS_BTN / 2.0, c1_center_y,
+                   x_inc_f - RADIUS_BTN / 2.0, c2_center_y, RADIUS_BTN,
                    Color_grey);
-
-  Screen_drawLine (x_i + MARGIN_BTN + RADIUS_BTN / 2.0, y_i + MARGIN_BTN + RADIUS_BTN,
-                   x_i + MARGIN_BTN + RADIUS_BTN / 2.0, y_inc_f - RADIUS_BTN,
-                   RADIUS_BTN, Color_white);
-  Screen_drawLine (x_inc_f - RADIUS_BTN / 2.0, y_i + MARGIN_BTN + RADIUS_BTN,
-                   x_inc_f - RADIUS_BTN / 2.0, y_inc_f - RADIUS_BTN,
-                   RADIUS_BTN, Color_white);
 
   if (onclick == NULL || text == NULL)
     return;
