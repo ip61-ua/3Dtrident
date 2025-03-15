@@ -6,7 +6,7 @@
 
 const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
                       BTN_RADIUS = 11, Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
-                      DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7;
+                      DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7, RADIUS_BTN = 4;
 
 void Component_Generic_active (const bool cond, u32 *c);
 

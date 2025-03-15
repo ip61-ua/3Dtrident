@@ -7,7 +7,7 @@ static EntryPage entry ();
 
 static void displayPaint ();
 
-C2D_Text mylabel;
+C2D_Text tactil;
 static void drawTopScreen ();
 static void drawBottomScreen ();
 
@@ -35,7 +35,10 @@ entry ()
 
 
   Component_TouchBtn (0, 0, SCREEN_BOTTOM_WIDTH / 2.0,
-                      SCREEN_BOTTOM_HEIGHT / 3.0, &mylabel, cb_goto, &a, &p);
+                      SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
+
+  Component_TouchBtn (SCREEN_BOTTOM_WIDTH / 2.0, 0, SCREEN_BOTTOM_WIDTH,
+                      SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
 
   if (Hardware_L () && Hardware_A ())
     Page_changeTo (PAGE_ABOUT, quitPage);
@@ -87,7 +90,7 @@ startPage ()
   Component_newABXY ();
   Component_newStartSelect ();
   Component_newRZRLZL ();
-  Screen_initText (&mylabel, g_staticBuf, "Táctil");
+  Screen_initText (&tactil, g_staticBuf, "Táctil");
 }
 
 void
