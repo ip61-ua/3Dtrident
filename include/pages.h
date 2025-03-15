@@ -10,6 +10,10 @@ typedef EntryPage (*Page) ();
 extern Page PAGE_CURRENT;
 // Interfaz para la declaración de las páginas que hay disponibles.
 extern Page PAGE_MAIN;
+extern Page PAGE_DRAW;
+extern Page PAGE_MICS;
+extern Page PAGE_VIEW;
+extern Page PAGE_NETW;
 extern Page PAGE_ABOUT;
 // FIN.
 

@@ -1,4 +1,7 @@
 #include "components.h"
+#include "c2d/text.h"
+#include "constants.h"
+#include "screen.h"
 
 static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
     text_zl, text_start, text_select;
@@ -261,7 +264,7 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_f,
                     const float y_f, const C2D_Text *text, void (*onclick) (),
                     bool *touch_valid, touchPosition *p)
 {
-  Screen_drawRect (x_i, y_i, x_f, y_f, Color_grey);
+  Screen_drawRect (x_i + 5, y_i + 5, x_f - 5, y_f - 5, Color_grey);
 
   if (onclick == NULL || text == NULL)
     return;
@@ -269,10 +272,13 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_f,
   if (touch_valid == NULL || p == NULL)
     *touch_valid = Hardware_CurrentTouch (p);
 
+  float realY = 0;
+  Screen_getTextDimensions(text, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, NULL, &realY);
+
   Screen_drawText (text, C2D_AlignCenter, x_i + (x_f - x_i) / 2.0,
-                   y_i + (y_f - y_i) / 2.0, FONT_SCALE_STANDARD,
-                   FONT_SCALE_STANDARD, Color_blue);
+                   (y_i + (y_f - y_i) / 2.0) - realY * .5,
+                   FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
 
   if (p->px < x_f && p->px > x_i && p->py < y_f && p->py > y_i)
-    onclick();
+    onclick ();
 }

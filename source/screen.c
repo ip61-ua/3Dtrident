@@ -59,6 +59,13 @@ Screen_drawText (const C2D_Text *srctxt, const u32 flags, const float x,
 }
 
 void
+Screen_getTextDimensions (const C2D_Text *srctxt, const float scaleX,
+                          const float scaleY, float *outX, float *outY)
+{
+  C2D_TextGetDimensions (srctxt, scaleX, scaleY, outX, outY);
+}
+
+void
 Screen_drawRect (const float x, const float y, const float w, const float h,
                  const u32 c)
 {

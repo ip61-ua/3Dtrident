@@ -6,9 +6,9 @@
 #include <citro2d.h>
 #include <math.h>
 
-#define SCREEN_TOP_WIDTH  400
+#define SCREEN_TOP_WIDTH 400
 #define SCREEN_TOP_HEIGHT 240
-#define SCREEN_BOTTOM_WIDTH  320
+#define SCREEN_BOTTOM_WIDTH 320
 #define SCREEN_BOTTOM_HEIGHT 240
 
 extern C3D_RenderTarget *top;
@@ -91,6 +91,16 @@ void Screen_drawText (const C2D_Text *srctxt, const u32 flags, const float x,
                       const float y, const float scaleX, const float scaleY,
                       const u32 c);
 
+/**
+ * @brief Obtiene las dimensiones de un texto.
+ * @param srctxt Puntero C2D_Text del texto a examinar.
+ * @param scaleX Factor de escalado horizontal.
+ * @param scaleY Factor de escalado vertical.
+ * @param outX Destino de anchura.
+ * @param outY Destino de altura.
+ */
+void Screen_getTextDimensions (const C2D_Text *srctxt, const float scaleX,
+                               const float scaleY, float *outX, float *outY);
 /**
  * @brief Dibuja un rectángulo sólido dado un punto, anchura y altura.
  * @param srctxt Puntero C2D_Text del objeto de texto a dibujar.
