@@ -16,6 +16,7 @@
 #define Color_light_blue C2D_Color32 (94, 205, 228, 255)
 #define Color_white C2D_Color32 (240, 240, 240, 255)
 #define Color_grey C2D_Color32 (85, 88, 91, 255)
+#define Color_mid_grey C2D_Color32 (57, 59, 61, 255)
 #define Color_dark_grey C2D_Color32 (29, 34, 39, 255)
 
 #endif

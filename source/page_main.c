@@ -7,7 +7,7 @@ static EntryPage entry ();
 
 static void displayPaint ();
 
-C2D_Text tactil;
+C2D_Text tactil, na_text;
 static void drawTopScreen ();
 static void drawBottomScreen ();
 
@@ -29,24 +29,6 @@ entry ()
   drawTopScreen ();
 
   drawBottomScreen ();
-
-  touchPosition p;
-  bool a = Hardware_CurrentTouch(&p);
-
-
-  Component_TouchBtn (0, 0, SCREEN_BOTTOM_WIDTH / 2.0,
-                      SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
-
-  /*
-  Component_TouchBtn (SCREEN_BOTTOM_WIDTH / 2.0, 0, SCREEN_BOTTOM_WIDTH,
-                      SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
-
-  Component_TouchBtn (0, SCREEN_BOTTOM_HEIGHT / 3.0, SCREEN_BOTTOM_WIDTH / 2.0,
-                      2 * SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
-
-  Component_TouchBtn (SCREEN_BOTTOM_WIDTH / 2.0, SCREEN_BOTTOM_HEIGHT / 3.0, SCREEN_BOTTOM_WIDTH,
-                      2 * SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
-  */
 
   if (Hardware_L () && Hardware_A ())
     Page_changeTo (PAGE_ABOUT, quitPage);
@@ -76,7 +58,22 @@ void
 drawBottomScreen ()
 {
   // Screen_atScreen (bottom);
+  touchPosition p;
+  bool a = Hardware_CurrentTouch(&p);
+
   Screen_setBackground (bottom, Color_dark_grey);
+
+  Component_TouchBtn (0, 0, SCREEN_BOTTOM_WIDTH / 2.0,
+                      SCREEN_BOTTOM_HEIGHT / 3.0, &tactil, cb_goto, &a, &p);
+
+  Component_TouchBtn (SCREEN_BOTTOM_WIDTH / 2.0, 0, SCREEN_BOTTOM_WIDTH,
+                      SCREEN_BOTTOM_HEIGHT / 3.0, &na_text, NULL, &a, &p);
+
+  Component_TouchBtn (0, SCREEN_BOTTOM_HEIGHT / 3.0, SCREEN_BOTTOM_WIDTH / 2.0,
+                      2 * SCREEN_BOTTOM_HEIGHT / 3.0, &na_text, NULL, &a, &p);
+
+  Component_TouchBtn (SCREEN_BOTTOM_WIDTH / 2.0, SCREEN_BOTTOM_HEIGHT / 3.0, SCREEN_BOTTOM_WIDTH,
+                      2 * SCREEN_BOTTOM_HEIGHT / 3.0, &na_text, NULL, &a, &p);
 }
 
 void
@@ -99,6 +96,7 @@ startPage ()
   Component_newStartSelect ();
   Component_newRZRLZL ();
   Screen_initText (&tactil, g_staticBuf, "Táctil");
+  Screen_initText (&na_text, g_staticBuf, "(no disponible)");
 }
 
 void
