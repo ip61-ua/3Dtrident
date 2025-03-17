@@ -19,29 +19,29 @@
 #define Color_mid_grey      C2D_Color32 (57, 59, 61, 255)
 #define Color_dark_grey     C2D_Color32 (29, 34, 39, 255)
 
-#define EMOJI_CIRCLE_PAD      ''
-#define EMOJI_D_PAD_U         ''
-#define EMOJI_D_PAD_D         ''
-#define EMOJI_D_PAD_L         ''
-#define EMOJI_D_PAD_R         ''
-#define EMOJI_D_PAD_UD        ''
-#define EMOJI_D_PAD_LR        ''
-#define EMOJI_D_PAD           ''
-#define EMOJI_POWER           ''
-#define EMOJI_VIDEO           ''
-#define EMOJI_TURNING_ARROW   ''
-#define EMOJI_HOME_MENU       ''
-#define EMOJI_FOOT_STEPS      ''
-#define EMOJI_PLAY_COIN       ''
-#define EMOJI_CLOSE_BUTTON    ''
-#define EMOJI_A_BUTTON        ''
-#define EMOJI_B_BUTTON        ''
-#define EMOJI_X_BUTTON        ''
-#define EMOJI_Y_BUTTON        ''
-#define EMOJI_L_BUTTON        ''
-#define EMOJI_R_BUTTON        ''
-#define EMOJI_SCREEN_CALIBR   ''
-#define EMOJI_CAMERA          ''
-#define EMOJI_DSI_CROSS       ''
+#define EMOJI_CIRCLE_PAD      ""
+#define EMOJI_D_PAD_U         ""
+#define EMOJI_D_PAD_D         ""
+#define EMOJI_D_PAD_L         ""
+#define EMOJI_D_PAD_R         ""
+#define EMOJI_D_PAD_UD        ""
+#define EMOJI_D_PAD_LR        ""
+#define EMOJI_D_PAD           ""
+#define EMOJI_POWER           ""
+#define EMOJI_VIDEO           ""
+#define EMOJI_TURNING_ARROW   ""
+#define EMOJI_HOME_MENU       ""
+#define EMOJI_FOOT_STEPS      ""
+#define EMOJI_PLAY_COIN       ""
+#define EMOJI_CLOSE_BUTTON    ""
+#define EMOJI_A_BUTTON        ""
+#define EMOJI_B_BUTTON        ""
+#define EMOJI_X_BUTTON        ""
+#define EMOJI_Y_BUTTON        ""
+#define EMOJI_L_BUTTON        ""
+#define EMOJI_R_BUTTON        ""
+#define EMOJI_SCREEN_CALIBR   ""
+#define EMOJI_CAMERA          ""
+#define EMOJI_DSI_CROSS       ""
 
 #endif

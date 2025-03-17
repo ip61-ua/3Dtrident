@@ -3,7 +3,7 @@
 void
 Application_start ()
 {
-  PAGE_CURRENT = PAGE_DRAW;
+  PAGE_CURRENT = PAGE_MAIN;
   romfsInit ();
   cfguInit ();
   gfxInitDefault ();

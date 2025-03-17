@@ -1,5 +1,6 @@
 #include "page_main.h"
 #include "components.h"
+#include "constants.h"
 #include "pages.h"
 #include "screen.h"
 
@@ -9,7 +10,7 @@ static void quitPage ();
 static EntryPage entry ();
 
 static C2D_TextBuf this_TextBuf;
-static C2D_Text tactil, na_text, acerca_de;
+static C2D_Text tactil, superior3dmem, sensores, sound, net, acerca_de, salir;
 
 static void drawTopScreen ();
 static void drawBottomScreen ();
@@ -74,24 +75,24 @@ drawBottomScreen ()
                       changeToDraw, &a, &p);
 
   Component_TouchBtn (GRID_BLOCK_WIDTH, 0, 2 * GRID_BLOCK_WIDTH,
-                      GRID_BLOCK_HEIGHT, &na_text, NULL, &a, &p);
+                      GRID_BLOCK_HEIGHT, &superior3dmem, NULL, &a, &p);
 
   Component_TouchBtn (0, GRID_BLOCK_HEIGHT, GRID_BLOCK_WIDTH,
-                      2 * GRID_BLOCK_HEIGHT, &na_text, NULL, &a, &p);
+                      2 * GRID_BLOCK_HEIGHT, &sensores, NULL, &a, &p);
 
   Component_TouchBtn (GRID_BLOCK_WIDTH, GRID_BLOCK_HEIGHT,
-                      2 * GRID_BLOCK_WIDTH, 2 * GRID_BLOCK_HEIGHT, &na_text,
+                      2 * GRID_BLOCK_WIDTH, 2 * GRID_BLOCK_HEIGHT, &sound,
                       NULL, &a, &p);
 
   Component_TouchBtn (0, 2 * GRID_BLOCK_HEIGHT, GRID_BLOCK_WIDTH,
-                      3 * GRID_BLOCK_HEIGHT, &na_text, NULL, &a, &p);
+                      3 * GRID_BLOCK_HEIGHT, &net, NULL, &a, &p);
 
   Component_TouchBtn (GRID_BLOCK_WIDTH, 2 * GRID_BLOCK_HEIGHT,
                       2 * GRID_BLOCK_WIDTH, 3 * GRID_BLOCK_HEIGHT, &acerca_de,
                       changeToAbout, &a, &p);
 
   Component_TouchBtn (0, GRID_HEIGHT, SCREEN_BOTTOM_WIDTH,
-                      SCREEN_BOTTOM_HEIGHT, &na_text, NULL, &a, &p);
+                      SCREEN_BOTTOM_HEIGHT, &salir, NULL, &a, &p);
 }
 
 void
@@ -110,20 +111,24 @@ displayPaint ()
 void
 startPage ()
 {
-  this_TextBuf = Screen_newBufText(28);
+  this_TextBuf = Screen_newBufText(128);
   Component_newABXY ();
   Component_newStartSelect ();
   Component_newRZRLZL ();
   Screen_initText (&tactil, this_TextBuf, "Táctil");
+  Screen_initText (&superior3dmem, this_TextBuf, "Gráficos 3D y\nmemoria");
+  Screen_initText (&sensores, this_TextBuf, "Sensores");
+  Screen_initText (&sound, this_TextBuf, "Sonido y\nmicrófono");
+  Screen_initText (&net, this_TextBuf, "Conectividad");
   Screen_initText (&acerca_de, this_TextBuf, "Acerca de");
-  Screen_initText (&na_text, this_TextBuf, "(no disponible)");
+  Screen_initText (&salir, this_TextBuf, EMOJI_CLOSE_BUTTON " Salir");
 }
 
 void
 quitPage ()
 {
   Screen_deleteBufText(this_TextBuf);
-  Component_deleteABXY () ;
+  Component_deleteABXY ();
   Component_deleteStartSelect ();
   Component_deleteRZRLZL ();
 }
