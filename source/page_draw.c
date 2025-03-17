@@ -1,4 +1,7 @@
 #include "page_draw.h"
+#include "c2d/text.h"
+#include "constants.h"
+#include "screen.h"
 
 static bool active = false;
 static void startPage ();
@@ -24,14 +27,17 @@ entry ()
   drawTopScreen ();
   drawBottomScreen ();
 
-  if (Hardware_OptStart())
-    Page_changeTo(PAGE_MAIN, &active, quitPage);
+  if (Hardware_OptStart ())
+    Page_changeTo (PAGE_MAIN, &active, quitPage);
 }
 
 void
 drawTopScreen ()
 {
   Screen_setBackground (top, Color_dark_grey);
+
+  Screen_drawText (&help_text, C2D_WithColor, 0, 0, FONT_SCALE_MID,
+                   FONT_SCALE_MID, Color_white);
 }
 
 void
@@ -57,13 +63,13 @@ displayPaint ()
 void
 startPage ()
 {
-  this_TextBuf = Screen_newBufText(128);
-
+  this_TextBuf = Screen_newBufText (255);
+  Screen_initText (&help_text, this_TextBuf, PAGE_HELP_TEXT);
   Screen_setBackground (bottom, Color_dark_grey);
 }
 
 void
 quitPage ()
 {
-  Screen_deleteBufText(this_TextBuf);
+  Screen_deleteBufText (this_TextBuf);
 }

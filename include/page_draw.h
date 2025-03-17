@@ -12,7 +12,7 @@
 #define PAGE_HELP_TEXT_MINUS EMOJI_D_PAD_U "Aumentar radio/grosor de dibujado."
 #define PAGE_HELP_TEXT_PLUS EMOJI_D_PAD_D "Reducir radio/grosor de dibujado."
 #define PAGE_HELP_TEXT_BGCO                                                   \
-  EMOJI_D_PAD_LR "Alternar tema de renderizado (Limpia pantalla también)."
+  EMOJI_D_PAD_LR "Alternar tema de dibujo."
 #define PAGE_HELP_TEXT_TRACE                                                  \
   EMOJI_A_BUTTON "Mostrar/Ocultar trazado entre toques."
 #define PAGE_HELP_TEXT_HIDE EMOJI_Y_BUTTON "Mostrar/Ocultar este texto."
