@@ -1,13 +1,16 @@
 #include "page_main.h"
 #include "components.h"
 #include "pages.h"
+#include "screen.h"
 
 static bool active = false;
 static void startPage ();
 static void quitPage ();
 static EntryPage entry ();
 
-C2D_Text tactil, na_text, acerca_de;
+static C2D_TextBuf this_TextBuf;
+static C2D_Text tactil, na_text, acerca_de;
+
 static void drawTopScreen ();
 static void drawBottomScreen ();
 
@@ -107,17 +110,19 @@ displayPaint ()
 void
 startPage ()
 {
+  this_TextBuf = Screen_newBufText(28);
   Component_newABXY ();
   Component_newStartSelect ();
   Component_newRZRLZL ();
-  Screen_initText (&tactil, g_staticBuf, "Táctil");
-  Screen_initText (&acerca_de, g_staticBuf, "Acerca de");
-  Screen_initText (&na_text, g_staticBuf, "(no disponible)");
+  Screen_initText (&tactil, this_TextBuf, "Táctil");
+  Screen_initText (&acerca_de, this_TextBuf, "Acerca de");
+  Screen_initText (&na_text, this_TextBuf, "(no disponible)");
 }
 
 void
 quitPage ()
 {
+  Screen_deleteBufText(this_TextBuf);
   Component_deleteABXY () ;
   Component_deleteStartSelect ();
   Component_deleteRZRLZL ();
