@@ -5,12 +5,13 @@ Page PAGE_CURRENT;
 void
 Page_setup (bool *cond, void (*start) ())
 {
-  if (!(*cond))
+  if (!(*cond) || cond == NULL)
     {
       if (start != NULL)
         start ();
 
-      *cond = true;
+      if (cond != NULL)
+        *cond = true;
     }
 }
 

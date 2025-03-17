@@ -20,19 +20,17 @@ Page PAGE_DRAW = entry;
 EntryPage
 entry ()
 {
+  Hardware_listenInput ();
+
+  drawBottomScreen ();
   if (!active && Hardware_isTouching ())
-    resetPaint ();
+    startPage ();
   else
-    {
-      Page_setup (&active, startPage);
-      Hardware_listenInput ();
+    Page_setup (&active, startPage);
+  drawTopScreen ();
 
-      drawTopScreen ();
-      drawBottomScreen ();
-
-      if (Hardware_B ())
-        Page_changeTo (PAGE_MAIN, &active, quitPage);
-    }
+  if (Hardware_B ())
+    Page_changeTo (PAGE_MAIN, &active, quitPage);
 }
 
 void
@@ -96,4 +94,5 @@ void
 quitPage ()
 {
   Screen_deleteBufText (this_TextBuf);
+  resetPaint ();
 }
