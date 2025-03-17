@@ -8,8 +8,7 @@ Es una aplicación libre de videoconsola retro cuya función es probar el funcio
 
 # Objetivos
 
-- [ ] [Ahora] Crear menú principal.
-- [ ] [POR ACABAR] Pantalla para probar la entrada del *hardware* como _joysticks_, gatillos, cruceta...
+- [ ] [AHORA] Reorganización de .h
 - [ ] [POR ACABAR] Pantalla para probar el táctil de la consola mediante un _paint_.
 - [ ] [~] Apartado en donde _testear_ el micrófono, audio y volumen.
 - [ ] [~] Comprobar el funcionamiento de la función _3D_ de la pantalla de la pantalla superior.
