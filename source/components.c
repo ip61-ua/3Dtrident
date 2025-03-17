@@ -259,6 +259,7 @@ Component_CStick (const float x, const float y, const circlePosition *p)
   Component_Joystick (x, y, p, 10);
 }
 
+// TODO quitar touch_valid, p;
 void
 Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
                     const float y_inc_f, const C2D_Text *text,
