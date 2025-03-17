@@ -1,6 +1,7 @@
 #include "page_draw.h"
 #include "c2d/text.h"
 #include "constants.h"
+#include "hardware.h"
 #include "screen.h"
 
 static bool active = false;
@@ -27,7 +28,7 @@ entry ()
   drawTopScreen ();
   drawBottomScreen ();
 
-  if (Hardware_OptStart ())
+  if (Hardware_B ())
     Page_changeTo (PAGE_MAIN, &active, quitPage);
 }
 
