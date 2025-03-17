@@ -21,7 +21,7 @@ enum HARDWARE_BACK_BUTTONS
 void
 Component_newABXY ()
 {
-  ABXYfont_buffer = C2D_TextBufNew (4);
+  ABXYfont_buffer = Screen_newBufText (5);
   Screen_initText (&text_a, ABXYfont_buffer, "A");
   Screen_initText (&text_b, ABXYfont_buffer, "B");
   Screen_initText (&text_x, ABXYfont_buffer, "X");
@@ -92,14 +92,15 @@ Component_ABXY (float x_param, float y_param)
 void
 Component_deleteABXY ()
 {
-
+  Screen_deleteBufText (ABXYfont_buffer);
 }
 
 void
 Component_newStartSelect ()
 {
-  Screen_initText (&text_start, g_staticBuf, "START");
-  Screen_initText (&text_select, g_staticBuf, "SELECT");
+  StartSelect_buffer = Screen_newBufText (12);
+  Screen_initText (&text_start, StartSelect_buffer, "START");
+  Screen_initText (&text_select, StartSelect_buffer, "SELECT");
 }
 
 void
@@ -120,6 +121,12 @@ Component_StartSelect (const float x, const float y)
   Screen_drawText (&text_select, C2D_AtBaseline, x + DIFF_X_PARAM,
                    y + DIFF_Y_OPTIONS + FONT_Y_DIFF_BASELINE,
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, Color_white);
+}
+
+void
+Component_deleteStartSelect ()
+{
+  Screen_deleteBufText (StartSelect_buffer);
 }
 
 void
@@ -173,11 +180,13 @@ displayBackButton (const float x, const float y,
 void
 Component_newRZRLZL ()
 {
-  Screen_initText (&text_r, g_staticBuf, "R");
-  Screen_initText (&text_zr, g_staticBuf, "ZR");
-  Screen_initText (&text_l, g_staticBuf, "L");
-  Screen_initText (&text_zl, g_staticBuf, "ZL");
+  RZRLZL_buffer = Screen_newBufText (7);
+  Screen_initText (&text_r, RZRLZL_buffer, "R");
+  Screen_initText (&text_zr, RZRLZL_buffer, "ZR");
+  Screen_initText (&text_l, RZRLZL_buffer, "L");
+  Screen_initText (&text_zl, RZRLZL_buffer, "ZL");
 }
+
 void
 Component_RZRLZL (const float x, const float y)
 {
@@ -186,6 +195,12 @@ Component_RZRLZL (const float x, const float y)
 
   displayBackButton (270 + x, y, TRIGGER_ZR);
   displayBackButton (70 + x, y, TRIGGER_ZL);
+}
+
+void
+Component_deleteRZRLZL ()
+{
+  Screen_deleteBufText(RZRLZL_buffer);
 }
 
 void
