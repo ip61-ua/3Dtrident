@@ -10,6 +10,8 @@ static void displayPaint ();
 static void drawTopScreen ();
 static void drawBottomScreen ();
 
+static C2D_TextBuf this_TextBuf;
+static C2D_Text help_text;
 
 Page PAGE_DRAW = entry;
 
@@ -55,10 +57,13 @@ displayPaint ()
 void
 startPage ()
 {
+  this_TextBuf = Screen_newBufText(128);
+
   Screen_setBackground (bottom, Color_dark_grey);
 }
 
 void
 quitPage ()
 {
+  Screen_deleteBufText(this_TextBuf);
 }

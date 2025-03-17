@@ -1,8 +1,4 @@
 #include "page_main.h"
-#include "components.h"
-#include "constants.h"
-#include "pages.h"
-#include "screen.h"
 
 static bool active = false;
 static void startPage ();
