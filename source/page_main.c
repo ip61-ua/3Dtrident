@@ -92,19 +92,6 @@ drawBottomScreen ()
 }
 
 void
-displayPaint ()
-{
-  touchPosition pos;
-  if (Hardware_Touch (&pos))
-    {
-      const touchPosition *last = Hardware_TouchLast ();
-      Screen_drawLine (last->px, last->py, pos.px, pos.py, RADIUS_DRAW,
-                       Color_yellow);
-      Screen_drawCircle (last->px, last->py, RADIUS_DRAW / 2.0, Color_yellow);
-    }
-}
-
-void
 startPage ()
 {
   this_TextBuf = Screen_newBufText(74);

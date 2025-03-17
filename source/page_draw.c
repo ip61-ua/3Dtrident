@@ -1,8 +1,4 @@
 #include "page_draw.h"
-#include "c2d/text.h"
-#include "constants.h"
-#include "hardware.h"
-#include "screen.h"
 
 static bool active = false;
 static void startPage ();
@@ -10,26 +6,33 @@ static void quitPage ();
 static EntryPage entry ();
 
 static void displayPaint ();
+static void resetPaint ();
 
 static void drawTopScreen ();
 static void drawBottomScreen ();
 
 static C2D_TextBuf this_TextBuf;
 static C2D_Text help_text;
+static float radius_draw = 2;
 
 Page PAGE_DRAW = entry;
 
 EntryPage
 entry ()
 {
-  Page_setup (&active, startPage);
-  Hardware_listenInput ();
+  if (!active && Hardware_isTouching ())
+    resetPaint ();
+  else
+    {
+      Page_setup (&active, startPage);
+      Hardware_listenInput ();
 
-  drawTopScreen ();
-  drawBottomScreen ();
+      drawTopScreen ();
+      drawBottomScreen ();
 
-  if (Hardware_B ())
-    Page_changeTo (PAGE_MAIN, &active, quitPage);
+      if (Hardware_B ())
+        Page_changeTo (PAGE_MAIN, &active, quitPage);
+    }
 }
 
 void
@@ -56,14 +59,29 @@ drawBottomScreen ()
 void
 displayPaint ()
 {
+  if (Hardware_DUp () && radius_draw <= 100)
+    radius_draw += 0.5;
+
+  if (Hardware_DDown () && radius_draw >= 1.5)
+    radius_draw -= 0.5;
+
+  if (Hardware_X ())
+    resetPaint ();
+
   touchPosition pos;
   if (Hardware_Touch (&pos))
     {
       const touchPosition *last = Hardware_TouchLast ();
-      Screen_drawLine (last->px, last->py, pos.px, pos.py, RADIUS_DRAW,
+      Screen_drawLine (last->px, last->py, pos.px, pos.py, radius_draw,
                        Color_yellow);
-      Screen_drawCircle (last->px, last->py, RADIUS_DRAW / 2.0, Color_yellow);
+      Screen_drawCircle (last->px, last->py, radius_draw / 2.0, Color_yellow);
     }
+}
+
+void
+resetPaint ()
+{
+  Screen_setBackground (bottom, Color_dark_grey);
 }
 
 void
@@ -71,7 +89,7 @@ startPage ()
 {
   this_TextBuf = Screen_newBufText (255);
   Screen_initText (&help_text, this_TextBuf, PAGE_HELP_TEXT);
-  Screen_setBackground (bottom, Color_dark_grey);
+  resetPaint ();
 }
 
 void

@@ -4,16 +4,16 @@
 #include "hardware.h"
 #include "screen.h"
 
-const static unsigned RADIUS_DRAW = 2, Y_ONACTIVE = 2, X_DIST_YA = 30,
-                      BTN_RADIUS = 11, Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
+const static unsigned Y_ONACTIVE = 2, X_DIST_YA = 30, BTN_RADIUS = 11,
+                      Y_DIFFCENTER = 25, DIFF_Y_OPTIONS = 25,
                       DIFF_X_PARAM = 14, RADIUS_OPTIONS = 7, RADIUS_BTN = 15,
                       MARGIN_BTN = 5;
 
 /**
-  * @brief Función auxiliar para dibujar cuando un componente esté activo.
-  * @param cond Condición para asignar el color de activo.
-  * @param c Puntero de color destino.
-  */
+ * @brief Función auxiliar para dibujar cuando un componente esté activo.
+ * @param cond Condición para asignar el color de activo.
+ * @param c Puntero de color destino.
+ */
 void Component_Generic_active (const bool cond, u32 *c);
 
 /**
@@ -32,7 +32,8 @@ void Component_ABXY (const float x, const float y);
 /**
  * @brief Asignación de parámetros para mostrar que un botón del tipo ABXY está
  * pulsado.
- * @param y_dst Puntero destino de posición de la componente Y del botón a mover.
+ * @param y_dst Puntero destino de posición de la componente Y del botón a
+ * mover.
  * @param c_dst Puntero destino de color de fondo del botón.
  * @param c_font_dst Puntero destino de color del texto. Lo asigna a blanco.
  * @param new_rel_y Valor a añadir a y_dst.
