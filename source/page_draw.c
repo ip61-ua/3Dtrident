@@ -36,7 +36,12 @@ drawTopScreen ()
 {
   Screen_setBackground (top, Color_dark_grey);
 
-  Screen_drawText (&help_text, C2D_WithColor, 0, 0, FONT_SCALE_MID,
+  float x, y;
+  Screen_getTextDimensions (&help_text, FONT_SCALE_MID, FONT_SCALE_MID, &x,
+                            &y);
+
+  Screen_drawText (&help_text, C2D_WithColor, (SCREEN_TOP_WIDTH / 2.0) - x / 2,
+                   (SCREEN_TOP_HEIGHT / 2.0) - y / 2, FONT_SCALE_MID,
                    FONT_SCALE_MID, Color_white);
 }
 
