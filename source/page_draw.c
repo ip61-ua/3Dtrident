@@ -10,6 +10,7 @@ static void displayPaint ();
 static void drawTopScreen ();
 static void drawBottomScreen ();
 
+
 Page PAGE_DRAW = entry;
 
 EntryPage

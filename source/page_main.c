@@ -111,7 +111,7 @@ displayPaint ()
 void
 startPage ()
 {
-  this_TextBuf = Screen_newBufText(128);
+  this_TextBuf = Screen_newBufText(74);
   Component_newABXY ();
   Component_newStartSelect ();
   Component_newRZRLZL ();
