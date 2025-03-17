@@ -5,6 +5,18 @@ C3D_RenderTarget *bottom;
 C2D_TextBuf g_staticBuf;
 C2D_Font font;
 
+C2D_TextBuf
+Screen_newBufText (size_t tam)
+{
+  return C2D_TextBufNew(tam);
+}
+
+void
+Screen_deleteBufText (C2D_TextBuf buf)
+{
+  C2D_TextBufDelete(buf);
+}
+
 void
 Screen_init ()
 {

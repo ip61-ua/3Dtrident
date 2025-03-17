@@ -1,4 +1,5 @@
 #include "page_main.h"
+#include "components.h"
 #include "pages.h"
 
 static bool active = false;
@@ -15,13 +16,13 @@ Page PAGE_MAIN = entry;
 static void
 changeToDraw ()
 {
-  Page_changeTo (PAGE_DRAW, quitPage);
+  Page_changeTo (PAGE_DRAW, &active, quitPage);
 }
 
 static void
 changeToAbout ()
 {
-  Page_changeTo (PAGE_ABOUT, quitPage);
+  Page_changeTo (PAGE_ABOUT, &active, quitPage);
 }
 
 EntryPage
@@ -117,4 +118,7 @@ startPage ()
 void
 quitPage ()
 {
+  Component_deleteABXY () ;
+  Component_deleteStartSelect ();
+  Component_deleteRZRLZL ();
 }

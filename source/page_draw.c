@@ -22,7 +22,7 @@ entry ()
   drawBottomScreen ();
 
   if (Hardware_OptStart())
-    Page_changeTo(PAGE_MAIN, quitPage);
+    Page_changeTo(PAGE_MAIN, &active, quitPage);
 }
 
 void
@@ -60,5 +60,4 @@ startPage ()
 void
 quitPage ()
 {
-  active = false;
 }

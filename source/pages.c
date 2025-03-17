@@ -15,8 +15,10 @@ Page_setup (bool *cond, void (*start) ())
 }
 
 void
-Page_changeTo (Page page, void (*quit) ())
+Page_changeTo (Page page, bool *cond, void (*quit) ())
 {
+  *cond = false;
+
   if (quit != NULL)
     quit ();
   PAGE_CURRENT = page;

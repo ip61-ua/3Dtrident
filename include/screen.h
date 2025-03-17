@@ -17,6 +17,19 @@ extern C2D_TextBuf g_staticBuf;
 extern C2D_Font font;
 
 /**
+ * @brief Inicializa un buffer de glifos con determinado tamaño.
+ * @param tam Tamaño máximo de glifos.
+ * @returns Puntero del buffer solicitado.
+ */
+C2D_TextBuf Screen_newBufText (size_t tam);
+
+/**
+ * @brief Elimina el buffer de glifos.
+ * @param tam Puntero a buffer de glifos a eliminar.
+ */
+void Screen_deleteBufText (C2D_TextBuf buf);
+
+/**
  * @brief Inicializa las variables globales top, bottom, g_staticBuf y font.
  */
 void Screen_init ();

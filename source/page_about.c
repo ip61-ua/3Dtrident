@@ -19,7 +19,7 @@ entry ()
   Screen_setBackground (top, Color_red);
   Screen_setBackground (bottom, Color_blue);
   if (Hardware_R ())
-    Page_changeTo (PAGE_MAIN, quitPage);
+    Page_changeTo (PAGE_MAIN, &active, quitPage);
 }
 
 void

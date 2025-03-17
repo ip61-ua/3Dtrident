@@ -33,6 +33,6 @@ void Page_setup (bool *cond, void (*start) ());
  * @remarks La función quit es la responsable que manejar el bool de cond
  * para la función Page_setup.
  */
-void Page_changeTo (Page page, void (*quit) ());
+void Page_changeTo (Page page, bool *cond, void (*quit) ());
 
 #endif

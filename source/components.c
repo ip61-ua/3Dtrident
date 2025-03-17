@@ -3,8 +3,11 @@
 #include "constants.h"
 #include "screen.h"
 
-static C2D_Text text_a, text_b, text_x, text_y, text_r, text_zr, text_l,
-    text_zl, text_start, text_select;
+static C2D_TextBuf ABXYfont_buffer, StartSelect_buffer, RZRLZL_buffer;
+
+static C2D_Text text_a, text_b, text_x, text_y;
+static C2D_Text text_r, text_zr, text_l, text_zl;
+static C2D_Text text_start, text_select;
 
 enum HARDWARE_BACK_BUTTONS
 {
@@ -18,10 +21,11 @@ enum HARDWARE_BACK_BUTTONS
 void
 Component_newABXY ()
 {
-  Screen_initText (&text_a, g_staticBuf, "A");
-  Screen_initText (&text_b, g_staticBuf, "B");
-  Screen_initText (&text_x, g_staticBuf, "X");
-  Screen_initText (&text_y, g_staticBuf, "Y");
+  ABXYfont_buffer = C2D_TextBufNew (4);
+  Screen_initText (&text_a, ABXYfont_buffer, "A");
+  Screen_initText (&text_b, ABXYfont_buffer, "B");
+  Screen_initText (&text_x, ABXYfont_buffer, "X");
+  Screen_initText (&text_y, ABXYfont_buffer, "Y");
 }
 
 void
@@ -83,6 +87,12 @@ Component_ABXY (float x_param, float y_param)
   Screen_drawText (&text_y, C2D_AlignCenter | C2D_AtBaseline,
                    x_param - X_DIST_YA, y_y + FONT_Y_DIFF_BASELINE,
                    FONT_SCALE_STANDARD, FONT_SCALE_STANDARD, color_text_y);
+}
+
+void
+Component_deleteABXY ()
+{
+
 }
 
 void
@@ -290,10 +300,8 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
 
   Screen_drawRect (c1_center_x, r_start_y, r_end_x, r_end_y, color_bg);
 
-  Screen_drawLine (l1_x, c1_center_y, l1_x, c2_center_y, RADIUS_BTN,
-                   color_bg);
-  Screen_drawLine (l2_x, c1_center_y, l2_x, c2_center_y, RADIUS_BTN,
-                   color_bg);
+  Screen_drawLine (l1_x, c1_center_y, l1_x, c2_center_y, RADIUS_BTN, color_bg);
+  Screen_drawLine (l2_x, c1_center_y, l2_x, c2_center_y, RADIUS_BTN, color_bg);
 
   float realY = 0;
   Screen_getTextDimensions (text, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
