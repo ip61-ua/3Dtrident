@@ -259,7 +259,6 @@ Component_CStick (const float x, const float y, const circlePosition *p)
   Component_Joystick (x, y, p, 10);
 }
 
-// TODO quitar touch_valid, p;
 void
 Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
                     const float y_inc_f, const C2D_Text *text,
@@ -296,9 +295,6 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
   Screen_drawLine (l2_x, c1_center_y, l2_x, c2_center_y, RADIUS_BTN,
                    color_bg);
 
-  if (touch_valid == NULL || p == NULL)
-    *touch_valid = Hardware_CurrentTouch (p);
-
   float realY = 0;
   Screen_getTextDimensions (text, FONT_SCALE_STANDARD, FONT_SCALE_STANDARD,
                             NULL, &realY);
@@ -309,6 +305,9 @@ Component_TouchBtn (const float x_i, const float y_i, const float x_inc_f,
 
   if (onclick == NULL)
     return;
+
+  if (touch_valid == NULL || p == NULL)
+    *touch_valid = Hardware_CurrentTouch (p);
 
   if (p->px < x_inc_f && p->px > x_i && p->py < y_inc_f && p->py > y_i)
     onclick ();
